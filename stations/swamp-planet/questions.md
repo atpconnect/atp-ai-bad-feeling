@@ -4,36 +4,52 @@
 **Station pilot:** Michael Muncy, CTO, Aveanna
 **Status:** draft, 2026-09-11
 
-"That is why you fail." Yoda said it watching the X-wing sink into the swamp, because nobody had dealt with what was underneath it. This station is about the swamp under every AI project: the data nobody cleaned up, the schema nobody updated, the owner who left. Roughly eight questions, more than we will get through, which is the point. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
+"That is why you fail." Yoda said it watching the X-wing sink into the swamp, because nobody had dealt with what was underneath it. This station is about the swamp under every AI project: the data nobody cleaned up, the schema nobody updated, the owner who left, and the pilot that became production without anyone rebuilding it. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 
 ## Q1. What did you discover about your data the first time an AI system actually tried to use it?
+
+*Run it:* Round the room. One word each for the state of your data. Then two or three stories.
 
 *Seeded likely answer:* That the documented schema and the real contents had diverged years earlier, and everyone downstream had quietly been working around it the whole time.
 
 ## Q2. How much of your AI project turned into a data cleanup project, in percentage terms?
 
+*Run it:* Round the room, a percentage each. Say the range out loud. Then: was any of it in the budget?
+
 *Seeded likely answer:* Most of it. Seventy to eighty percent of the effort is the commonly quoted split, and none of it was in the original budget.
 
-## Q3. Where is your worst data, and can you name who owns it today?
+## Q3. Where is your worst data, and does anyone actually own it today?
+
+*Run it:* Hands up: who can name an owner for their worst data. Count out loud. Then: what happened when the last person who understood it left?
 
 *Seeded likely answer:* Usually customer records tangled by a merger or acquisition, owned by nobody since the one person who understood them left the company.
 
 ## Q4. Did you fix the underlying data or build around it, and what has that workaround cost you since?
 
+*Run it:* Split the room: fixed it versus built around it. One story from each side.
+
 *Seeded likely answer:* Built around it, because the deadline was real and the cleanup was never scoped. The workaround is now something the business quietly depends on.
 
 ## Q5. What broke downstream that nobody knew depended on the thing you changed?
 
+*Run it:* Hands up. Then: how long before anyone noticed, and who noticed?
+
 *Seeded likely answer:* A report finance uses for board reporting, and it took about three weeks for anyone to notice the numbers had shifted.
 
-## Q6. How do you explain a data quality problem to an executive who just watched a flawless demo?
+## Q6. Which pilot went to production without ever being rebuilt, and what is holding it up now?
 
-*Seeded likely answer:* Badly. The demo ran on the clean subset, and the gap between that and production is invisible from the executive's seat.
+*Run it:* Hands up: who has one running right now. Then: what is it actually running on, and who is the one person it depends on?
 
-## Q7. Has an AI system ever confidently given a customer a wrong answer because the data underneath it was bad?
+*Seeded likely answer:* A notebook, a script on one person's machine, or a prompt in a vendor console, running a real business process. Held up by the person who wrote it, and nothing else.
 
-*Seeded likely answer:* Yes, and it did more damage than an outage would have, because nobody noticed for weeks.
+## Q7. When bad data produced a confidently wrong answer, did you catch it before or after a customer did, and how?
+
+*Run it:* Hands: before versus after. Then the how, from each side.
+
+*Seeded likely answer:* After, more often than anyone will admit, and noticed by a customer or someone downstream rather than by any monitor. Silence was the failure mode; an outage would have been louder.
 
 ## Q8. If someone on your team is about to start an AI project Monday, what's the one thing you'd tell them to do with their data first?
+
+*Run it:* The closer. Ask it at the five-minute warning no matter where you are. Round the room, one thing each.
 
 *Seeded likely answer:* Profile it before you promise anything to anyone. An honest audit up front is cheaper than finding out the truth in front of a customer.

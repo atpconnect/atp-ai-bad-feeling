@@ -25,7 +25,7 @@ The dry run uses your actual meeting link and the exact setup you'll use on the 
 
 ### 3. Your questions
 
-Tom Lasswell is drafting the question list for each station. Once you have it, it's yours: read it, cut anything you wouldn't actually ask, reword what you want, and send the result back. A few ground rules that make the whole event work:
+Tom Lasswell is drafting the question list for each station. Once you have it, it's yours: read it, cut anything you wouldn't actually ask, reword what you want, and send the result back. Every question comes with a *Run it* line, which is the mechanic for getting the whole room into it (see "Running a room of twenty-five" below). Those are suggestions, not script. A few ground rules that make the whole event work:
 
 - **Roughly eight questions**, sized to what you can genuinely get through. Not a long menu you'll only scratch. If the list is longer than your session, cut it.
 - **Get your final version to John no later than Tuesday, September 15.** Wednesday is workable, Thursday morning is the outer edge. Late is survivable. Missing is not.
@@ -33,6 +33,18 @@ Tom Lasswell is drafting the question list for each station. Once you have it, i
 - **Stay reasonably close to your list in the room.** Following the discussion where it goes is good facilitation, and it's fine as long as the audio is clean. The catch is that nobody knows whether the audio was clean until after the session is over, so the questions are the one thing we can count on.
 
 That last point is the real reason this matters. Your question list, with likely answers pre-filled against it, is the backup plan. If your recording or transcript has any problem on the day, that list is what represents your station in the closeout session. The more accurate it is, the better your station comes through even in a worst case. I'd rather not have to send IG-88 after you to track it down.
+
+### 4. Running a room of twenty-five
+
+An open question put to twenty-five people gets answered by the same three. The whole closeout is built from what the other twenty-two say, so the questions are written to pull them in. The mechanics:
+
+- **Open with the ground rule, out loud.** This is recorded, the transcript goes public in this repo, and nobody needs to name their company. Talk about the pattern, not the incident. People say far more once they know the rules than when they're guessing at them.
+- **Run Q1 as a round.** Everyone answers in one breath: a number, a word, a tool name. That puts ten voices on the recording in the first three minutes, and it trains the room to talk toward the laptop before anything important gets said.
+- **Poll first, then story.** Every question starts with hands up or a number round, so everyone is in before anyone tells a story. Then take two or three stories, never more. Nobody holds the room for more than a couple of minutes.
+- **Count out loud.** "That's eleven hands for nobody owns it." A count in your voice, close to the mic, is a number the closeout can use. Hands in the air are invisible to a transcript.
+- **Split the room on purpose.** Where a question has two honest sides, ask for hands on each and take one story from each side. Disagreement is the most valuable thing a station can send to the closeout, and it does not happen by itself.
+- **Ask the other side.** Vendors and consultants are in your room. When a question is about a buyer's contract or a buyer's data, turn to them: what do their customers get wrong?
+- **Ask the closer no matter what.** When the five-minute warning comes, go straight to Q8 wherever you are. It's the one question the closeout can compare across all five stations.
 
 ## Day of the Event
 
