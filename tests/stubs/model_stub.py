@@ -154,10 +154,10 @@ for sid in order:
 if MODE == "badschema":
     payload["stations"] = payload["stations"][:4]
 
-# Two references crammed onto one screen, which is the drift the counter exists to catch.
+# Two film quotes crammed onto one screen, which is the drift the counter exists to catch.
 if os.environ.get("STUB_OVERDO_REFS", "") == "1" and payload["stations"]:
     st = payload["stations"][0]
-    st["lede"] = "I have a bad feeling about this, and it's a trap. " + st["lede"]
+    st["lede"] = "Never tell me the odds, and it's a trap. " + st["lede"]
 
 body = json.dumps(payload, indent=2)
 if MODE == "fenced":

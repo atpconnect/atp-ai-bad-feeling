@@ -2,10 +2,10 @@
 
 Public archive for the ATP event "Your AI Program Has a Bad Feeling About This." It's an interactive workshop on why enterprise AI initiatives fail, run as the honest, hands-on debrief nobody runs at their own company.
 
-- **Date:** September 17, 2026 ABY, 6:00 to 8:00 PM
+- **Date:** September 17, 2026, 6:00 to 8:00 PM
 - **Location:** Social House Roswell, 1098 Green St, Roswell, GA 30075
 - **Details / registration:** https://atpconnect.org/events/your-ai-program-has-a-bad-feeling-about-this/
-- **Jedi Council:** Scott Harris (One Inc, ATP Finance Chair), Tom Lasswell (DC BLOX, ATP Director of Technology), John Slaughter (Alliant Health, ATP Executive Advisory Board)
+- **Event Council:** Scott Harris (One Inc, ATP Finance Chair), Tom Lasswell (DC BLOX, ATP Director of Technology), John Slaughter (Alliant Health, ATP Executive Advisory Board)
 - **Fleet Command:** John Trainor (Four Technologies, ATP Executive Advisory Board)
 
 <p align="center"><img src="assets/repo-qr-code.png" alt="QR code linking to this repo" width="200"></p>
@@ -24,9 +24,9 @@ Attendees split into five themed stations (about 25 people each), each covering 
 | [Snow Monster Cave](stations/snow-monster-cave/) | Dev |
 | [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security |
 
-Each station is a guided discussion, not a talk: the station pilot puts a list of roughly eight questions to their station and the room answers. Fleet Command hosts, records, and transcribes each one via an independent Teams meeting, not the pilot, and every station has an Astromech whose only job is to watch that the capture is actually working. No one in any single station gets the full picture. That's the point of what comes next.
+Each station is a guided discussion, not a talk: the station pilot puts a list of roughly eight questions to their station and the room answers. Fleet Command hosts, records, and transcribes each one via an independent Teams meeting, not the pilot, and every station has a Flight Engineer whose only job is to watch that the capture is actually working. No one in any single station gets the full picture. That's the point of what comes next.
 
-Immediately afterward, the group reassembles for **the Throne Room**, the closeout session. Everyone who fought the battle in a different ship, back in one room at the end. It has the high ground: the one vantage point that actually sees the patterns across all five stations at once, distilled into shared talking points. See [`closeout/`](closeout/).
+Immediately afterward, the group reassembles for **the Throne Room**, the closeout session. Everyone who spent the evening in a different room, back together at the end. It's the one vantage point that actually sees the patterns across all five stations at once, distilled into shared talking points. See [`closeout/`](closeout/).
 
 This repo documents the full method, not just the output. That includes [how the Throne Room deck was actually synthesized](tools/synthesize-closeout/) from the five station transcripts in the few minutes between sessions ending and the group reassembling, and [the rehearsal harness](tests/) we used to run the whole night end to end beforehand, including every way it could fail.
 

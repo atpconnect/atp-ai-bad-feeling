@@ -1,4 +1,4 @@
-# Fleet Command Checklist, ATP Event, September 17, 2026 ABY
+# Fleet Command Checklist, ATP Event, September 17, 2026
 
 Fleet Command hosts and records every station's Teams meeting, monitors all five during the event, and runs the closeout synthesis in the window before the Throne Room, the closeout session. This is that role's runbook.
 
@@ -35,7 +35,7 @@ Each station runs as a guided discussion off a list of roughly eight questions. 
 
 ## Day before / morning of
 
-Fleet Command's table is the cockpit for the day. It needs a working hyperdrive (Wi-Fi) and a steady power core, or nobody's making the jump to lightspeed.
+Fleet Command's table is the cockpit for the day. It needs working Wi-Fi and reliable power, or nothing else on this list happens.
 
 - [ ] Confirm venue Wi-Fi and power availability at Fleet Command's table (Social House Roswell). Bring a mobile hotspot too, but only as a backup. It is not the primary connection.
 - [ ] Kit: laptop plus charger, hotspot plus charged battery pack, headphones, all 5 meeting links pinned or bookmarked.
@@ -47,14 +47,14 @@ Fleet Command's table is the cockpit for the day. It needs a working hyperdrive 
 ## Arrival and setup
 
 - [ ] **Fleet Command on site at 5:00 PM.** Station pilots are called for 5:15, which is the window for setting up their laptops, confirming noise suppression is off, and running a live test meeting on the actual venue Wi-Fi before the room fills.
-- [ ] Assign the five **Astromechs** on arrival, one per station, and brief them (see below). These can be ATP volunteers drafted that evening. Confirm with Kyle, ATP's volunteer coordinator, that anyone assigned to Fleet Command is coordinated through him rather than reporting in two directions.
-- [ ] **Padawan: William.** Fleet Command's runner for the evening, briefed on the full program and able to be pointed at any problem without further explanation. Registered through Kyle, working directly with Fleet Command.
+- [ ] Assign the five **Flight Engineers** on arrival, one per station, and brief them (see below). These can be ATP volunteers drafted that evening. Confirm with Kyle, ATP's volunteer coordinator, that anyone assigned to Fleet Command is coordinated through him rather than reporting in two directions.
+- [ ] **Cadet: William.** Fleet Command's runner for the evening, briefed on the full program and able to be pointed at any problem without further explanation. Registered through Kyle, working directly with Fleet Command.
 - [ ] Tom Lasswell is day-of tech support and the backup on any laptop that misbehaves.
 - [ ] Scott Harris is the timekeeper. Everything in the synthesis window below depends on the stations actually ending when they're called.
 
-### Briefing the Astromechs
+### Briefing the Flight Engineers
 
-One per station. R2 rode in the socket watching the systems so the pilot could fly, which is exactly this job: the pilot runs the room, the Astromech watches the machine.
+One per station. The pilot runs the room; the Flight Engineer watches the machine.
 
 - [ ] Recording is running, and the **live transcript is visibly building** in Teams. This is the real tell that capture is working, and it's visible in the Teams UI without interrupting anything.
 - [ ] Laptop is plugged in, awake, and unlocked. Power, sleep, and lock are the three failure modes.
@@ -64,12 +64,12 @@ One per station. R2 rode in the socket watching the systems so the pilot could f
 
 ## As each station kicks off
 
-- [ ] Han shot first. So should you. Click **Start recording and transcription** the moment the room settles, then leave. It keeps running without you.
+- [ ] Click **Start recording and transcription** the moment the room settles, then leave. It keeps running without you.
 - [ ] Record audio only, not video. Nobody needs the video, and audio-only measurably speeds up transcript generation, which is the whole constraint in the synthesis window.
 - [ ] Mark it on the tracker below.
 - [ ] At some point mid-session, quietly spot-check audio (headphones) to confirm it's actually being captured.
 
-| Station | Astromech assigned | Recording started | Audio spot-checked |
+| Station | Flight Engineer assigned | Recording started | Audio spot-checked |
 |---|---|---|---|
 | Sky City | ☐ | ☐ | ☐ |
 | Swamp Planet | ☐ | ☐ | ☐ |
@@ -80,7 +80,7 @@ One per station. R2 rode in the socket watching the systems so the pilot could f
 ## As each station wraps
 
 - [ ] **Confirm the meeting was ended, not just left.** Ending the meeting is what triggers Teams to finalize the session and generate the transcript. A pilot who closes their laptop or hits Leave has not started that clock. As meeting owner, Fleet Command can end any of the five directly, so sweep all five as the sessions wrap rather than assuming.
-- [ ] No Bothans required to smuggle this one in. The transcript already lives on Fleet Command's own machine. Export it to `~/Downloads` and run `tools/intake-transcript/intake.sh`, which files it, converts the `.docx`, and prints the status of all five. It never overwrites a transcript already filed, so run it as often as you like.
+- [ ] The transcript already lives on Fleet Command's own machine. Export it to `~/Downloads` and run `tools/intake-transcript/intake.sh`, which files it, converts the `.docx`, and prints the status of all five. It never overwrites a transcript already filed, so run it as often as you like.
 - [ ] Mark it on the tracker below.
 
 | Station | Transcript captured | Notes (e.g. fallback needed) |
@@ -93,7 +93,7 @@ One per station. R2 rode in the socket watching the systems so the pilot could f
 
 ## In the gap before the Throne Room
 
-**Measured worst case: about 10 minutes from last station ending to a presentable deck.** Never tell me the odds. Every number below was measured in rehearsal against full-length transcripts, not estimated:
+**Measured worst case: about 10 minutes from last station ending to a presentable deck.** Every number below was measured in rehearsal against full-length transcripts, not estimated:
 
 - 2.5 to 5 minutes for Teams to generate a single transcript once the meeting is ended. Five minutes was the worst observed, audio-only.
 - The five stations won't end simultaneously. Assume a couple of minutes of stagger, which puts the last transcript landing around 7 minutes after the first station wraps.
@@ -112,11 +112,11 @@ That 10 minutes has to be absorbed by the run of show while the room moves back 
 
 ## If something fails mid-session
 
-"In my experience, there's no such thing as luck." That's why there are three independent layers under each station, not one:
+There are three independent layers under each station, not one:
 
-- Recording or transcription didn't start, or stopped: rejoin and restart it. The meeting is still running. This is what the Astromechs are watching for.
-- Teams fails entirely for a station: fall back to the pilot's second device, if they brought one, emailed to john@johntrainor.com as the session ends. Where the Astromech carried it around the room, this may actually be the better capture of the two.
-- No usable audio at all: "I find your lack of transcript disturbing." But the synthesis script automatically falls back to that station's `questions.md`, the question list plus pre-filled likely answers, and the deck flags it in a banner on that station's own slide. The station still appears, clearly marked as not sourced from a transcript. An older code, sir, but it checks out.
+- Recording or transcription didn't start, or stopped: rejoin and restart it. The meeting is still running. This is what the Flight Engineers are watching for.
+- Teams fails entirely for a station: fall back to the pilot's second device, if they brought one, emailed to john@johntrainor.com as the session ends. Where the Flight Engineer carried it around the room, this may actually be the better capture of the two.
+- No usable audio at all: the synthesis script automatically falls back to that station's `questions.md`, the question list plus pre-filled likely answers, and the deck flags it in a banner on that station's own slide. The station still appears, clearly marked as not sourced from a transcript.
 - The primary model is slow, or returns nonsense: the haiku standby has been running the same job in parallel the whole time, and its answer is used instead. The deck credits it on the provenance line. Rehearsed under `hedge-standby` and `hedge-primary-bad`.
 - Both models fail, or the venue network is down: the run is rejected, nothing is overwritten, and the deck already on disk stands. Rehearsed under `garbage`, `badschema`, `crash` and `hedge-both-bad`.
 

@@ -29,7 +29,7 @@
 #
 # Flags:
 #   --no-hedge            one model only, half the tokens, no insurance
-#   --voices[=a,b,c]      add character voices; default set is yoda,vader,threepio
+#   --voices[=a,b,c]      add character voices; default set is sage,admiral,adjutant
 #   --no-voices           explicit off
 #   --deadline SECONDS
 #   --follow-url URL      override the published URL shown in the QR on every screen
@@ -53,7 +53,7 @@ VOICE_MODEL="${VOICE_MODEL-$PRIMARY_MODEL}"
 FOLLOW_URL="${FOLLOW_URL-https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html}"
 VOICE_DIR="$REPO_ROOT/tools/synthesize-closeout/voices"
 VOICE_BRIEF="$REPO_ROOT/tools/synthesize-closeout/voices.md"
-DEFAULT_VOICES="yoda,vader,threepio"
+DEFAULT_VOICES="sage,admiral,adjutant"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in

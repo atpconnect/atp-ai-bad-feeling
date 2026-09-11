@@ -139,8 +139,8 @@ def check_themes():
     return bad
 
 
-VOICE_LABELS = {"straight": "Straight", "threepio": "C-3PO",
-                "yoda": "Yoda", "vader": "Vader"}
+VOICE_LABELS = {"straight": "Straight", "adjutant": "The Adjutant",
+                "sage": "The Sage", "admiral": "The Admiral"}
 
 # Screens written by us, not by the model. They stay in one voice: they are the
 # credibility of the whole deck, and a joke is a bad place to keep your evidence.
@@ -309,12 +309,14 @@ def voice_divergence(straight, voiced):
     return sum(1 for x, y in zip(a, b) if x.strip() != y.strip()) / len(a)
 
 
-# Counted, not policed. The brief asks for at most one reference per screen because
-# two on a slide is where the room stops hearing the finding and starts waiting for
-# the next gag. A model will drift past that, and drift is invisible while you are
-# reading any single slide and obvious across a whole deck.
+# Counted, not policed. The brief asks for no film quotes at all, both because two on
+# a slide is where the room stops hearing the finding and starts waiting for the next
+# gag, and because quoting someone else's film in a public deck is not ours to do. A
+# model will drift into them anyway, and drift is invisible while you are reading any
+# single slide and obvious across a whole deck. This is a blocklist of the lines a
+# model reaches for; the event's own title is not on it.
 REFERENCES = [
-    "bad feeling", "older code", "tell me the odds", "how the force works",
+    "older code", "tell me the odds", "how the force works",
     "lack of", "droids you", "do or do not", "there is no try", "no try",
     "it's a trap", "garbage will do", "high ground", "i am your father",
     "the force is strong", "these are not the droids", "great, kid",
@@ -330,7 +332,7 @@ def reference_report(data):
                         + [p["t"] for p in st["points"]] + [p["d"] for p in st["points"]]).lower()
         n = sum(blob.count(r) for r in REFERENCES)
         total += n
-        if n > 1:
+        if n > 0:
             over.append((st["id"], n))
     return over, total
 
@@ -524,10 +526,10 @@ def receipts_screen(qr_block):
                  "d": "Right dimensions, right position, nothing inside. No assertion about the markup "
                       "would have caught it, so the test now scans the code back with a barcode reader."},
                 {"t": "A narrator that changed 9% of the words and passed every check",
-                 "d": "Correcting one failure produced its exact opposite. The first Yoda inverted "
+                 "d": "Correcting one failure produced its exact opposite. The first Sage voice inverted "
                       "nearly every sentence into something you had to read twice. The fix came back "
                       "91% identical to the plain text: it validated perfectly and was pointless on "
-                      "stage. Vader landed at 58% of fields rewritten and is now at 100%. Three worked "
+                      "stage. The Admiral landed at 58% of fields rewritten and is now at 100%. Three worked "
                       "examples per character fixed both, showing one real sentence too weak, right, "
                       "and too far. The answer to fear is never the obviously wrong one. It is the one "
                       "that looks exactly right."},
@@ -1099,9 +1101,9 @@ def main():
     over, total = reference_report(data)
     if over:
         detail = ", ".join(f"{sid} ({n})" for sid, n in over)
-        print(f"NOTE: more than one Star Wars reference on a screen: {detail}. "
-              f"{total} in the deck overall. The brief asks for at most one per screen; "
-              f"cut the weaker one before presenting.", file=sys.stderr)
+        print(f"NOTE: film quote on a screen: {detail}. "
+              f"{total} in the deck overall. The brief asks for none; "
+              f"cut them before presenting.", file=sys.stderr)
 
     for warning in CLAMPED:
         print(f"CLAMPED: {warning}", file=sys.stderr)

@@ -2,7 +2,7 @@
 
 The closeout session. This is where the five stations stop being five separate stories and start being one picture.
 
-Yavin 4, at the end. Everyone who flew the battle in a different ship, in different squadrons, seeing only their own slice of it, back in one room together to find out what actually happened. That's this room, and it's why the medals get handed out at the end rather than the beginning.
+Everyone spent the evening in a different room, seeing only their own slice of it, and now they're back together to find out what actually happened. That's this room.
 
 `presentation.html` lands here: one self-contained file, no network, arrow keys or Next to move, and a QR code back to this repo on the way out.
 

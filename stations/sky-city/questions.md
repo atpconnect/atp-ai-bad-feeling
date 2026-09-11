@@ -4,7 +4,7 @@
 **Station pilot:** Dorren Schmitt, VP IT Strategy and Innovation, Allen Media
 **Status:** draft, 2026-09-11
 
-Every vendor deal in this room started the same way Lando's did: negotiated in good faith, on terms that made sense at the time. This station is about the moment those terms changed underneath someone, and what it cost to find out mid-flight rather than in the contract review. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
+Every vendor deal in this room started the same way: negotiated in good faith, on terms that made sense at the time. This station is about the moment those terms changed underneath someone, and what it cost to find out mid-flight rather than in the contract review. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 
 ## Q1. Which third-party AI tool did you bring in first, and what did the sales demo not show you?
 

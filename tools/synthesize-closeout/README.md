@@ -8,7 +8,7 @@ tools/synthesize-closeout/synthesize.sh    # on the night: rebuild from whatever
 
 tools/synthesize-closeout/synthesize.sh --no-hedge          # one model, half the tokens
 tools/synthesize-closeout/synthesize.sh --voices            # add the character voices
-tools/synthesize-closeout/synthesize.sh --voices=yoda,vader # just these two
+tools/synthesize-closeout/synthesize.sh --voices=sage,admiral # just these two
 tools/synthesize-closeout/synthesize.sh --help
 ```
 
@@ -84,8 +84,8 @@ The `claude` CLI, logged in. `pandoc` for `.docx` transcripts. Python 3 for the 
 A live toggle during the closeout: same findings, same numbers, same slide, different narrator. Press **1** to **5**, or **V** to cycle. The screen you are on does not change, so you can switch mid-sentence and keep your place.
 
 ```bash
-tools/synthesize-closeout/synthesize.sh --voices             # yoda,vader,threepio
-tools/synthesize-closeout/synthesize.sh --voices=yoda,vader
+tools/synthesize-closeout/synthesize.sh --voices             # sage,admiral,adjutant
+tools/synthesize-closeout/synthesize.sh --voices=sage,admiral
 ```
 
 Voices are defined one per file in [`voices/`](voices/), so adding one is writing a paragraph of direction. The shared rules live in [`voices.md`](voices.md).
@@ -102,7 +102,7 @@ Voices are defined one per file in [`voices/`](voices/), so adding one is writin
 |---|---|
 | Figures diff | A voice that dropped numbers the straight deck had. The findings must survive the joke. |
 | Divergence | A voice that rewrote under 60% of its fields, so it validates perfectly and is not worth a button. |
-| Reference density | More than one Star Wars reference on a single screen. Invisible slide by slide, obvious across a deck. |
+| Film quotes | A film quote on any screen. The brief asks for none, and the drift is invisible slide by slide, obvious across a deck. |
 
 **The two method screens never change voice.** They are our words rather than the model's, and they are the evidence for everything else in the deck. A joke is a bad place to keep your evidence.
 

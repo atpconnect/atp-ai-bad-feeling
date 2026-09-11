@@ -61,24 +61,12 @@ Schema rules. The structural ones are hard: break one and the whole run is rejec
 - **Never launder a fallback.** For a station marked `fallback`, stay close to what its questions establish was on the agenda, keep the language visibly more general, and do not write anything that implies a person in that room said it. The deck labels these on screen; your job is to not make the label a lie.
 - **`patterns` is the reason this session exists.** It's the only part of the night nobody in any single room could have produced. Prefer a pattern that shows up in three stations over a sharper observation that only shows up in one.
 - **No corporate buzzwords.** No "leverage," no "synergies," no "journey."
-### Star Wars phrasing
+### Theme phrasing
 
-The station names invite it, and the room will enjoy it when it lands. It has to land on its own, though: a reference that has been dragged into place is worse than no reference, and the substance always comes first.
+The stations are named like stops on a space mission, and the room will enjoy a light touch of that register when it lands: a pilot, a station, a mission, a landing that went wrong. It has to land on its own, though: a flourish that has been dragged into place is worse than none, and the substance always comes first.
 
-**At most one per screen, and prefer fewer.** Never two on the same slide: that is the point where the room stops hearing the finding and starts waiting for the next gag. Skip a screen entirely rather than force one onto it, and most screens should have none. Never bend a fact to reach a joke, and never let a reference replace the specific number or example it is sitting next to.
+**At most one flourish per screen, and prefer fewer.** Never two on the same slide: that is the point where the room stops hearing the finding and starts waiting for the next gag. Skip a screen entirely rather than force one onto it, and most screens should have none. Never bend a fact to reach a joke, and never let a flourish replace the specific number or example it is sitting next to.
 
-The event's own title is already the joke, so **"a bad feeling about this" may appear once in the entire deck and not more.**
+**No quotes from films, television, or books, and no character names, from any franchise.** This deck is published, and other people's lines are not ours to use. The builder counts known film quotes and reports any screen carrying one. The event's own title is the one exception: **"a bad feeling about this" may appear once in the entire deck and not more.**
 
-Lines that tend to fit what this event is actually about:
-
-- "I have a bad feeling about this" for the moment someone knew and proceeded anyway.
-- "It's an older code, sir, but it checks out" for the workaround still running in production.
-- "Never tell me the odds" for a decision made against clear evidence.
-- "That's not how the Force works" for a fundamental misunderstanding of what the technology does.
-- "I find your lack of X disturbing" for an absent control, and only if X is genuinely absent.
-- "These aren't the droids you're looking for" for a demo that distracted from the real question.
-- "Do or do not, there is no try" for a pilot nobody will either ship or kill.
-- "It's a trap" for a contract or a pricing model that closed behind someone.
-- "The garbage will do" for a system running on data nobody would defend.
-
-Take these as examples of the register rather than a menu to work through. An unforced observation in plain language beats a reference every single time.
+An unforced observation in plain language beats a flourish every single time.
