@@ -27,13 +27,13 @@ Who holds which role on the day. The point of this file is the empty rows: it ex
 
 One per station. Each runs their station as a guided discussion off their question list, brings their own laptop, and is on site at 5:15 PM. See [`station-pilot-instructions.md`](station-pilot-instructions.md).
 
-| Station | Theme | Pilot | Status | Dry run booked | Questions received |
-|---|---|---|---|---|---|
-| [Sky City](stations/sky-city/) | Infrastructure and integration with third-party tools | Dorren Schmitt (VP IT Strategy and Innovation, Allen Media) | ✅ | ❌ | ⚠️ draft |
-| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality | Michael Muncy (CTO, Aveanna) | ✅ | ❌ | ⚠️ draft |
-| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | Mat Matthews (CIO, Fortrex Solutions) | ✅ | ❌ | ⚠️ draft |
-| [Snow Monster Cave](stations/snow-monster-cave/) | Dev | Michael Park (CIO, Infor) | ✅ | ❌ | ⚠️ draft |
-| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | Dante Jackson (CEO, Serket-Tech Security) | ✅ | ❌ | ⚠️ draft |
+| Station | Theme | Sponsor | Pilot | Status | Dry run booked | Questions received |
+|---|---|---|---|---|---|---|
+| [Sky City](stations/sky-city/) | Infrastructure and integration with third-party tools | | Dorren Schmitt (VP IT Strategy and Innovation, Allen Media) | ✅ | ❌ | ⚠️ draft |
+| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality | LogicSpree | Michael Muncy (CTO, Aveanna) | ✅ | ❌ | ⚠️ draft |
+| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | Griffin | Mat Matthews (CIO, Fortrex Solutions) | ✅ | ❌ | ⚠️ draft |
+| [Snow Monster Cave](stations/snow-monster-cave/) | Development | Allata | Michael Park (CIO, Infor) | ✅ | ❌ | ⚠️ draft |
+| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | | Dante Jackson (CEO, Serket-Tech Security) | ✅ | ❌ | ⚠️ draft |
 
 ## Flight Engineers
 

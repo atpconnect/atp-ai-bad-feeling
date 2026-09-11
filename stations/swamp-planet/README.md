@@ -1,6 +1,9 @@
 # Swamp Planet
 
 **Theme:** Technical debt and data quality issues
+**Sponsor:** [LogicSpree](https://www.logicspree.com/)
+
+<p align="center"><a href="https://www.logicspree.com/"><img src="../../assets/sponsors/logicspree.png" alt="LogicSpree" width="240"></a></p>
 
 The ship sank because nobody had dealt with what was underneath it.
 

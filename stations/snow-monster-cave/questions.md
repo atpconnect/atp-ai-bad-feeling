@@ -1,6 +1,6 @@
 # Snow Monster Cave: Question List and Seeded Answers
 
-**Theme:** Dev
+**Theme:** Development
 **Station pilot:** Michael Park, CIO, Infor
 **Status:** draft, 2026-09-11
 

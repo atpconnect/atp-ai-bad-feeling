@@ -16,19 +16,31 @@ Scan the QR code above to come back to this repo after the event. It's also disp
 
 Attendees split into five themed stations (about 25 people each), each covering a distinct way enterprise AI programs go wrong:
 
-| Station | Theme |
-|---|---|
-| [Sky City](stations/sky-city/) | Infrastructure and integration challenges with third-party tools |
-| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality issues |
-| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep |
-| [Snow Monster Cave](stations/snow-monster-cave/) | Dev |
-| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security |
+| Station | Theme | Sponsor |
+|---|---|---|
+| [Sky City](stations/sky-city/) | Infrastructure and integration challenges with third-party tools | |
+| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality issues | [LogicSpree](https://www.logicspree.com/) |
+| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | [Griffin](https://griffinglobaltech.com/) |
+| [Snow Monster Cave](stations/snow-monster-cave/) | Development | [Allata](https://www.allata.com/) |
+| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | |
 
 Each station is a guided discussion, not a talk: the station pilot puts a list of roughly eight questions to their station and the room answers. Fleet Command hosts, records, and transcribes each one via an independent Teams meeting, not the pilot, and every station has a Flight Engineer whose only job is to watch that the capture is actually working. No one in any single station gets the full picture. That's the point of what comes next.
 
 Immediately afterward, the group reassembles for **the Throne Room**, the closeout session. Everyone who spent the evening in a different room, back together at the end. It's the one vantage point that actually sees the patterns across all five stations at once, distilled into shared talking points. See [`closeout/`](closeout/).
 
 This repo documents the full method, not just the output. That includes [how the Throne Room deck was actually synthesized](tools/synthesize-closeout/) from the five station transcripts in the few minutes between sessions ending and the group reassembling, and [the rehearsal harness](tests/) we used to run the whole night end to end beforehand, including every way it could fail.
+
+## Station sponsors
+
+<p align="center">
+<a href="https://www.logicspree.com/"><img src="assets/sponsors/logicspree.png" alt="LogicSpree, sponsor of Swamp Planet" width="200"></a>
+<a href="https://griffinglobaltech.com/"><img src="assets/sponsors/griffin.jpg" alt="Griffin, sponsor of Ice Planet" width="200"></a>
+<a href="https://www.allata.com/"><img src="assets/sponsors/allata.png" alt="Allata, sponsor of Snow Monster Cave" width="200"></a>
+</p>
+
+- **Swamp Planet**, technical debt and data quality: [LogicSpree](https://www.logicspree.com/)
+- **Ice Planet**, use cases, costs, and scope creep: [Griffin](https://griffinglobaltech.com/)
+- **Snow Monster Cave**, development: [Allata](https://www.allata.com/)
 
 ## Take this and run it yourself
 

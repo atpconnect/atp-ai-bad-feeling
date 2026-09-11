@@ -1,6 +1,6 @@
 # Snow Monster Cave: Question List and Seeded Answers
 
-**Theme:** Dev
+**Theme:** Development
 **Station pilot:** Marcus Bell, CISO, Tessera Financial
 **Status:** final, sent to Fleet Command 2026-09-15
 

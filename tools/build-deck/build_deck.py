@@ -35,7 +35,7 @@ STATIONS = [
     ("sky-city", "Sky City", "Infrastructure and integration with third-party tools"),
     ("swamp-planet", "Swamp Planet", "Technical debt and data quality"),
     ("ice-planet", "Ice Planet", "Use cases, costs, and scope creep"),
-    ("snow-monster-cave", "Snow Monster Cave", "Dev"),
+    ("snow-monster-cave", "Snow Monster Cave", "Development"),
     ("asteroid-field", "Asteroid Field", "Compliance, legal, and security"),
 ]
 STATION_IDS = [s[0] for s in STATIONS]

@@ -105,7 +105,7 @@ If your tests only assert on output, they will miss anything about time, size, o
 
 The format is straightforward and the logistics are where it goes wrong. Both runbooks are in this repo: [`coordinator-checklist.md`](coordinator-checklist.md) for whoever is running it and [`station-pilot-instructions.md`](station-pilot-instructions.md) for the people leading each room.
 
-**Split the room.** Five stations of roughly 25, each on a distinct way AI programs fail. Ours were third-party integration, data quality, use cases with their costs and scope creep, dev, and compliance, legal, and security. Pick failure modes your audience has actually lived.
+**Split the room.** Five stations of roughly 25, each on a distinct way AI programs fail. Ours were third-party integration, data quality, use cases with their costs and scope creep, development, and compliance, legal, and security. Pick failure modes your audience has actually lived.
 
 **Make each station a discussion, not a talk.** The station pilot puts roughly eight questions to their room and the room answers. The value is entirely in what attendees say, so the pilot's job is to keep it moving and make sure it lands on the recording.
 

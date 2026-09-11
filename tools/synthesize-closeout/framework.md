@@ -11,7 +11,7 @@ This is the Throne Room, the closeout session for ATP's "Your AI Program Has a B
 - **Sky City** (`sky-city`): infrastructure and integration challenges with third-party tools
 - **Swamp Planet** (`swamp-planet`): technical debt and data quality issues
 - **Ice Planet** (`ice-planet`): use cases, costs, and scope creep
-- **Snow Monster Cave** (`snow-monster-cave`): dev
+- **Snow Monster Cave** (`snow-monster-cave`): development
 - **Asteroid Field** (`asteroid-field`): compliance, legal, and security
 
 After all five run in parallel, the whole group reassembles. The closeout's job is to give everyone, including the roughly 100 people who weren't in a given station, the real, specific substance of what was said there, and then surface what connects across all five.
