@@ -45,7 +45,7 @@ On the night he hosts, records, and transcribes all five stations, runs the clos
 | Station | Pilot |
 |---|---|
 | [Sky City](stations/sky-city/) | Dorren Schmitt, PhD, VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group |
-| [Swamp Planet](stations/swamp-planet/) | Michael Muncy, CTO, Aveanna |
+| [Swamp Planet](stations/swamp-planet/) | To be announced |
 | [Ice Planet](stations/ice-planet/) | Mat Mathews, Chief Information Officer, Fortrex |
 | [Snow Monster Cave](stations/snow-monster-cave/) | Mike Park, Chief Information Officer, Infor |
 | [Asteroid Field](stations/asteroid-field/) | Dante Jackson, Founder and CEO, Serket-Tech Security |
