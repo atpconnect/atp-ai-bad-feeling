@@ -7,6 +7,8 @@ Everyone said to stay out of it. Then you flew straight through anyway, because 
 
 ## Station pilot
 
+<img src="../../assets/people/dante-jackson.jpg" alt="Dante Jackson" width="160" align="right">
+
 **Dante Jackson**, Founder and CEO, Serket-Tech Security.
 
 Dante founded Serket-Tech Security, a cybersecurity consulting firm based in Atlanta. He brings more than two decades of experience in information security, insider threat investigations, and data protection across the financial services and federal government sectors.

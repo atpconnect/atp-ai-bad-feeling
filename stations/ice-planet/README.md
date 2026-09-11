@@ -10,6 +10,8 @@ The shield doors are closed. Everyone's dug in at the outpost, waiting on evacua
 
 ## Station pilot
 
+<img src="../../assets/people/mat-mathews.jpg" alt="Mat Mathews" width="160" align="right">
+
 **Mat Mathews**, Chief Information Officer, Fortrex.
 
 Mat leads Fortrex's digital and AI programs with a focus on measurable operational and cost efficiency. His work spans corporate IT and the OT environments across Fortrex's sanitation operations and its Safe Foods chemical manufacturing plants.
