@@ -3,7 +3,7 @@
 #
 # On the night, transcripts arrive in two ways and both land in ~/Downloads:
 #   - Teams exports, once a station's meeting has been ended
-#   - email attachments from a station leader's own second-device recorder
+#   - email attachments from a station pilot's own second-device recorder
 #
 # Hand-copying five files into five directories, under time pressure, in a bar,
 # is exactly the kind of step that goes wrong. This does it by matching the

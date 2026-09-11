@@ -139,7 +139,7 @@ for sid in order:
     if MODE == "liar":
         src = "transcript"
     if src == "fallback":
-        lede = ("No recording survived this station, so what follows is the agenda its leader "
+        lede = ("No recording survived this station, so what follows is the agenda its pilot "
                 "prepared rather than what the room said.")
         pts = [(t, "Expected from the question list, not reported from the room: "
                    + d.split(". ")[0].rstrip(".") + ".")

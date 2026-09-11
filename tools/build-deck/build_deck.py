@@ -29,14 +29,14 @@ from datetime import datetime
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 QR_PATH = REPO / "assets" / "repo-qr-code.png"
-REPO_URL = "https://github.com/jttraino/atp-ai-bad-feeling"
+REPO_URL = "https://github.com/atpconnect/atp-ai-bad-feeling"
 
 STATIONS = [
     ("sky-city", "Sky City", "Infrastructure and integration with third-party tools"),
     ("swamp-planet", "Swamp Planet", "Technical debt and data quality"),
-    ("ice-planet", "Ice Planet", "Development-stage use cases stuck in limbo"),
-    ("snow-monster-cave", "Snow Monster Cave", "Unexpected costs and security vulnerabilities"),
-    ("asteroid-field", "Asteroid Field", "Compliance, legal obstacles, and scope creep"),
+    ("ice-planet", "Ice Planet", "Use cases, costs, and scope creep"),
+    ("snow-monster-cave", "Snow Monster Cave", "Dev"),
+    ("asteroid-field", "Asteroid Field", "Compliance, legal, and security"),
 ]
 STATION_IDS = [s[0] for s in STATIONS]
 STATION_NAME = {s[0]: s[1] for s in STATIONS}
@@ -85,7 +85,7 @@ THEMES = {
         "ink": "#0E2430", "ink2": "#3A5665", "ink3": "#5B7787",
         "accent": "#0F5B78", "warn": "#8F4B08", "warnbg": "#FDF1E1",
     },
-    "snow-monster-cave": {  # inside the cave, and the room about breaches
+    "snow-monster-cave": {  # inside the cave
         "bg": ("radial-gradient(820px 420px at 78% 12%, #3A1E1B 0%, rgba(58,30,27,0) 62%), "
                "radial-gradient(900px 500px at 14% 88%, #2A1412 0%, rgba(42,20,18,0) 60%), "
                "linear-gradient(170deg, #1A1110 0%, #241514 55%, #0F0908 100%)"),
@@ -347,7 +347,7 @@ def points_html(points):
     return f'<ol class="points">{items}</ol>'
 
 
-DEFAULT_FOLLOW_URL = ("https://jttraino.github.io/atp-ai-bad-feeling/"
+DEFAULT_FOLLOW_URL = ("https://atpconnect.github.io/atp-ai-bad-feeling/"
                       "closeout/presentation.html")
 
 
@@ -421,7 +421,7 @@ def method_screens(mode, generated_at, counts, engine=""):
                 'This deck existed before the last one finished talking.</p>'
                 + points_html([
                     {"t": "Every station was recorded to its own meeting, hosted by one person",
-                     "d": "Not by the leader running the room. One account owned all five, so no session "
+                     "d": "Not by the pilot running the room. One account owned all five, so no session "
                           "depended on a presenter remembering to press a button correctly."},
                     {"t": "Ending the meeting is what starts the transcript",
                      "d": "Teams generates a transcript 2.5 to 5 minutes after a meeting is ended, not "
@@ -554,13 +554,13 @@ def station_screen(st, mode="live"):
                else '<span class="pill">TRANSCRIPT</span>')
     elif mode == "seeded":
         banner = ('<div class="flag"><b>This session has not happened yet.</b> You are early. '
-                  'What follows is the question list this station\'s leader prepared and the '
+                  'What follows is the question list this station\'s pilot prepared and the '
                   'answers we expect to hear, published in advance so the link works before '
                   'anyone needs it. On the night it is replaced by what the room actually said.</div>')
         tag = '<span class="pill warn">PREVIEW</span>'
     else:
         banner = ('<div class="flag"><b>Not from a transcript.</b> This station\'s recording did not '
-                  'produce usable audio. What follows is built from the question list its leader '
+                  'produce usable audio. What follows is built from the question list its pilot '
                   'prepared, and the answers we expected, not from what the room actually said.</div>')
         tag = '<span class="pill warn">FALLBACK</span>'
     return {

@@ -16,7 +16,7 @@ set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FIX="$REPO/tests/fixtures"
 STUBS="$REPO/tests/stubs"
-DEFAULT_FOLLOW="https://jttraino.github.io/atp-ai-bad-feeling/closeout/presentation.html"
+DEFAULT_FOLLOW="https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html"
 KEEP=0
 [[ "${1:-}" == "--keep" ]] && { KEEP=1; shift; }
 
@@ -170,7 +170,7 @@ scen_happy() {  # the night, everything works
 scen_mixed() {  # 3 Teams transcripts, 1 emailed backup, 1 total loss
   new_scratch; seed_questions; establish_floor
   arrive "Sky City" docx; arrive "Swamp Planet" docx; arrive "Ice Planet" docx
-  arrive "Snow Monster Cave" txt          # the leader's own recorder, emailed in
+  arrive "Snow Monster Cave" txt          # the pilot's own recorder, emailed in
   # Asteroid Field: nothing arrives at all
   ( cd "$SCRATCH" && ./tools/intake-transcript/intake.sh "$SCRATCH/Downloads" ) >"$SCRATCH/intake.log" 2>&1
   check "intake reports asteroid on fallback"   "grep -q 'asteroid-field *FALLBACK' '$SCRATCH/intake.log'"

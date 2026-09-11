@@ -1,7 +1,7 @@
 # Asteroid Field: Question List and Seeded Answers
 
-**Theme:** Compliance, legal obstacles, and scope creep
-**Station leader:** Rebecca Ahn, General Counsel, Northgate Utilities
+**Theme:** Compliance, legal, and security
+**Station pilot:** Rebecca Ahn, General Counsel, Northgate Utilities
 **Status:** final, sent to Fleet Command 2026-09-15
 
 Roughly eight questions, more than we will get through, which is the point. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.

@@ -1,7 +1,7 @@
 # Ice Planet: Question List and Seeded Answers
 
-**Theme:** Development-stage use cases stuck in limbo
-**Station leader:** Priya Raghunathan, Director of Data Science, Halcyon Health
+**Theme:** Use cases, costs, and scope creep
+**Station pilot:** Priya Raghunathan, Director of Data Science, Halcyon Health
 **Status:** final, sent to Fleet Command 2026-09-15
 
 Roughly eight questions, more than we will get through, which is the point. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.

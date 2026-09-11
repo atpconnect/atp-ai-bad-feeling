@@ -1,6 +1,6 @@
 # Asteroid Field
 
-**Theme:** Compliance, legal obstacles, and scope creep
+**Theme:** Compliance, legal, and security
 
 "Very dangerous. We should stay away from it." And then you fly straight through anyway, because turning back wasn't actually an option.
 

@@ -13,7 +13,7 @@ tools/intake-transcript/intake.sh /path/to/dir
 On the night, transcripts arrive two ways and both land in `~/Downloads`:
 
 - **Teams exports**, once a station's meeting has been ended. Named like `Sky City-20260917_190412-Meeting Recording.docx`.
-- **Email attachments** from a station leader's own second-device recorder, named however that leader's phone felt like naming them.
+- **Email attachments** from a station pilot's own second-device recorder, named however that pilot's phone felt like naming them.
 
 Copying five files into five directories, converting the `.docx` ones, under time pressure, in a bar, with a room waiting, is exactly the kind of step that goes wrong. So it is a script.
 

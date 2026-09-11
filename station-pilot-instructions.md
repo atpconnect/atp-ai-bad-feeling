@@ -1,4 +1,4 @@
-# Station Leader Instructions, ATP Event, September 17, 2026 ABY
+# Station Pilot Instructions, ATP Event, September 17, 2026 ABY
 
 ## What your session actually is
 

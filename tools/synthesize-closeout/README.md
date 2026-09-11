@@ -128,7 +128,7 @@ Press **P**. That switches the deck into projector mode and it sizes itself to t
 Every screen carries a QR to **its own anchor**, so someone scanning during station four lands on station four, with the full detail that would not fit on the projector.
 
 ```
-FOLLOW_URL=https://jttraino.github.io/atp-ai-bad-feeling/closeout/presentation.html
+FOLLOW_URL=https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html
 tools/synthesize-closeout/synthesize.sh --no-follow      # no QR, no link
 ```
 

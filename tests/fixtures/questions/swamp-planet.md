@@ -1,7 +1,7 @@
 # Swamp Planet: Question List and Seeded Answers
 
 **Theme:** Technical debt and data quality issues
-**Station leader:** Corey Boglesong, CTO, Aaron's
+**Station pilot:** Corey Boglesong, CTO, Aaron's
 **Status:** final, sent to Fleet Command 2026-09-15
 
 Roughly eight questions, more than we will get through, which is the point. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.

@@ -103,11 +103,11 @@ If your tests only assert on output, they will miss anything about time, size, o
 
 ## Part two: running the event
 
-The format is straightforward and the logistics are where it goes wrong. Both runbooks are in this repo: [`coordinator-checklist.md`](coordinator-checklist.md) for whoever is running it and [`station-leader-instructions.md`](station-leader-instructions.md) for the people leading each room.
+The format is straightforward and the logistics are where it goes wrong. Both runbooks are in this repo: [`coordinator-checklist.md`](coordinator-checklist.md) for whoever is running it and [`station-pilot-instructions.md`](station-pilot-instructions.md) for the people leading each room.
 
-**Split the room.** Five stations of roughly 25, each on a distinct way AI programs fail. Ours were third-party integration, data quality, pilots stuck in limbo, cost and security, and compliance and scope creep. Pick failure modes your audience has actually lived.
+**Split the room.** Five stations of roughly 25, each on a distinct way AI programs fail. Ours were third-party integration, data quality, use cases with their costs and scope creep, dev, and compliance, legal, and security. Pick failure modes your audience has actually lived.
 
-**Make each station a discussion, not a talk.** The station leader puts roughly eight questions to their room and the room answers. The value is entirely in what attendees say, so the leader's job is to keep it moving and make sure it lands on the recording.
+**Make each station a discussion, not a talk.** The station pilot puts roughly eight questions to their room and the room answers. The value is entirely in what attendees say, so the pilot's job is to keep it moving and make sure it lands on the recording.
 
 **Record centrally, not per speaker.** One person hosts all five meetings from one account. No session depends on a presenter remembering to press a button correctly.
 
@@ -121,7 +121,7 @@ Learned the expensive way, mostly from a planning call and one rehearsal:
 
 - **Turn off noise suppression** on every laptop. It is tuned to isolate one voice at a desk and will strip out the room discussion you came to capture. This is the single most important setting and it is off by default in nobody's software.
 - **Ending a meeting is what generates the transcript.** Leaving it does not. Say this three times.
-- **The leader's own voice was never at risk.** The room's answers are. Have the leader tell people to speak toward the laptop, repeatedly, and echo good answers back so they survive in a voice near the microphone.
+- **The pilot's own voice was never at risk.** The room's answers are. Have the pilot tell people to speak toward the laptop, repeatedly, and echo good answers back so they survive in a voice near the microphone.
 - **A second recorder must be a genuinely different device.** A second app on the same laptop shares every failure mode of the first, and can fight it for the microphone.
 - **Budget the gap honestly.** Transcripts take a few minutes to generate after each meeting ends, the endings are staggered, and the synthesis takes one to three minutes on top. Ours was about ten minutes end to end.
 - **Nobody past the fourth row can read a normal web page on a projector.** Build the presentation to enlarge itself, and check it from the back of the actual room before anyone arrives.
@@ -133,7 +133,7 @@ Learned the expensive way, mostly from a planning call and one rehearsal:
 Everything here is plain files and small scripts. There is no framework to adopt and nothing to install beyond a command line model tool.
 
 ```bash
-git clone https://github.com/jttraino/atp-ai-bad-feeling
+git clone https://github.com/atpconnect/atp-ai-bad-feeling
 cd atp-ai-bad-feeling
 tests/rehearse.sh          # rehearse the whole evening against mock data, ~2 seconds
 ```

@@ -15,7 +15,7 @@ REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length tr
 |---|---|
 | `seed` | Days before. Question lists exist, no transcripts. Builds the floor. |
 | `happy` | All five recordings worked. |
-| `mixed` | Three Teams exports, one emailed backup from a leader's own device, one total loss. |
+| `mixed` | Three Teams exports, one emailed backup from a pilot's own device, one total loss. |
 | `docx` | All five arrive as Teams `.docx` exports and have to be converted. |
 | `disaster` | Every recording failed. Five fallbacks, and there is still a deck. |
 | `late` | A transcript lands after a deck was already built. Re-run must improve, not clobber. |

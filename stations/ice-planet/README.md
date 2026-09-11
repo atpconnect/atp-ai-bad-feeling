@@ -1,6 +1,6 @@
 # Ice Planet
 
-**Theme:** Development-stage use cases stuck in limbo
+**Theme:** Use cases, costs, and scope creep
 
 The shield doors are closed. Everyone's dug in at the outpost, waiting on evacuation orders that haven't come yet.
 
