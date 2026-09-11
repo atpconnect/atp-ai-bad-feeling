@@ -54,7 +54,7 @@ On the night he hosts, records, and transcribes all five stations, runs the clos
 
 <p align="center">
 <a href="https://www.logicspree.com/"><img src="assets/sponsors/logicspree.png" alt="LogicSpree, sponsor of Swamp Planet" width="200"></a>
-<a href="https://griffinglobaltech.com/"><img src="assets/sponsors/griffin.jpg" alt="Griffin, sponsor of Ice Planet" width="200"></a>
+<a href="https://griffinglobaltech.com/"><img src="assets/sponsors/griffin.png" alt="Griffin, sponsor of Ice Planet" width="200"></a>
 <a href="https://www.allata.com/"><img src="assets/sponsors/allata.png" alt="Allata, sponsor of Snow Monster Cave" width="200"></a>
 </p>
 

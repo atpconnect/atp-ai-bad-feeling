@@ -4,7 +4,7 @@
 **Sponsor:** [Griffin](https://griffinglobaltech.com/)
 **Station pilot:** Mat Mathews, Chief Information Officer, Fortrex
 
-<p align="center"><a href="https://griffinglobaltech.com/"><img src="../../assets/sponsors/griffin.jpg" alt="Griffin" width="240"></a></p>
+<p align="center"><a href="https://griffinglobaltech.com/"><img src="../../assets/sponsors/griffin.png" alt="Griffin" width="240"></a></p>
 
 The shield doors are closed. Everyone's dug in at the outpost, waiting on evacuation orders that haven't come yet.
 
