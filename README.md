@@ -2,7 +2,7 @@
 
 Public archive for the ATP event "Your AI Program Has a Bad Feeling About This." It's an interactive workshop on why enterprise AI initiatives fail, run as the honest, hands-on debrief nobody runs at their own company.
 
-- **Date:** September 17, 2026, 6:00 to 8:00 PM
+- **Date:** September 17, 2026, 6:00 to 8:30 PM
 - **Location:** Social House Roswell, 1098 Green St, Roswell, GA 30075
 - **Details / registration:** https://atpconnect.org/events/your-ai-program-has-a-bad-feeling-about-this/
 - **Event Council:** Scott Harris (One Inc, ATP Finance Chair), Tom Lasswell (DC BLOX, ATP Director of Technology), John Slaughter (Alliant Health, ATP Executive Advisory Board)
