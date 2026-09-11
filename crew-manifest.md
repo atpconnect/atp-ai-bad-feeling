@@ -11,7 +11,7 @@ Who holds which role on the day. The point of this file is the empty rows: it ex
 | Event Council | Scott Harris (One Inc, ATP Finance Chair) | ✅ | Event owner. Run of show. |
 | Event Council | Tom Lasswell (DC BLOX, ATP Director of Technology) | ✅ | Event owner. Logistics. |
 | Event Council | John Slaughter (Alliant Health, ATP Executive Advisory Board) | ✅ | Event owner. Cultivated the station pilots. |
-| Fleet Command | John Trainor (Four Technologies, ATP Executive Advisory Board) | ✅ | Hosts, records, and transcribes all five stations. Runs the closing synthesis and presents the Throne Room. On site 5:00 PM. |
+| Fleet Command | John Trainor (President, Four Technologies, ATP Executive Advisory Board) | ✅ | Hosts, records, and transcribes all five stations. Runs the closing synthesis and presents the Throne Room. On site 5:00 PM. |
 
 ## Event operations
 
@@ -29,11 +29,11 @@ One per station. Each runs their station as a guided discussion off their questi
 
 | Station | Theme | Sponsor | Pilot | Status | Dry run booked | Questions received |
 |---|---|---|---|---|---|---|
-| [Sky City](stations/sky-city/) | Infrastructure and integration with third-party tools | | Dorren Schmitt (VP IT Strategy and Innovation, Allen Media) | ✅ | ❌ | ⚠️ draft |
+| [Sky City](stations/sky-city/) | Infrastructure and integration with third-party tools | | Dorren Schmitt, PhD (VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group) | ✅ | ❌ | ⚠️ draft |
 | [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality | LogicSpree | Michael Muncy (CTO, Aveanna) | ✅ | ❌ | ⚠️ draft |
-| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | Griffin | Mat Matthews (CIO, Fortrex Solutions) | ✅ | ❌ | ⚠️ draft |
-| [Snow Monster Cave](stations/snow-monster-cave/) | Development | Allata | Michael Park (CIO, Infor) | ✅ | ❌ | ⚠️ draft |
-| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | | Dante Jackson (CEO, Serket-Tech Security) | ✅ | ❌ | ⚠️ draft |
+| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | Griffin | Mat Mathews (CIO, Fortrex) | ✅ | ❌ | ⚠️ draft |
+| [Snow Monster Cave](stations/snow-monster-cave/) | Development | Allata | Mike Park (CIO, Infor) | ✅ | ❌ | ⚠️ draft |
+| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | | Dante Jackson (Founder and CEO, Serket-Tech Security) | ✅ | ❌ | ⚠️ draft |
 
 ## Flight Engineers
 

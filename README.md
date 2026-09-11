@@ -6,7 +6,7 @@ Public archive for the ATP event "Your AI Program Has a Bad Feeling About This."
 - **Location:** Social House Roswell, 1098 Green St, Roswell, GA 30075
 - **Details / registration:** https://atpconnect.org/events/your-ai-program-has-a-bad-feeling-about-this/
 - **Event Council:** Scott Harris (One Inc, ATP Finance Chair), Tom Lasswell (DC BLOX, ATP Director of Technology), John Slaughter (Alliant Health, ATP Executive Advisory Board)
-- **Fleet Command:** John Trainor (Four Technologies, ATP Executive Advisory Board)
+- **Fleet Command:** John Trainor (President, Four Technologies, ATP Executive Advisory Board)
 
 <p align="center"><img src="assets/repo-qr-code.png" alt="QR code linking to this repo" width="200"></p>
 
@@ -29,6 +29,26 @@ Each station is a guided discussion, not a talk: the station pilot puts a list o
 Immediately afterward, the group reassembles for **the Throne Room**, the closeout session. Everyone who spent the evening in a different room, back together at the end. It's the one vantage point that actually sees the patterns across all five stations at once, distilled into shared talking points. See [`closeout/`](closeout/).
 
 This repo documents the full method, not just the output. That includes [how the Throne Room deck was actually synthesized](tools/synthesize-closeout/) from the five station transcripts in the few minutes between sessions ending and the group reassembling, and [the rehearsal harness](tests/) we used to run the whole night end to end beforehand, including every way it could fail.
+
+## Who is running it
+
+<img src="assets/people/john-trainor.jpg" alt="John Trainor" width="160" align="right">
+
+**Fleet Command: John Trainor**, President of Four Technologies, a rapidly growing AI-first FinTech company. His previous roles include CTO of Wahoo Fitness and CIO of Aaron's, and he holds an Electrical Engineering degree from Georgia Tech. John has been an active member of ATP for over 15 years and has led a number of technology industry organizations in Atlanta. An avid endurance athlete, he runs marathons with his wife Heather, but his favorite thing to do is spend time with his two grandchildren.
+
+On the night he hosts, records, and transcribes all five stations, runs the closing synthesis, and presents the Throne Room.
+
+<br clear="all">
+
+**Station pilots**, each running one room as a guided discussion. Full bios are in each station's README.
+
+| Station | Pilot |
+|---|---|
+| [Sky City](stations/sky-city/) | Dorren Schmitt, PhD, VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group |
+| [Swamp Planet](stations/swamp-planet/) | Michael Muncy, CTO, Aveanna |
+| [Ice Planet](stations/ice-planet/) | Mat Mathews, Chief Information Officer, Fortrex |
+| [Snow Monster Cave](stations/snow-monster-cave/) | Mike Park, Chief Information Officer, Infor |
+| [Asteroid Field](stations/asteroid-field/) | Dante Jackson, Founder and CEO, Serket-Tech Security |
 
 ## Station sponsors
 

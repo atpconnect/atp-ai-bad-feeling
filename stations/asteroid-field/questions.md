@@ -1,7 +1,7 @@
 # Asteroid Field: Question List and Seeded Answers
 
 **Theme:** Compliance, legal, and security
-**Station pilot:** Dante Jackson, Chief Executive Officer, Serket-Tech Security
+**Station pilot:** Dante Jackson, Founder and CEO, Serket-Tech Security
 **Status:** draft, 2026-09-11
 
 Everyone said to stay out of it. Then you flew straight through anyway, because turning back wasn't actually an option. This station is about the compliance, legal, and security review everyone dreaded and went through anyway: what it actually caught, what it cost to go around it instead, and what employees were doing with AI tools the whole time nobody was looking. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.

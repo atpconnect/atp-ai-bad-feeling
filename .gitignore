@@ -8,3 +8,6 @@
 # Python bytecode from the rehearsal harness
 __pycache__/
 *.pyc
+
+# Source material for bios and headshots, not for publication as-is
+docs/
