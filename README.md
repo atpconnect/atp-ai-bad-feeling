@@ -14,41 +14,72 @@ Scan the QR code above to come back to this repo after the event. It's also disp
 
 ## Format
 
-Attendees split into five themed stations (about 25 people each), each covering a distinct way enterprise AI programs go wrong:
-
-| Station | Theme | Sponsor |
-|---|---|---|
-| [Sky City](stations/sky-city/) | Infrastructure and integration challenges with third-party tools | |
-| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality issues | [LogicSpree](https://www.logicspree.com/) |
-| [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | [Griffin](https://griffinglobaltech.com/) |
-| [Snow Monster Cave](stations/snow-monster-cave/) | Development | [Allata](https://www.allata.com/) |
-| [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | |
-
-Each station is a guided discussion, not a talk: the station pilot puts a list of roughly eight questions to their station and the room answers. Fleet Command hosts, records, and transcribes each one via an independent Teams meeting, not the pilot, and every station has a Flight Engineer whose only job is to watch that the capture is actually working. No one in any single station gets the full picture. That's the point of what comes next.
+Attendees split into five themed stations of about 25 people, each covering a distinct way enterprise AI programs go wrong. Each station is a guided discussion, not a talk: the station pilot puts a list of roughly eight questions to the room and the room answers. Fleet Command hosts, records, and transcribes each one via an independent Teams meeting, and every station has a Flight Engineer whose only job is to watch that the capture is actually working. No one in any single station gets the full picture. That's the point of what comes next.
 
 Immediately afterward, the group reassembles for **the Throne Room**, the closeout session. Everyone who spent the evening in a different room, back together at the end. It's the one vantage point that actually sees the patterns across all five stations at once, distilled into shared talking points. See [`closeout/`](closeout/).
 
 This repo documents the full method, not just the output. That includes [how the Throne Room deck was actually synthesized](tools/synthesize-closeout/) from the five station transcripts in the few minutes between sessions ending and the group reassembling, and [the rehearsal harness](tests/) we used to run the whole night end to end beforehand, including every way it could fail.
 
-## Who is running it
+## The five stations
+
+Pick the one that sounds most like your own program. Full pilot bios, the question list each pilot will work from, and, after the event, the transcript, are in each station's folder.
+
+### Sky City
+
+**Infrastructure and integration challenges with third-party tools.** Every vendor deal was made in good faith. Right up until the terms changed underneath someone. This station is about the moment those terms changed, and what it cost to find out mid-flight rather than in the contract review.
+
+<table><tr>
+<td width="96" valign="top"><img src="assets/people/dorren-schmitt.jpg" alt="Dorren Schmitt, PhD" width="88"></td>
+<td valign="top"><b>Station pilot:</b> Dorren Schmitt, PhD<br>VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group<br><br><a href="stations/sky-city/questions.md">Question list</a> &middot; <a href="stations/sky-city/">Station folder</a></td>
+</tr></table>
+
+### Swamp Planet
+
+**Technical debt and data quality issues.** The ship sank because nobody had dealt with what was underneath it. This station is about the swamp under every AI project: the data nobody cleaned up, the schema nobody updated, the owner who left, and the pilot that became production without anyone rebuilding it.
+
+<table><tr>
+<td valign="top"><b>Station pilot:</b> To be announced<br><br><a href="stations/swamp-planet/questions.md">Question list</a> &middot; <a href="stations/swamp-planet/">Station folder</a></td>
+<td width="200" align="center" valign="middle"><a href="https://www.logicspree.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/logicspree-dark.png"><img src="assets/sponsors/logicspree.png" alt="LogicSpree" width="180"></picture></a><br><sub>Station sponsor</sub></td>
+</tr></table>
+
+### Ice Planet
+
+**Use cases, costs, and scope creep.** Everyone's dug in, waiting on a decision that hasn't come. This station is about the AI use cases stuck in exactly that position: not cancelled, not shipped, while the cost meter keeps running and the original ask quietly grows into something nobody approved.
+
+<table><tr>
+<td width="96" valign="top"><img src="assets/people/mat-mathews.jpg" alt="Mat Mathews" width="88"></td>
+<td valign="top"><b>Station pilot:</b> Mat Mathews<br>Chief Information Officer, Fortrex<br><br><a href="stations/ice-planet/questions.md">Question list</a> &middot; <a href="stations/ice-planet/">Station folder</a></td>
+<td width="200" align="center" valign="middle"><a href="https://griffinglobaltech.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/griffin-dark.png"><img src="assets/sponsors/griffin.png" alt="Griffin" width="180"></picture></a><br><sub>Station sponsor</sub></td>
+</tr></table>
+
+### Snow Monster Cave
+
+**Development.** Nobody wants to be the one left hanging when something breaks. This station is about what's actually happening inside the build: the testing, the on-call, the ownership decisions nobody wrote down, and the engineer who ends up holding all of it.
+
+<table><tr>
+<td width="96" valign="top"><img src="assets/people/mike-park.jpg" alt="Mike Park" width="88"></td>
+<td valign="top"><b>Station pilot:</b> Mike Park<br>Chief Information Officer, Infor<br><br><a href="stations/snow-monster-cave/questions.md">Question list</a> &middot; <a href="stations/snow-monster-cave/">Station folder</a></td>
+<td width="200" align="center" valign="middle"><a href="https://www.allata.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/allata-dark.png"><img src="assets/sponsors/allata.png" alt="Allata" width="180"></picture></a><br><sub>Station sponsor</sub></td>
+</tr></table>
+
+### Asteroid Field
+
+**Compliance, legal, and security.** Everyone said to stay out of it. Then you flew straight through anyway, because turning back wasn't an option. This station is about the compliance, legal, and security review everyone dreaded and went through anyway: what it caught, what it cost to go around it, and what employees were doing with AI tools the whole time nobody was looking.
+
+<table><tr>
+<td width="96" valign="top"><img src="assets/people/dante-jackson.jpg" alt="Dante Jackson" width="88"></td>
+<td valign="top"><b>Station pilot:</b> Dante Jackson<br>Founder and CEO, Serket-Tech Security<br><br><a href="stations/asteroid-field/questions.md">Question list</a> &middot; <a href="stations/asteroid-field/">Station folder</a></td>
+</tr></table>
+
+## Fleet Command
 
 <img src="assets/people/john-trainor.jpg" alt="John Trainor" width="160" align="right">
 
-**Fleet Command: John Trainor**, President of Four Technologies, a rapidly growing AI-first FinTech company. His previous roles include CTO of Wahoo Fitness and CIO of Aaron's, and he holds an Electrical Engineering degree from Georgia Tech. John has been an active member of ATP for over 15 years and has led a number of technology industry organizations in Atlanta. An avid endurance athlete, he runs marathons with his wife Heather, but his favorite thing to do is spend time with his two grandchildren.
+**John Trainor**, President of Four Technologies, a rapidly growing AI-first FinTech company. His previous roles include CTO of Wahoo Fitness and CIO of Aaron's, and he holds an Electrical Engineering degree from Georgia Tech. John has been an active member of ATP for over 15 years and has led a number of technology industry organizations in Atlanta. An avid endurance athlete, he runs marathons with his wife Heather, but his favorite thing to do is spend time with his two grandchildren.
 
 On the night he hosts, records, and transcribes all five stations, runs the closing synthesis, and presents the Throne Room.
 
 <br clear="all">
-
-**Station pilots**, each running one room as a guided discussion. Full bios are in each station's README.
-
-| Station | Pilot |
-|---|---|
-| [Sky City](stations/sky-city/) | Dorren Schmitt, PhD, VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group |
-| [Swamp Planet](stations/swamp-planet/) | To be announced |
-| [Ice Planet](stations/ice-planet/) | Mat Mathews, Chief Information Officer, Fortrex |
-| [Snow Monster Cave](stations/snow-monster-cave/) | Mike Park, Chief Information Officer, Infor |
-| [Asteroid Field](stations/asteroid-field/) | Dante Jackson, Founder and CEO, Serket-Tech Security |
 
 ## Station sponsors
 
@@ -57,10 +88,6 @@ On the night he hosts, records, and transcribes all five stations, runs the clos
 <td align="center" width="240"><a href="https://griffinglobaltech.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/griffin-dark.png"><img src="assets/sponsors/griffin.png" alt="Griffin" width="220"></picture></a><br><sub>Ice Planet</sub></td>
 <td align="center" width="240"><a href="https://www.allata.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/allata-dark.png"><img src="assets/sponsors/allata.png" alt="Allata" width="220"></picture></a><br><sub>Snow Monster Cave</sub></td>
 </tr></table>
-
-- **Swamp Planet**, technical debt and data quality: [LogicSpree](https://www.logicspree.com/)
-- **Ice Planet**, use cases, costs, and scope creep: [Griffin](https://griffinglobaltech.com/)
-- **Snow Monster Cave**, development: [Allata](https://www.allata.com/)
 
 ## Take this and run it yourself
 
