@@ -5,12 +5,26 @@ Public archive for the ATP event "Your AI Program Has a Bad Feeling About This."
 - **Date:** September 17, 2026, 6:00 to 8:30 PM
 - **Location:** Social House Roswell, 1098 Green St, Roswell, GA 30075
 - **Details / registration:** https://atpconnect.org/events/your-ai-program-has-a-bad-feeling-about-this/
-- **Event Council:** Scott Harris (One Inc, ATP Finance Chair), Tom Lasswell (DC BLOX, ATP Director of Technology), John Slaughter (Alliant Health, ATP Executive Advisory Board)
 - **Fleet Command:** John Trainor (President, Four Technologies, ATP Executive Advisory Board)
 
 <p align="center"><img src="assets/repo-qr-code.png" alt="QR code linking to this repo" width="200"></p>
 
 Scan the QR code above to come back to this repo after the event. It's also displayed at the event itself, where you'll find the station transcripts and the closeout session talking points.
+
+## The ATP team
+
+The Event Council: the three ATP leads who own the event, from the first planning call to the last transcript posted here.
+
+<table><tr>
+<td width="96" valign="top"><img src="assets/people/scott-harris.jpg" alt="Scott Harris" width="88"></td>
+<td valign="top"><b>Scott Harris</b>, One Inc<br>ATP Finance Chair, <a href="https://atpconnect.org/about/board-of-directors/">Board of Directors</a> &middot; <a href="https://www.linkedin.com/in/scottmichaelharris">LinkedIn</a><br><br>Owns the run of show. On the night he is also the timekeeper who calls time on all five stations, which is the one thing the entire closeout synthesis window depends on.</td>
+</tr><tr>
+<td width="96" valign="top"><img src="assets/people/tom-lasswell.jpg" alt="Tom Lasswell" width="88"></td>
+<td valign="top"><b>Tom Lasswell</b>, DC BLOX<br>ATP Director of Technology, <a href="https://atpconnect.org/about/board-of-directors/">Board of Directors</a> &middot; <a href="https://www.linkedin.com/in/lasswellt/">LinkedIn</a><br><br>Owns logistics. Drafted the question list for every station, and is day-of tech support: first responder on any laptop, network, or Teams problem, and the backstop to the Flight Engineers.</td>
+</tr><tr>
+<td width="96" valign="top"><img src="assets/people/john-slaughter.jpg" alt="John Slaughter" width="88"></td>
+<td valign="top"><b>John Slaughter</b>, Alliant Health<br>Chief Information Officer, ATP <a href="https://atpconnect.org/about/executive-advisory-board/">Executive Advisory Board</a> &middot; <a href="https://www.linkedin.com/in/john-slaughter-4b578/">LinkedIn</a><br><br>Recruited the station pilots: the five CIOs, CTOs, and founders who each agreed to run a room for an evening and say true things out loud.</td>
+</tr></table>
 
 ## Format
 
