@@ -53,9 +53,9 @@ On the night he hosts, records, and transcribes all five stations, runs the clos
 ## Station sponsors
 
 <table align="center"><tr>
-<td align="center" width="240"><a href="https://www.logicspree.com/"><img src="assets/sponsors/logicspree.png" alt="LogicSpree" width="220"></a><br><sub>Swamp Planet</sub></td>
-<td align="center" width="240"><a href="https://griffinglobaltech.com/"><img src="assets/sponsors/griffin.png" alt="Griffin" width="220"></a><br><sub>Ice Planet</sub></td>
-<td align="center" width="240"><a href="https://www.allata.com/"><img src="assets/sponsors/allata.png" alt="Allata" width="220"></a><br><sub>Snow Monster Cave</sub></td>
+<td align="center" width="240"><a href="https://www.logicspree.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/logicspree-dark.png"><img src="assets/sponsors/logicspree.png" alt="LogicSpree" width="220"></picture></a><br><sub>Swamp Planet</sub></td>
+<td align="center" width="240"><a href="https://griffinglobaltech.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/griffin-dark.png"><img src="assets/sponsors/griffin.png" alt="Griffin" width="220"></picture></a><br><sub>Ice Planet</sub></td>
+<td align="center" width="240"><a href="https://www.allata.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/allata-dark.png"><img src="assets/sponsors/allata.png" alt="Allata" width="220"></picture></a><br><sub>Snow Monster Cave</sub></td>
 </tr></table>
 
 - **Swamp Planet**, technical debt and data quality: [LogicSpree](https://www.logicspree.com/)

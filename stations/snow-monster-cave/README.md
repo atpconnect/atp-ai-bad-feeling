@@ -4,7 +4,7 @@
 **Sponsor:** [Allata](https://www.allata.com/)
 **Station pilot:** Mike Park, Chief Information Officer, Infor
 
-<p align="center"><a href="https://www.allata.com/"><img src="../../assets/sponsors/allata.png" alt="Allata" width="240"></a></p>
+<p align="center"><a href="https://www.allata.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="../../assets/sponsors/allata-dark.png"><img src="../../assets/sponsors/allata.png" alt="Allata" width="240"></picture></a></p>
 
 Nobody wants to be the one left hanging upside down in the cave. This station is about not leaving your program, or your people, hanging when the costs and the holes show up.
 
