@@ -52,7 +52,8 @@ Pick the one that sounds most like your own program. Full pilot bios, the questi
 **Technical debt and data quality issues.** The ship sank because nobody had dealt with what was underneath it. This station is about the swamp under every AI project: the data nobody cleaned up, the schema nobody updated, the owner who left, and the pilot that became production without anyone rebuilding it.
 
 <table><tr>
-<td valign="top"><b>Station pilot:</b> To be announced<br><br><a href="stations/swamp-planet/questions.md">Question list</a> &middot; <a href="stations/swamp-planet/">Station folder</a></td>
+<td width="96" valign="top"><img src="assets/people/michael-muncy.jpg" alt="Michael Muncy" width="88"></td>
+<td valign="top"><b>Station pilot:</b> Michael Muncy<br>Chief Technology Officer, Aveanna Healthcare<br><br><a href="stations/swamp-planet/questions.md">Question list</a> &middot; <a href="stations/swamp-planet/">Station folder</a></td>
 <td width="200" align="center" valign="middle"><a href="https://www.logicspree.com/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/sponsors/logicspree-dark.png"><img src="assets/sponsors/logicspree.png" alt="LogicSpree" width="180"></picture></a><br><sub>Station sponsor</sub></td>
 </tr></table>
 

@@ -30,7 +30,7 @@ One per station. Each runs their station as a guided discussion off their questi
 | Station | Theme | Sponsor | Pilot | Status | Dry run booked | Questions received |
 |---|---|---|---|---|---|---|
 | [Sky City](stations/sky-city/) | Infrastructure and integration with third-party tools | | Dorren Schmitt, PhD (VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group) | ✅ | ❌ | ⚠️ draft |
-| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality | LogicSpree | To be announced | ⚠️ | ❌ | ⚠️ draft |
+| [Swamp Planet](stations/swamp-planet/) | Technical debt and data quality | LogicSpree | Michael Muncy (CTO, Aveanna Healthcare) | ✅ | ❌ | ⚠️ draft |
 | [Ice Planet](stations/ice-planet/) | Use cases, costs, and scope creep | Griffin | Mat Mathews (CIO, Fortrex) | ✅ | ❌ | ⚠️ draft |
 | [Snow Monster Cave](stations/snow-monster-cave/) | Development | Allata | Mike Park (CIO, Infor) | ✅ | ❌ | ⚠️ draft |
 | [Asteroid Field](stations/asteroid-field/) | Compliance, legal, and security | | Dante Jackson (Founder and CEO, Serket-Tech Security) | ✅ | ❌ | ⚠️ draft |
