@@ -32,7 +32,7 @@ Tom Lasswell is drafting the question list for each station. Once you have it, i
 - **Don't radically rewrite the list at the last minute.** Trimming a question or rewording one is fine, any time. Swapping the whole set on the day is not.
 - **Stay reasonably close to your list in the room.** Following the discussion where it goes is good facilitation, and it's fine as long as the audio is clean. The catch is that nobody knows whether the audio was clean until after the session is over, so the questions are the one thing we can count on.
 
-That last point is the real reason this matters. Your question list, with likely answers pre-filled against it, is the backup plan. If your recording or transcript has any problem on the day, that list is what represents your station in the closeout session. The more accurate it is, the better your station comes through even in a worst case.
+That last point is the real reason this matters. Your question list, with likely answers pre-filled against it, is the backup plan. Fleet Command also writes an expected transcript per station, a longer guess at what your room will say, and that is what the closeout actually falls back to. If your recording or transcript has any problem on the day, those two files are what represent your station in the closeout session. The more accurate your question list is, and the more you tell us about what you expect this room to say, the better your station comes through even in a worst case.
 
 ### 4. Running a room of twenty-five
 

@@ -5,10 +5,18 @@
 # For each station, in priority order, it uses:
 #   1. transcript.md / transcript.txt   the real transcript, plain text
 #   2. transcript.docx                  converted via pandoc, if pandoc is installed
-#   3. questions.md                     the question list plus pre-filled likely answers,
-#                                        used as a fallback if no transcript was captured
+#   3. expected-transcript.md           what we wrote beforehand that this room is likely
+#                                        to say, in transcript shape. A fallback.
+#   4. questions.md                     the question list plus pre-filled likely answers.
+#                                        The last fallback, and the one that always exists.
 # A station with none of the above is a hard error: we do not ship a deck that
 # silently drops a station.
+#
+# Tiers 3 and 4 are both fallbacks and are both labelled as such on the station's own
+# screen. The only difference is how much the deck has to work with: a question list
+# gets you a slide that describes an agenda, and an expected transcript gets you one
+# with numbers and arguments on it. Neither one is a recording, and the builder is told
+# which is which from disk, not from the model.
 #
 # The model is asked for JSON, not for a deck. The JSON is validated against a
 # schema before anything is rendered, and a run that fails validation leaves the
@@ -94,6 +102,10 @@ for name in "${STATION_IDS[@]}"; do
   elif [[ -f "$dir/transcript.docx" ]] && command -v pandoc >/dev/null 2>&1; then
     content="$(pandoc "$dir/transcript.docx" -t plain --wrap=none)"
     source_note="Source: transcript (converted from .docx)"
+  elif [[ -f "$dir/expected-transcript.md" ]]; then
+    content="$(cat "$dir/expected-transcript.md")"
+    source_note="Source: FALLBACK. An expected transcript, written by Fleet Command before the event as its best guess at what this room would say. It is shaped like a recording and it is not one. No transcript was captured for this station and nobody in that room said these words."
+    fallback+=("$name"); SOURCE_OF[$name]=fallback
   elif [[ -f "$dir/questions.md" ]]; then
     content="$(cat "$dir/questions.md")"
     source_note="Source: FALLBACK. Question list with pre-filled likely answers. No transcript was captured for this station and nobody in that room said these words."

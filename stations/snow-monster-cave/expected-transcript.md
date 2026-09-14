@@ -1,0 +1,191 @@
+# Snow Monster Cave: Expected Transcript
+
+**This is not a recording. Nobody has said any of this.**
+
+Fleet Command wrote this before the event, from the question list in [`questions.md`](questions.md), as a fuller version of the seeded answers in it: what this room is likely to say, in the shape a transcript arrives in, so the closeout has something with real texture to fall back on if this station's recording fails. On the night it is replaced by `transcript.md`, which is the real one.
+
+There are no names in it because there will not be any. The station is captured on one laptop in a loud room, so Teams attributes the whole session to the meeting host and not to the twenty-five people actually talking.
+
+---
+
+Snow Monster Cave, September 17, 2026
+
+Station pilot 0:12
+Snow Monster Cave. This one is about development: what is actually happening inside the build. Speak toward the laptop, we are recording. First question, round the room, one phrase each. What did tested mean for the last AI feature you shipped? And I will tell you now that vibes is an acceptable answer.
+
+Speaker 1 0:47
+Vibes.
+
+Station pilot 0:50
+There it is, forty seconds in.
+
+Speaker 2 0:56
+Forty examples in a spreadsheet that the product manager wrote.
+
+Speaker 3 1:04
+One engineer read outputs for an afternoon and said it seemed fine.
+
+Speaker 4 1:14
+We actually had three hundred golden cases. All happy path. Nothing adversarial, nothing empty, nothing in the wrong language.
+
+Speaker 5 1:30
+A demo to the sponsor. That was the test.
+
+Speaker 6 1:38
+We had a real eval harness, and I want to be honest about why. We had an incident on the previous feature and we built it after.
+
+Station pilot 1:56
+Who decided it was enough? Anybody?
+
+Speaker 2 2:04
+Nobody decided. The date decided.
+
+Speaker 4 2:11
+Same. There was a launch on the calendar before there was a test plan.
+
+Station pilot 2:24
+Second. What is a change that passed every test you had and still broke behaviour in production? Hands. Most of you. Two stories, and then I want to know what caught it, a dashboard or a user.
+
+Speaker 6 2:51
+We tightened a prompt to make answers shorter. It passed a hundred and twenty cases. In production it started dropping a required disclaimer on one category of answer, because the disclaimer was the longest sentence and shorter was what we asked for. A quality lead reading tickets caught it. Nine days.
+
+Speaker 3 3:29
+We rebuilt the retrieval index with different chunking. Every eval passed, and every eval passed because the eval used a cached retrieval set from before the rebuild. We were testing the old index against the new model. It took a week and a very confused afternoon to work that out.
+
+Speaker 1 4:02
+Ours was a vendor-side change, so we did not change anything at all. That is the part that gets me. The tests pass because nothing in our repository moved.
+
+Station pilot 4:24
+Dashboard or user, round the room quickly.
+
+Speaker 6 4:31
+User.
+
+Speaker 3 4:33
+Engineer, by accident.
+
+Speaker 2 4:37
+Customer. In writing. To our CEO.
+
+Speaker 5 4:43
+Nobody caught it. We found it two months later looking for something else.
+
+Station pilot 4:56
+Third. Who is actually on call when the AI feature misbehaves at two in the morning, and did they know that was part of the job when they signed up? Hands up if you have a formal on-call rotation for an AI feature. One, two, three. Three, out of about twenty-two. So who is really carrying it?
+
+Speaker 4 5:33
+The two people who built it. There is no rotation. There is a phone number that is one of their mobile numbers, in a runbook, that somebody typed in during the launch.
+
+Speaker 7 5:56
+For us it is worse than informal. The alert goes to the platform on-call, who is a good engineer with no idea what the thing does, and the actual escalation is that they message the builder on Teams and hope.
+
+Speaker 2 6:22
+We had a genuine two a.m. one. A queue backed up. The on-call engineer could see it and could not fix it, because the only thing that would have fixed it was a setting in the vendor console and one person had the login. That person was asleep and had no reason to think that was part of their job.
+
+Station pilot 6:56
+Did they know when they signed up?
+
+Speaker 4 7:03
+No. They volunteered to build a prototype. Nobody has ever gone back and renegotiated that.
+
+Station pilot 7:19
+Fourth. What skill was missing on your engineering team when this started, and how did you close the gap? Poll. Hired. Four. Trained. Six. Contracted. Five. Still missing. That is nine hands and it is the biggest pile. What is the skill?
+
+Speaker 3 7:51
+Nobody had ever built an eval pipeline. Not a unit test, an eval. How to decide what good looks like when the output is a paragraph and there are twenty acceptable versions of it.
+
+Speaker 6 8:18
+We closed it by hiring one person who had done it somewhere else, and honestly that worked, but it also means we have one person who understands it and we are back to the same problem in a different shape.
+
+Speaker 8 8:44
+The missing skill on our team was not technical. It was somebody who could say this is not ready. Everybody could see it. Nobody had the standing to stop a launch.
+
+Speaker 5 9:06
+We contracted it and the contractors were good, and when they left they took the understanding with them and left us the code.
+
+Station pilot 9:28
+Fifth. How much of what you call your AI feature is genuinely your code, versus a thin wrapper around somebody else's API? Round the room, a percentage.
+
+Speaker 1 9:50
+Fifteen percent ours.
+
+Speaker 7 9:55
+Twenty.
+
+Speaker 2 10:00
+Five, and I will defend five. The whole thing is a prompt and a queue.
+
+Speaker 4 10:10
+I would say ninety percent ours, but the ten percent is the part that makes it work, so the number is misleading in our favour and I know it.
+
+Speaker 6 10:27
+Thirty. Most of what we own is retrieval, permissions, and the review step. Which is also where all the bugs are.
+
+Station pilot 10:47
+Does leadership know that number?
+
+Speaker 2 10:54
+Absolutely not. There is a slide with our logo on it and an architecture diagram with nine boxes, and eight of those boxes are ours and the ninth one does the work.
+
+Station pilot 11:18
+Sixth. Where does the prompt actually live in your shop? Source control, a vendor console, or somebody's laptop. Hands for source control. Eight. Vendor console. Six. Laptop. Two, and I appreciate the honesty. What has that cost you?
+
+Speaker 5 11:52
+The change nobody could trace. Output quality dropped on a Monday. Nothing in the release notes, nothing in the repository, no deployment. Somebody had edited the prompt in the console on Friday at five, for a good reason, for a different feature, and both features read the same prompt.
+
+Speaker 7 12:28
+That is exactly ours. Two features, one prompt, and nobody knew because the console does not tell you what is calling it.
+
+Speaker 3 12:47
+We moved ours into the repository after something like that, and the thing I would say to anyone who has not is that the win is not version control. The win is that a change now has a person and a reason attached to it.
+
+Station pilot 13:12
+Seventh. When a model or prompt change goes bad, what does rolling back actually look like? Hands if you have actually rolled one back. About seven. What could you revert, and what could you not?
+
+Speaker 6 13:39
+We could revert the prompt in about four minutes. We could pin the model version, because we pay for the tier that allows it. What we could not do is get the vendor's underlying weights back, so the behaviour we rolled back to was not the behaviour we had two weeks earlier. It was close. Close was enough that time.
+
+Speaker 3 14:14
+Ours looked like a successful rollback and was not, because the embeddings in the index had been regenerated with the new model. We reverted the code and the data was still from the new world. Quality stayed bad for another day and a half while we argued about whether the rollback had worked.
+
+Speaker 2 14:48
+For us rolling back took forty minutes, and thirty-nine of those minutes were finding out where the prompt was.
+
+Speaker 8 15:03
+I want to add the one nobody mentions. You can roll back the system. You cannot roll back the four thousand answers it already gave people.
+
+Station pilot 15:24
+Say that again.
+
+Speaker 8 15:29
+The output is already gone. It is in somebody's inbox, it is in a ticket, it is in a decision somebody made. A rollback fixes the next answer. It does not fix the ones that already went out, and none of our incident processes have a step for that.
+
+Station pilot 15:56
+Last question, at the five-minute mark. A dev team is about to build their first real AI feature. Round the room, one thing each about what actually eats the time.
+
+Speaker 3 16:18
+Not the integration. The integration is an afternoon. The eval set is a month.
+
+Speaker 6 16:31
+Deciding what good looks like, with the business, in writing, before you build.
+
+Speaker 4 16:44
+The on-call plan. Write it before launch or you will be it.
+
+Speaker 7 16:56
+Put the prompt in the repository on day one. It costs nothing on day one.
+
+Speaker 2 17:08
+Assume the vendor will change something and build the regression test that would tell you.
+
+Speaker 5 17:21
+Decide who owns it after the person who built it moves on. That person will move on.
+
+Speaker 1 17:35
+Budget for version two. Version one is the thing that teaches you what to build.
+
+Speaker 8 17:48
+And write down what you will do about the answers that already went out.
+
+Station pilot 18:01
+That is time. Thank you.

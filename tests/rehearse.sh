@@ -20,7 +20,7 @@ DEFAULT_FOLLOW="https://atpconnect.github.io/atp-ai-bad-feeling/closeout/present
 KEEP=0
 [[ "${1:-}" == "--keep" ]] && { KEEP=1; shift; }
 
-ALL=(seed happy mixed docx disaster late garbage badschema liar crash nothing noprior fullsize
+ALL=(seed expected happy mixed docx disaster late garbage badschema liar crash nothing noprior fullsize
      hedge-primary hedge-standby hedge-primary-bad hedge-both-bad hedge-disabled
      no-hedge-flag voices voices-partial voices-all-fail voices-launder voices-timid refs-overdone
      project follow qr-decodes demo theming docs)
@@ -42,13 +42,24 @@ new_scratch() {
   SCRATCH="$(mktemp -d)"
   cp -r "$REPO"/{stations,tools,assets} "$SCRATCH/"
   mkdir -p "$SCRATCH/closeout" "$SCRATCH/Downloads"
-  rm -f "$SCRATCH"/stations/*/questions.md "$SCRATCH"/stations/*/transcript.*
+  rm -f "$SCRATCH"/stations/*/questions.md "$SCRATCH"/stations/*/transcript.* \
+        "$SCRATCH"/stations/*/expected-transcript.md
   DECK="$SCRATCH/closeout/presentation.html"
 }
 
 seed_questions() {  # the pre-event artifact: question lists in place
   for f in "$FIX"/questions/*.md; do
     cp "$f" "$SCRATCH/stations/$(basename "${f%.md}")/questions.md"
+  done
+}
+
+# The second pre-event artifact: what we wrote that each room is likely to say, in
+# transcript shape. A fallback like the question list, with more on it. Taken from the
+# real repo rather than from fixtures, because the thing worth rehearsing is the file
+# that will actually be sitting there on the night.
+seed_expected() {
+  for f in "$REPO"/stations/*/expected-transcript.md; do
+    cp "$f" "$SCRATCH/stations/$(basename "$(dirname "$f")")/expected-transcript.md"
   done
 }
 
@@ -78,6 +89,7 @@ run_synth() {
         STUB_DELAY_PRIMARY="${STUB_DELAY_PRIMARY:-0}" STUB_DELAY_FAST="${STUB_DELAY_FAST:-0}" \
         DEADLINE_S="${DEADLINE_S:-150}" GRACE_S="${GRACE_S:-60}" FAST_MODEL="${FAST_MODEL-haiku}" \
         STUB_VOICE_FAIL="${STUB_VOICE_FAIL:-}" STUB_VOICE_VAGUE="${STUB_VOICE_VAGUE:-}" STUB_VOICE_TIMID="${STUB_VOICE_TIMID:-}" STUB_OVERDO_REFS="${STUB_OVERDO_REFS:-}" VOICES="${VOICES:-}" FOLLOW_URL="${FOLLOW_URL-$DEFAULT_FOLLOW}" \
+        STUB_SAVE_PROMPT="${STUB_SAVE_PROMPT:-}" \
         ./tools/synthesize-closeout/synthesize.sh ${SYNTH_ARGS:-} ) >"$SCRATCH/synth.log" 2>&1
   fi
   RC=$?
@@ -149,6 +161,34 @@ scen_seed() {  # days before: build the floor from question lists alone
   check "title marks it pre-seeded"             "deck_says 'pre-seeded'"
   check "QR code embedded"                      "deck_says 'data:image/png;base64,'"
   check "9 screens: 2 method, 5 stations, patterns, receipts" "[[ \$(deck_screens) -eq 9 ]]"
+}
+
+scen_expected() {  # the deeper fallback: an expected transcript outranks a question list, and is still a fallback
+  new_scratch; seed_questions; seed_expected
+  STUB_SAVE_PROMPT="$SCRATCH/prompt.txt" STUB_MODE=good run_synth seeded
+  check "seed run exits 0"                      "[[ $RC -eq 0 ]]"
+  check "nothing counted as a transcript"       "grep -q 'Inputs: 0/5 from a transcript' '$SCRATCH/synth.log'"
+  check "the model was handed the expected one" "grep -q 'An expected transcript, written by Fleet Command' '$SCRATCH/prompt.txt'"
+  check "and not the thinner question list"     "! grep -q 'Question list with pre-filled likely answers' '$SCRATCH/prompt.txt'"
+  check "it is labelled a FALLBACK to the model" "[[ \$(grep -c 'Source: FALLBACK' '$SCRATCH/prompt.txt') -ge 5 ]]"
+  check "all 5 stations still marked PREVIEW"   "[[ \$(grep -c 'PREVIEW' '$DECK') -ge 5 ]]"
+  check "deck never calls it a transcript"      "! deck_says '<span class=\"pill\">TRANSCRIPT</span>'"
+
+  # The same inputs on the night, once the recordings have failed rather than not
+  # happened yet. Same content, and the banner has to say the harder thing.
+  STUB_MODE=good run_synth live
+  check "live run exits 0"                      "[[ $RC -eq 0 ]]"
+  check "all 5 flagged as not a transcript"     "[[ \$(grep -c 'Not from a transcript' '$DECK') -eq 5 ]]"
+  check "says whose numbers are on the screen"  "deck_says 'is ours, not the room'"
+
+  # An expected transcript must never stand in the way of the real one.
+  arrive "Sky City" txt
+  ( cd "$SCRATCH" && ./tools/intake-transcript/intake.sh "$SCRATCH/Downloads" ) >"$SCRATCH/intake.log" 2>&1
+  check "a real transcript still files fine"    "[[ -f '$SCRATCH/stations/sky-city/transcript.md' ]]"
+  check "intake names the deeper fallback"      "grep -q 'FALLBACK to expected-transcript.md' '$SCRATCH/intake.log'"
+  STUB_MODE=good run_synth live
+  check "the real one wins"                     "grep -q 'Inputs: 1/5 from a transcript' '$SCRATCH/synth.log'"
+  check "and only the other four are flagged"   "[[ \$(grep -c 'Not from a transcript' '$DECK') -eq 4 ]]"
 }
 
 scen_happy() {  # the night, everything works

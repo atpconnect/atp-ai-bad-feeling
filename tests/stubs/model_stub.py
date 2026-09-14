@@ -30,6 +30,14 @@ if DELAY:
 
 prompt = " ".join(sys.argv[1:]) or sys.stdin.read()
 
+# Keep a copy of what the model was actually handed, so a scenario can assert on the
+# input rather than on the stub's canned output. The stub ignores the prompt by design,
+# which means anything about how the prompt was assembled is otherwise untestable.
+# Appended, because both hedged lanes write to the same file.
+if os.environ.get("STUB_SAVE_PROMPT"):
+    with open(os.environ["STUB_SAVE_PROMPT"], "a") as fh:
+        fh.write(prompt)
+
 # A voice pass is a different job: it gets an already-validated payload back and
 # rewrites the prose. The stub fakes that by tagging every text field, which is enough
 # for the harness to prove the deck really is carrying separate content per voice.

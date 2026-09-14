@@ -115,7 +115,7 @@ The short version, since the event is about why enterprise AI programs fail and 
 - [`crew-manifest.md`](crew-manifest.md): who held which role on the day, and what was still unfilled going in
 - [`station-pilot-instructions.md`](station-pilot-instructions.md): what station pilots needed to prepare and run their session
 - [`coordinator-checklist.md`](coordinator-checklist.md): Fleet Command's runbook for hosting, recording, and monitoring all five stations, and running the closing synthesis
-- `stations/`: question list per station before the event, transcript and notes after it
+- `stations/`: question list and expected transcript per station before the event, the real transcript and notes after it
 - [`closeout/`](closeout/): the Throne Room, the synthesized closeout session deck, added after the event. [Read it here.](https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html)
 - [`tools/synthesize-closeout/`](tools/synthesize-closeout/): the tool and guiding framework used to turn the five transcripts into the closeout deck
 - [`tools/intake-transcript/`](tools/intake-transcript/): files transcripts off the laptop and out of email as they arrive

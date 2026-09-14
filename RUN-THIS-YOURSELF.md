@@ -50,9 +50,11 @@ Before knowing whether any recording would fail, we knew what a failed recording
 
 1. The primary model on the real transcripts.
 2. A faster standby model on the same real transcripts.
-3. A deck built days earlier from the questions each station planned to ask.
+3. A deck built days earlier from what each station planned to ask and what we expected to hear.
 
 Rung three is the important one. It exists on disk before the event starts, so every later run can only improve on it, and no failure on the night can leave you with nothing. **A fallback invented under time pressure is not a fallback.**
+
+It has two depths, and the difference is worth the afternoon. A question list gets that station a slide describing an agenda. An **expected transcript**, the same guess written out at the length a room actually talks, with the numbers and the disagreements in it, gets that station a slide with something on it worth saying out loud. Both carry the banner and neither is a recording. Write the expected transcripts for the stations whose capture you trust least, and then write the rest of them anyway.
 
 ### 6. Label provenance where the audience can see it
 
@@ -147,6 +149,7 @@ If that passes, the pipeline works on your machine and you can start replacing o
 | The five stations, their ids and themes | `STATIONS` in [`build_deck.py`](tools/build-deck/build_deck.py), and the list in [`framework.md`](tools/synthesize-closeout/framework.md) |
 | What the synthesis is asked for | [`framework.md`](tools/synthesize-closeout/framework.md) |
 | Your question lists | `stations/<name>/questions.md`, one per station |
+| What you expect each room to say | `stations/<name>/expected-transcript.md`, the deeper of the two fallbacks |
 | The two method screens | `method_screens()` and `receipts_screen()` in `build_deck.py`. Replace ours with something true about how you ran yours. |
 | Branding and the published URL | `--brand` in the template, and `FOLLOW_URL` |
 | Fixtures the rehearsal runs against | [`tests/fixtures/`](tests/) |
@@ -177,7 +180,11 @@ These are plain text and portable. Paste them into whatever your organization ha
 
 > You are preparing one session of a workshop on [THEME] for [AUDIENCE, SENIORITY, INDUSTRY]. Write eight questions the session lead will put to a room of about 25 people. They must be answerable from direct experience, not opinion, and each one should invite a specific number, example or disagreement rather than a general view. No yes/no questions. Then, under each, write two or three sentences of the answer you would expect a room like this to give, clearly marked as a guess. Output as markdown.
 
-The guessed answers are not padding. They are the fallback that stands in for that room if its recording fails, so they are worth writing properly.
+The guessed answers are not padding. They are the fallback that stands in for that room if its recording fails, so they are worth writing properly. Go one step further for any station you would hate to lose:
+
+> Here is the question list for one session of this workshop, with the answers we expect. Write what a room of about 25 senior [ROLES] would actually say over 45 minutes if a session lead put these questions to them in that order. Transcript shape, speaker labels only, no names. Specific numbers, real examples, and at least one place where the room disagrees with itself. Nobody has said any of this: it is our guess, and it will be labelled as our guess wherever it is used.
+
+That file is a fallback like the question list, not a transcript, and the tooling treats it as one. Anything built from it says on screen that every number on it is yours and not the room's.
 
 **3. Rewrite the synthesis brief**
 

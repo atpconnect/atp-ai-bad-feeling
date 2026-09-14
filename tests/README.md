@@ -14,6 +14,7 @@ REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length tr
 | Scenario | What night it is |
 |---|---|
 | `seed` | Days before. Question lists exist, no transcripts. Builds the floor. |
+| `expected` | Days before, with the expected transcripts written. The deeper fallback outranks the question list, is still labelled a fallback, and never blocks the real transcript. |
 | `happy` | All five recordings worked. |
 | `mixed` | Three Teams exports, one emailed backup from a pilot's own device, one total loss. |
 | `docx` | All five arrive as Teams `.docx` exports and have to be converted. |

@@ -94,6 +94,7 @@ for d in "$STATIONS_DIR"/*/; do
   if   [[ -f "$d/transcript.md"   ]]; then state="transcript"
   elif [[ -f "$d/transcript.txt"  ]]; then state="transcript"
   elif [[ -f "$d/transcript.docx" ]]; then state="transcript (.docx, needs pandoc)"
+  elif [[ -f "$d/expected-transcript.md" ]]; then state="FALLBACK to expected-transcript.md"
   elif [[ -f "$d/questions.md"    ]]; then state="FALLBACK to questions.md"
   else state="NOTHING, synthesis will refuse to run"; fi
   printf '  %-20s %s\n' "$name" "$state"

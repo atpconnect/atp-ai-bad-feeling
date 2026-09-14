@@ -20,5 +20,5 @@ He has carried both the CIO and CISO roles, leading infrastructure, data, and AI
 
 <br clear="all">
 
-Before the event: this station's question list, with pre-filled likely answers, goes in `questions.md`. It doubles as the fallback if no transcript is captured.
+Before the event: this station's question list, with pre-filled likely answers, goes in `questions.md`, and `expected-transcript.md` holds a fuller guess at what this room will say, written at the length a room talks. Both are fallbacks if no transcript is captured, and the closeout prefers the expected transcript because there is more on it. Neither is a recording.
 After the event: the exported transcript goes in `transcript.md` (or `.txt`/`.docx`), used by [`tools/synthesize-closeout/`](../../tools/synthesize-closeout/) to build the closeout draft.

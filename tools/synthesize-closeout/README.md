@@ -16,12 +16,14 @@ Both write `closeout/presentation.html`. Both are safe to re-run as often as you
 
 ## How it fits into the event
 
-1. **Days before.** Question lists land in `stations/<name>/questions.md`, each with pre-filled likely answers. `seed.sh` builds a complete, presentable deck from them, with every station marked as a fallback. From this point on there is always a deck. Nothing that happens on the night can leave Fleet Command in front of the room with nothing.
+1. **Days before.** Question lists land in `stations/<name>/questions.md`, each with pre-filled likely answers, and an `expected-transcript.md` alongside each one: the same guess written out at length, in the shape a transcript arrives in. `seed.sh` builds a complete, presentable deck from whichever of those exists, with every station marked as a fallback. From this point on there is always a deck. Nothing that happens on the night can leave Fleet Command in front of the room with nothing.
 2. **On the night.** As each station wraps, its transcript is filed by [`tools/intake-transcript/`](../intake-transcript/) into `stations/<name>/transcript.md`.
-3. **In the gap.** `synthesize.sh` reads whatever is currently there, prefers a real transcript over a question list per station, asks the model for structured content, validates it, and rebuilds the deck.
+3. **In the gap.** `synthesize.sh` reads whatever is currently there, takes the best available source per station, asks the model for structured content, validates it, and rebuilds the deck.
 4. **Presenting.** Open the HTML in a browser. Arrow keys or Next. Fleet Command drives it live and adapts; it is not read verbatim.
 
-Per station, in priority order: `transcript.md` / `transcript.txt`, then `transcript.docx` via pandoc, then `questions.md` as the flagged fallback. A station with none of those is a hard error, because a deck that silently drops a station is worse than no deck.
+Per station, in priority order: `transcript.md` / `transcript.txt`, then `transcript.docx` via pandoc, then `expected-transcript.md`, then `questions.md`. The last two are both flagged fallbacks. A station with none of those is a hard error, because a deck that silently drops a station is worse than no deck.
+
+**The two fallback tiers differ only in how much the deck has to work with.** A question list gets you a slide that describes an agenda: this station was set up to ask about vendor contracts, and here is what we expected to hear. An expected transcript gets you one with numbers and arguments on it, because it was written at the length a room actually talks. Neither is a recording, both carry the banner, and the brief spends a paragraph on the expected transcript specifically, because it is the one that reads like testimony and is not.
 
 ## What the model is and isn't asked for
 

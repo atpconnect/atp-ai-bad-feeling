@@ -21,7 +21,9 @@ After all five run in parallel, the whole group reassembles. The closeout's job 
 You will be given five blocks, one per station. Each is labeled with its source:
 
 - **`Source: transcript`** means a real recording of what the room actually said. Use it.
-- **`Source: FALLBACK`** means no usable audio was captured. What you get instead is that station's pre-written question list and the answers we guessed at beforehand. Nobody in that room said these words.
+- **`Source: FALLBACK`** means no usable audio was captured. Nobody in that room said these words. A fallback block is one of two things, and the label says which: that station's pre-written question list with the answers we guessed at beforehand, or an **expected transcript**, which is the same guess written out at length in the shape of a recording, with invented speakers, numbers and arguments in it.
+
+An expected transcript is the harder one to handle correctly, because it reads exactly like the real thing. Nothing in it happened. Use its substance, because that substance is what we expect this room to raise, and never once let it sound like testimony.
 
 ## Task
 
@@ -58,7 +60,7 @@ Schema rules. The structural ones are hard: break one and the whole run is rejec
 
 - **Be specific.** Real examples, real numbers, real quotes, real disagreements. "Teams struggled with data quality" is worthless. "Three people said their vendor's confidence scores were uncalibrated and nobody could get the vendor to explain the threshold" is the point of the whole event.
 - **Ground every point in the input text.** Do not invent examples, numbers, or quotes. If a station's input is thin, say less about it rather than padding it.
-- **Never launder a fallback.** For a station marked `fallback`, stay close to what its questions establish was on the agenda, keep the language visibly more general, and do not write anything that implies a person in that room said it. The deck labels these on screen; your job is to not make the label a lie.
+- **Never launder a fallback.** For a station marked `fallback`, stay close to what its input establishes was on the agenda and do not write anything that implies a person in that room said it. No "one attendee said", no "the room split", no "a participant in this station". Write it as what the station was set up to surface and what we expected to hear, and keep a figure that came out of an expected transcript attached to that framing rather than floating loose as a finding. The deck labels these on screen; your job is to not make the label a lie.
 - **`patterns` is the reason this session exists.** It's the only part of the night nobody in any single room could have produced. Prefer a pattern that shows up in three stations over a sharper observation that only shows up in one.
 - **No corporate buzzwords.** No "leverage," no "synergies," no "journey."
 ### Theme phrasing

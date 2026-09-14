@@ -556,14 +556,15 @@ def station_screen(st, mode="live"):
                else '<span class="pill">TRANSCRIPT</span>')
     elif mode == "seeded":
         banner = ('<div class="flag"><b>This session has not happened yet.</b> You are early. '
-                  'What follows is the question list this station\'s pilot prepared and the '
-                  'answers we expect to hear, published in advance so the link works before '
+                  'What follows is what this station\'s pilot planned to ask and the answers '
+                  'we expect to hear, written in advance and published so the link works before '
                   'anyone needs it. On the night it is replaced by what the room actually said.</div>')
         tag = '<span class="pill warn">PREVIEW</span>'
     else:
         banner = ('<div class="flag"><b>Not from a transcript.</b> This station\'s recording did not '
-                  'produce usable audio. What follows is built from the question list its pilot '
-                  'prepared, and the answers we expected, not from what the room actually said.</div>')
+                  'produce usable audio. What follows is built from what its pilot planned to ask '
+                  'and the answers we expected, written before the event. Every number and every '
+                  'argument on this screen is ours, not the room\'s.</div>')
         tag = '<span class="pill warn">FALLBACK</span>'
     return {
         "id": st["id"],
