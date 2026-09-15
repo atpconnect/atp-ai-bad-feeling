@@ -4,7 +4,7 @@
 **Station pilot:** Mike Park, CIO, Infor
 **Status:** draft, 2026-09-11
 
-Nobody wants to be the one left hanging upside down in the cave. This station is about what's actually happening inside the build: the testing, the on-call, the ownership decisions nobody wrote down, and the engineer who ends up holding all of it when something breaks. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
+Nobody wants to be the one left hanging upside down in the cave. This station is about what's actually happening inside the build: the testing, the on-call, the ownership decisions nobody wrote down, and the engineer who ends up holding all of it when something breaks. Roughly nine questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 
 ## Q1. What did "tested" mean for the last AI feature you shipped, and who decided that was enough?
 
@@ -24,31 +24,37 @@ Nobody wants to be the one left hanging upside down in the cave. This station is
 
 *Seeded likely answer:* Usually the one or two engineers who built it, informally, because it never went through the process that assigns a new service a real on-call rotation.
 
-## Q4. What skill was missing on your engineering team when this started, and how did you actually close the gap?
+## Q4. Three months in, the AI is running and your teams are using it. How are you measuring whether it's actually working, not "is the tool being used" but "is the outcome improving"? And whose budget or scorecard does that outcome show up on?
+
+*Run it:* Round the room, two answers each: the metric, then the name of the budget or scorecard it lands on. Push if the room gives usage numbers instead of outcome numbers.
+
+*Seeded likely answer:* Usage dashboards exist; outcome metrics mostly don't, or exist informally on the team lead's own tracking, not on any scorecard leadership reviews. When an outcome number does exist, it usually lands on the business owner's budget, not engineering's, which is part of why engineering rarely gets credit or blame for it.
+
+## Q5. What skill was missing on your engineering team when this started, and how did you actually close the gap?
 
 *Run it:* Poll it: hired, trained, contracted, or still missing. Hands for each. Then a story from each pile that has hands.
 
 *Seeded likely answer:* Nobody had run an eval pipeline before. Closed by pulling in one person who had done it elsewhere, not by training the existing team first.
 
-## Q5. How much of what you call "your AI feature" is genuinely your code, versus a thin wrapper around someone else's API?
+## Q6. How much of what you call "your AI feature" is genuinely your code, versus a thin wrapper around someone else's API?
 
 *Run it:* Round the room, a percentage each. Then: does leadership know that number?
 
 *Seeded likely answer:* Thinner than leadership assumes. Most of the actual behavior lives in a prompt and a vendor's model, and the owned code is plumbing around both.
 
-## Q6. Where does the prompt actually live in your shop: source control, a vendor console, someone's laptop? And what has that cost you?
+## Q7. Where does the prompt actually live in your shop: source control, a vendor console, someone's laptop? And what has that cost you?
 
 *Run it:* Hands for each of the three. Count out loud. Then: the change nobody could trace.
 
 *Seeded likely answer:* Split between a vendor console and source control, with at least one shop admitting a laptop. The cost was a change nobody could trace, made by someone who didn't know a second feature depended on the same prompt.
 
-## Q7. When a model or prompt change goes bad, what does rolling back actually look like?
+## Q8. When a model or prompt change goes bad, what does rolling back actually look like?
 
 *Run it:* Hands up: who has actually rolled one back. Then: what could you revert, and what couldn't you?
 
 *Seeded likely answer:* You can pin the model and revert the prompt, but you can't force the vendor's underlying weights back, so a rollback is sometimes only a partial fix.
 
-## Q8. What would you tell a dev team about to build their first real AI feature, about what actually eats the time?
+## Q9. What would you tell a dev team about to build their first real AI feature, about what actually eats the time?
 
 *Run it:* The closer. Ask it at the five-minute warning no matter where you are. Round the room, one thing each.
 
