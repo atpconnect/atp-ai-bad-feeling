@@ -23,7 +23,7 @@ KEEP=0
 ALL=(seed expected happy mixed docx disaster late garbage badschema liar crash nothing noprior fullsize
      hedge-primary hedge-standby hedge-primary-bad hedge-both-bad hedge-disabled
      no-hedge-flag voices voices-partial voices-all-fail voices-launder voices-timid refs-overdone
-     project follow qr-decodes demo theming docs)
+     project follow qr-decodes demo theming sponsors docs)
 SCENARIOS=("${@:-}")
 [[ -z "${SCENARIOS[0]:-}" ]] && SCENARIOS=("${ALL[@]}")
 
@@ -492,7 +492,7 @@ scen_follow() {  # every screen carries a link to itself
   new_scratch; seed_questions; establish_floor
   run_synth live
   check "exits 0"                               "[[ $RC -eq 0 ]]"
-  check "follow bar is in the deck"             "deck_says 'Follow along on your phone'"
+  check "follow QR is in the deck"              "deck_says 'id=\"followQr\"'"
   check "url is per screen, not just the deck"  "deck_says 'FOLLOW_URL + \"#\" + s.id'"
   check "a QR exists for every screen"          "[[ \$(deck_json QRS | python3 -c 'import json,sys;print(len(json.load(sys.stdin)))') -eq 9 ]]"
   check "deep links land on that screen"        "deck_says 'screens().findIndex(s => s.id === id)'"
@@ -608,6 +608,60 @@ CONTRASTPY
 )"
   if [[ "$res" == OK* ]]; then ok "every text colour clears its floor (worst ${res#OK })"
   else bad "a text colour is below its contrast floor: $res"; fi
+}
+
+scen_sponsors() {  # a sponsor logo on the wrong station, or invisible on it, is the
+                   # one defect in this deck somebody paid us not to ship
+  new_scratch; seed_questions; establish_floor
+  for st in "Sky City" "Swamp Planet" "Ice Planet" "Snow Monster Cave" "Asteroid Field"; do arrive "$st" txt; done
+  ( cd "$SCRATCH" && ./tools/intake-transcript/intake.sh "$SCRATCH/Downloads" ) >/dev/null 2>&1
+  run_synth live
+  check "exits 0"                               "[[ $RC -eq 0 ]]"
+  check "exactly the three sponsored stations"  "[[ \$(deck_json SPONSORS | python3 -c 'import json,sys;print(\",\".join(sorted(json.load(sys.stdin))))') == 'ice-planet,snow-monster-cave,swamp-planet' ]]"
+  check "logo shows only on its own station"    "deck_says 'SPONSORS[s.id]'"
+  check "unsponsored screens hide it"           "deck_says 'el(\"sponsor\").hidden = !sponsor'"
+  # A display rule beats the hidden attribute, so the two unsponsored stations
+  # rendered a src-less img: broken-image icon plus the previous sponsor's alt text.
+  check "hidden really wins over display"       "deck_says '[hidden] { display: none !important; }'"
+  check "and the stale alt is cleared with it"  "deck_says 'el(\"sponsor\").alt = \"\"'"
+
+  # The variant matters more than the presence: the light-ink logo is invisible on a
+  # light theme and the dark-ink one vanishes into a dark theme, and either way the
+  # deck still builds, still validates, and still looks fine until it is on a wall.
+  local res; res="$(python3 - "$DECK" "$REPO" <<'SPONSORPY'
+import base64, json, pathlib, sys
+src = pathlib.Path(sys.argv[1]).read_text(); repo = pathlib.Path(sys.argv[2])
+def grab(name):
+    i = src.index(f"const {name} = ") + len(f"const {name} = ")
+    depth, j, instr, esc = 0, i, False, False
+    while j < len(src):
+        c = src[j]
+        if instr:
+            if esc: esc = False
+            elif c == "\\": esc = True
+            elif c == '"': instr = False
+        elif c == '"': instr = True
+        elif c in "{[": depth += 1
+        elif c in "}]":
+            depth -= 1
+            if depth == 0: break
+        j += 1
+    return json.loads(src[i:j+1])
+sponsors, themes = grab("SPONSORS"), grab("THEMES")
+bad = []
+for sid, sp in sponsors.items():
+    dark = int(themes[sid]["surface"][1:3], 16) < 64
+    want = repo / "assets/sponsors" / (f"{sp['name'].lower()}{'-dark' if dark else ''}.png")
+    if not sp["src"].startswith("data:image/png;base64,"):
+        bad.append(f"{sid} is not an inlined png"); continue
+    got = base64.b64decode(sp["src"].split(",", 1)[1])
+    if not want.exists(): bad.append(f"{sid} wants missing {want.name}")
+    elif got != want.read_bytes(): bad.append(f"{sid} is not {want.name}")
+print(("FAIL " + ", ".join(bad)) if bad else f"OK {len(sponsors)} logos")
+SPONSORPY
+)"
+  if [[ "$res" == OK* ]]; then ok "each logo is the variant its theme needs (${res#OK })"
+  else bad "wrong sponsor logo variant: $res"; fi
 }
 
 scen_docs() {  # the scenario table has silently drifted twice; stop it happening again

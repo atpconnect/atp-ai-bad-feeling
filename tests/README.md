@@ -44,6 +44,7 @@ REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length tr
 | `qr-decodes` | The QR is rendered and scanned back with zbarimg. Skips if the tools are missing. |
 | `demo` | A demo build says so on every screen, and a live build never does. |
 | `theming` | Five distinct station accents, applied per screen, every one clearing WCAG AA. |
+| `sponsors` | The three sponsor logos land on their own station and nowhere else, inlined, each in the light or dark variant its theme needs. |
 | `docs` | Every scenario in the runner appears in this table. It has drifted twice. |
 
 ## What the reps actually found

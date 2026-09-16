@@ -29,7 +29,17 @@ from datetime import datetime
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 QR_PATH = REPO / "assets" / "repo-qr-code.png"
+SPONSOR_DIR = REPO / "assets" / "sponsors"
 REPO_URL = "https://github.com/atpconnect/atp-ai-bad-feeling"
+
+# Station sponsors, shown on the screen for the station they paid for and nowhere
+# else. Two of the three sit on a dark theme, so the variant is chosen from the
+# screen's own palette rather than from the reader's OS the way the README does it.
+SPONSORS = {
+    "swamp-planet": "LogicSpree",
+    "ice-planet": "Griffin",
+    "snow-monster-cave": "Allata",
+}
 
 STATIONS = [
     ("sky-city", "Sky City", "Infrastructure and integration with third-party tools"),
@@ -388,6 +398,26 @@ def qr_data_uri():
     return "data:image/png;base64," + base64.b64encode(QR_PATH.read_bytes()).decode()
 
 
+def sponsor_logos():
+    """station id -> {name, src}, the logo inlined as a data URI.
+
+    Inlined for the same reason as the QR: a logo that needs the venue wifi to
+    appear is a logo that is missing from the one room it was bought for. The
+    -dark asset is the light-ink version meant to sit on a dark background, so
+    the station's own surface colour picks the variant.
+    """
+    out = {}
+    for sid, name in SPONSORS.items():
+        surface = THEMES.get(sid, {}).get("surface", "#ffffff")
+        dark = int(surface[1:3], 16) < 64
+        path = SPONSOR_DIR / (f"{name.lower()}-dark.png" if dark else f"{name.lower()}.png")
+        if not path.exists():
+            continue
+        out[sid] = {"name": name,
+                    "src": "data:image/png;base64," + base64.b64encode(path.read_bytes()).decode()}
+    return out
+
+
 def method_screens(mode, generated_at, counts, engine=""):
     live, fell_back = counts
     qr = qr_data_uri()
@@ -618,6 +648,7 @@ TEMPLATE = """<!DOCTYPE html>
     --s: 1;
     --fs: calc(var(--base-fs) * var(--s));
     --maxw: 940px;
+    --qrw: 92px;
     /* Set per screen from THEMES. The defaults here are the method-screen palette. */
     --brand: #2C6FBF;
     --page: #f5f7f8;
@@ -660,12 +691,10 @@ TEMPLATE = """<!DOCTYPE html>
   :root.presenting.details ol.points .d { display: block; font-size: calc(var(--fs) * .72); }
   :root.presenting ol.points .t { font-size: calc(var(--fs) * 1.05); }
   :root.presenting ol.points li { margin-bottom: calc(var(--fs) * 0.42); }
-  :root.presenting .follow { margin-top: 8px; padding-top: 8px; }
-  :root.presenting .follow .t { font-size: calc(var(--fs) * .55); }
   /* Big enough to scan from the back of the room, which is the only size that counts.
      A QR only the front two rows can reach is decoration. */
-  :root.presenting .followqr { width: calc(var(--fs) * 4.6); }
-  :root.presenting .follow .t { font-size: calc(var(--fs) * .62); }
+  :root.presenting { --qrw: calc(var(--fs) * 6.4); }
+  :root.presenting .head { gap: calc(var(--fs) * 1.1); }
   .shell { max-width: var(--maxw); margin: 0 auto; padding: 28px 24px 64px; }
   .stage { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 34px 38px 30px;
            box-shadow: 0 1px 3px rgba(0,0,0,.07), 0 14px 44px rgba(0,0,0,.12); }
@@ -675,11 +704,23 @@ TEMPLATE = """<!DOCTYPE html>
   .rail span.done { background: var(--ink-3); }
   .rail span.now { background: var(--brand); }
 
+  /* Several elements here carry a display rule and are toggled with the hidden
+     attribute, which a bare display wins against. Without this an unsponsored
+     station renders a src-less img: a broken-image icon and its alt text. */
+  [hidden] { display: none !important; }
+
+  /* The QR rides in the top right corner, beside the title rather than below the
+     takeaway. At the foot of the card it was the last thing on the screen and the
+     first thing the room's eye skipped; up here it is next to the only other thing
+     anyone is looking at. The header is two columns so the QR can never overlap a
+     long title, whatever the auto-fit does to the type size. */
+  .head { display: flex; align-items: flex-start; gap: 22px; }
+  .headmain { flex: 1; min-width: 0; }
+
   .topline { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
   .wordmark { color: var(--brand); font-weight: 800; letter-spacing: .18em; font-size: calc(var(--fs) * .8); }
   .divider-v { width: 1px; height: 12px; background: var(--line); }
   .kicker { font-size: calc(var(--fs) * .8); letter-spacing: .08em; color: var(--ink-3); text-transform: uppercase; }
-  .count { margin-left: auto; font-size: calc(var(--fs) * .8); color: var(--ink-3); font-variant-numeric: tabular-nums; }
 
   h1 { font-size: calc(var(--fs) * 1.6); line-height: 1.25; margin: 4px 0 0; font-weight: 650; }
   .rule { width: 48px; height: 2px; background: var(--brand); margin: 12px 0 24px; }
@@ -739,13 +780,24 @@ TEMPLATE = """<!DOCTYPE html>
              margin-bottom: 16px; font-size: calc(var(--fs) * .8); }
   .demobar b { color: var(--warn); }
 
-  .follow { display: flex; align-items: center; gap: 12px; margin-top: 12px;
-            padding-top: 12px; border-top: 1px solid var(--line); }
-  .followqr { width: 62px; aspect-ratio: 1 / 1; flex: none; display: block;
+  /* Sponsor logo sits left of the code, matched to its height. It carries no caption
+     for the same reason the QR does not: a label under a logo in the corner of a slide
+     is read by nobody, and the two of them together are already the only things up
+     there that are not the title. */
+  .corner { flex: none; display: flex; align-items: center; gap: calc(var(--qrw) * .22); }
+  /* On the dark themes the sponsor asset is a white plate rather than inverted ink,
+     so it gets the same rounded corner as the QR and the two read as a deliberate
+     pair of cards instead of one logo and one rectangle. */
+  .sponsor { height: var(--qrw); width: auto; max-width: calc(var(--qrw) * 2.1);
+             object-fit: contain; display: block; border-radius: 3px; }
+  .follow { flex: none; display: block; }
+  .followqr { width: var(--qrw); aspect-ratio: 1 / 1; flex: none; display: block;
               background: #fff; padding: 4px; border-radius: 3px; }
-  .follow .t { font-size: calc(var(--fs) * .8); color: var(--ink-3); line-height: 1.45; }
-  .follow .t b { color: var(--ink-2); }
-  .follow .u { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* The URL is the no-qrencode fallback, so it only shows when there is no QR to
+     scan. In the corner a full URL would be taller than the code it replaces. */
+  .follow .u { display: none; }
+  .follow.noqr { max-width: calc(var(--fs) * 13); }
+  .follow.noqr .u { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
                font-size: calc(var(--fs) * .72); color: var(--ink-3); word-break: break-all; }
 
   .voices .hint { margin-left: auto; font-size: calc(var(--fs) * .77); color: var(--ink-3); }
@@ -766,14 +818,24 @@ TEMPLATE = """<!DOCTYPE html>
   <div class="stage">
     <div class="rail" id="rail"></div>
     <div class="demobar" id="demobar" hidden></div>
-    <div class="topline">
-      <span class="wordmark">ATP</span>
-      <span class="divider-v"></span>
-      <span class="kicker" id="kicker"></span>
-      <span class="count" id="count"></span>
+    <div class="head">
+      <div class="headmain">
+        <div class="topline">
+          <span class="wordmark">ATP</span>
+          <span class="divider-v"></span>
+          <span class="kicker" id="kicker"></span>
+        </div>
+        <h1 id="title"></h1>
+        <div class="rule"></div>
+      </div>
+      <div class="corner">
+        <img class="sponsor" id="sponsor" alt="" hidden>
+        <div class="follow" id="follow" hidden>
+          <span id="followQr"></span>
+          <span class="u" id="followUrl"></span>
+        </div>
+      </div>
     </div>
-    <h1 id="title"></h1>
-    <div class="rule"></div>
     <div class="voicenote" id="voicenote" hidden></div>
     <div id="body"></div>
     <div class="takeaway">
@@ -784,11 +846,6 @@ TEMPLATE = """<!DOCTYPE html>
       <button id="prev">Previous</button>
       <button id="next" class="primary">Next</button>
       <div class="right">__FOOTER__</div>
-    </div>
-    <div class="follow" id="follow" hidden>
-      <span id="followQr"></span>
-      <span class="t"><b>Follow along on your phone.</b> This screen, with the full detail
-        that will not fit on a projector.<br><span class="u" id="followUrl"></span></span>
     </div>
     <div class="voices" id="voices" hidden>
       <span class="lab">VOICE</span>
@@ -807,6 +864,7 @@ const UNVOICED = __UNVOICED__;
 const THEMES = __THEMES__;
 const DEFAULT_THEME = __DEFAULT_THEME_JS__;
 const QRS = __QRS__;            // screen id -> inline SVG, one per screen, not per voice
+const SPONSORS = __SPONSORS__;  // station id -> {name, src}, only for stations that have one
 const FOLLOW_URL = __FOLLOW_URL__;
 const DEMO_NOTICE = __DEMO_NOTICE__;
 let i = 0;
@@ -878,7 +936,6 @@ function render() {
   applyTheme(s.id);
   if (DEMO_NOTICE) { el("demobar").hidden = false; el("demobar").innerHTML = DEMO_NOTICE; }
   el("kicker").textContent = s.kicker.toUpperCase();
-  el("count").textContent = (i + 1) + " / " + SCREENS.length;
   el("title").textContent = s.title;
   el("body").innerHTML = s.body;
   el("takeaway").textContent = s.takeaway;
@@ -894,9 +951,20 @@ function render() {
   });
 
   if (FOLLOW_URL) {
+    const qr = QRS[s.id] || "";
     el("follow").hidden = false;
-    el("followQr").innerHTML = QRS[s.id] || "";
+    el("followQr").innerHTML = qr;
     el("followUrl").textContent = FOLLOW_URL + "#" + s.id;
+    el("follow").classList.toggle("noqr", !qr);
+  }
+  const sponsor = SPONSORS[s.id];
+  el("sponsor").hidden = !sponsor;
+  if (sponsor) {
+    el("sponsor").src = sponsor.src;
+    el("sponsor").alt = sponsor.name + ", station sponsor";
+  } else {
+    el("sponsor").removeAttribute("src");
+    el("sponsor").alt = "";
   }
   // The address bar always points at the screen on show, so the presenter's own URL
   // is shareable mid-talk and a scanned deep link lands on the right slide.
@@ -962,11 +1030,10 @@ document.onkeydown = ev => {
 };
 function buildPrint() {
   const SCREENS = screens();
-  el("printAll").innerHTML = SCREENS.map((s, n) =>
+  el("printAll").innerHTML = SCREENS.map(s =>
     '<div class="page" style="' + themeVars(s.id) + '">' +
     '<div class="topline"><span class="wordmark">ATP</span>' +
-    '<span class="divider-v"></span><span class="kicker">' + s.kicker.toUpperCase() + '</span>' +
-    '<span class="count">' + (n + 1) + ' / ' + SCREENS.length + '</span></div>' +
+    '<span class="divider-v"></span><span class="kicker">' + s.kicker.toUpperCase() + '</span></div>' +
     '<h1>' + s.title + '</h1><div class="rule"></div>' + s.body +
     '<div class="takeaway"><div class="h">THE LINE FOR THE ROOM</div><div class="b">' +
     s.takeaway + '</div></div></div>').join("");
@@ -1017,6 +1084,7 @@ def render_html(decks, order, mode, generated_at, follow_url=""):
             .replace("__VOICES__", json.dumps(voices, ensure_ascii=False))
             .replace("__UNVOICED__", json.dumps(list(UNVOICED)))
             .replace("__QRS__", json.dumps(qrs, ensure_ascii=False))
+            .replace("__SPONSORS__", json.dumps(sponsor_logos(), ensure_ascii=False))
             .replace("__FOLLOW_URL__", json.dumps(follow_url))
             .replace("__DEMO_NOTICE__", json.dumps(DEMO_NOTICE if mode == "demo" else ""))
             .replace("__THEMES__", json.dumps(THEMES, ensure_ascii=False))
