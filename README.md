@@ -6,6 +6,7 @@ Public archive for the ATP event "Your AI Program Has a Bad Feeling About This."
 - **Location:** Social House Roswell, 1098 Green St, Roswell, GA 30075
 - **Details / registration:** https://atpconnect.org/events/your-ai-program-has-a-bad-feeling-about-this/
 - **Fleet Command:** John Trainor (President, Four Technologies, ATP Executive Advisory Board)
+- **Know before you go:** [arrival, parking, and agenda details](https://atpconnect.github.io/atp-ai-bad-feeling/know-before-you-go.html)
 
 <p align="center"><img src="assets/repo-qr-code.png" alt="QR code linking to this repo" width="200"></p>
 
