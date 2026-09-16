@@ -45,6 +45,7 @@ REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length tr
 | `demo` | A demo build says so on every screen, and a live build never does. |
 | `theming` | Five distinct station accents, applied per screen, every one clearing WCAG AA. |
 | `sponsors` | The three sponsor logos land on their own station and nowhere else, inlined, each in the light or dark variant its theme needs. |
+| `hints` | Pilot-flagged moments are found in real transcripts and never in a fallback, decoy phrasings are ignored, and the coverage check reports what landed without rejecting anything. |
 | `docs` | Every scenario in the runner appears in this table. It has drifted twice. |
 
 ## What the reps actually found

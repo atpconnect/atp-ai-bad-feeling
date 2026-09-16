@@ -48,6 +48,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 STATIONS_DIR="$REPO_ROOT/stations"
 FRAMEWORK="$REPO_ROOT/tools/synthesize-closeout/framework.md"
 BUILDER="$REPO_ROOT/tools/build-deck/build_deck.py"
+HINTS="$REPO_ROOT/tools/synthesize-closeout/hints.py"
 OUT_FILE="$REPO_ROOT/closeout/presentation.html"
 CLAUDE_BIN="${CLAUDE_BIN:-claude}"
 MODE="${MODE:-live}"
@@ -138,18 +139,32 @@ else
   echo "Inputs: ${#live[@]}/5 from a transcript, no fallbacks needed" >&2
 fi
 
+# Ground truth, straight off the disk. Computed here because the hedge below has to
+# validate a candidate before it can choose between them, and the hint pass below needs
+# to know which stations are real transcripts.
+sources=""
+for name in "${STATION_IDS[@]}"; do sources+="${sources:+,}$name=${SOURCE_OF[$name]}"; done
+
+# Pilot-flagged moments, found in the transcripts by text match rather than by asking
+# the model to spot them. Real transcripts only: a fallback has nobody in it to flag
+# anything. Advisory the whole way through, so a failure here must never stop the run.
+hints_json="$payload.hints.json"; hints_md="$payload.hints.md"
+: > "$hints_md"; echo "[]" > "$hints_json"
+if ! python3 "$HINTS" extract --stations "$STATIONS_DIR" --sources "$sources" \
+     --json "$hints_json" --md "$hints_md" 2>&1 >&2; then
+  echo "Hints: extraction failed, continuing without it" >&2
+  : > "$hints_md"; echo "[]" > "$hints_json"
+fi
+
 {
   cat "$FRAMEWORK"
   echo; echo "---"; echo
   echo "Raw station inputs follow below."
   echo
   cat "$combined"
+  # Last, so it is the freshest thing in context when the model starts writing.
+  if [[ -s "$hints_md" ]]; then echo; echo "---"; echo; cat "$hints_md"; fi
 } > "$payload"
-
-# Ground truth, straight off the disk. Computed here because the hedge below has to
-# validate a candidate before it can choose between them.
-sources=""
-for name in "${STATION_IDS[@]}"; do sources+="${sources:+,}$name=${SOURCE_OF[$name]}"; done
 
 # --------------------------------------------------------------------- the hedge
 #
@@ -275,6 +290,14 @@ if ! python3 "$BUILDER" --payload "$winner" --out "$OUT_FILE" --mode "$MODE" \
   exit 2
 fi
 echo "Straight deck up at $(( $(date +%s) - started ))s." >&2
+
+# Did the pilots' flagged moments actually land? Reported, never enforced: a flag is a
+# request and the model was right to weigh it against everything else in the room. This
+# tells Fleet Command what to mention from the floor if something did not make it.
+if [[ -s "$hints_json" ]] && [[ "$(cat "$hints_json")" != "[]" ]]; then
+  echo "Pilot-flagged moments:" >&2
+  python3 "$HINTS" check --hints "$hints_json" --deck-json "$winner" >&2 || true
+fi
 
 # ------------------------------------------------------------------- voices
 #

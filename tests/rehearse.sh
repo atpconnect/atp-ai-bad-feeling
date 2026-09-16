@@ -23,7 +23,7 @@ KEEP=0
 ALL=(seed expected happy mixed docx disaster late garbage badschema liar crash nothing noprior fullsize
      hedge-primary hedge-standby hedge-primary-bad hedge-both-bad hedge-disabled
      no-hedge-flag voices voices-partial voices-all-fail voices-launder voices-timid refs-overdone
-     project follow qr-decodes demo theming sponsors docs)
+     project follow qr-decodes demo theming sponsors hints docs)
 SCENARIOS=("${@:-}")
 [[ -z "${SCENARIOS[0]:-}" ]] && SCENARIOS=("${ALL[@]}")
 
@@ -608,6 +608,78 @@ CONTRASTPY
 )"
   if [[ "$res" == OK* ]]; then ok "every text colour clears its floor (worst ${res#OK })"
   else bad "a text colour is below its contrast floor: $res"; fi
+}
+
+scen_hints() {  # a pilot said out loud that they wanted something in the deck, so the
+                # worst outcome is finding the flag and silently dropping it
+  new_scratch; seed_questions; establish_floor
+  for st in "Sky City" "Swamp Planet" "Ice Planet" "Snow Monster Cave" "Asteroid Field"; do arrive "$st" txt; done
+  ( cd "$SCRATCH" && ./tools/intake-transcript/intake.sh "$SCRATCH/Downloads" ) >/dev/null 2>&1
+
+  # Two real flags, and three decoys that must not match: intent with no target, target
+  # with no intent, and a fallback station nobody was in.
+  cat >> "$SCRATCH/stations/sky-city/transcript.md" <<'FLAGS'
+
+Dana Whitfield 41:02
+Our vendor rate limit of six hundred a minute turned out to be shared regionally, so Mondays we got ninety.
+
+Dana Whitfield 41:40
+That is a really good point, I'd like to see that get into the presentation.
+
+Marcus Bell 42:10
+I want to get this right before we move on.
+
+Marcus Bell 42:35
+We will see the summary later anyway.
+FLAGS
+  cat >> "$SCRATCH/stations/asteroid-field/transcript.md" <<'FLAGS'
+
+Rebecca Ahn 39:12
+Our cyber insurer asked three questions about AI on the renewal questionnaire this year.
+
+Rebecca Ahn 39:50
+Make sure that one makes it into the closeout deck.
+FLAGS
+
+  local out; out="$(cd "$SCRATCH" && python3 tools/synthesize-closeout/hints.py extract \
+      --stations "$SCRATCH/stations" \
+      --sources "sky-city=transcript,swamp-planet=transcript,ice-planet=transcript,snow-monster-cave=transcript,asteroid-field=transcript" \
+      --json "$SCRATCH/h.json" --md "$SCRATCH/h.md" 2>&1)"
+  check "finds both flagged moments"            "[[ \$(python3 -c 'import json;print(len(json.load(open(\"$SCRATCH/h.json\"))))') -eq 2 ]]"
+  check "on the two stations that flagged"      "[[ \$(python3 -c 'import json;print(\",\".join(sorted(h[\"station\"] for h in json.load(open(\"$SCRATCH/h.json\")))))') == 'asteroid-field,sky-city' ]]"
+  check "intent without a target is not a flag" "! grep -q 'want to get this right' '$SCRATCH/h.md'"
+  check "target without intent is not a flag"   "! grep -q 'summary later anyway' '$SCRATCH/h.md'"
+  check "carries the turns before the flag"     "grep -q 'shared regionally' '$SCRATCH/h.md'"
+  check "tells the model it may decline"        "grep -q 'hints, not instructions' '$SCRATCH/h.md'"
+
+  # A fallback station has nobody in it. A flag found there would be us quoting our own
+  # guess back at ourselves and calling it a request from the room.
+  cat >> "$SCRATCH/stations/swamp-planet/expected-transcript.md" <<'FLAGS'
+
+Station pilot 44:00
+I'd like to see that get into the presentation.
+FLAGS
+  rm -f "$SCRATCH/stations/swamp-planet/transcript.md" "$SCRATCH/stations/swamp-planet/transcript.txt"
+  ( cd "$SCRATCH" && python3 tools/synthesize-closeout/hints.py extract --stations "$SCRATCH/stations" \
+      --sources "sky-city=transcript,swamp-planet=fallback,ice-planet=transcript,snow-monster-cave=transcript,asteroid-field=transcript" \
+      --json "$SCRATCH/h2.json" --md "$SCRATCH/h2.md" ) >/dev/null 2>&1
+  check "never flags a fallback station"        "! grep -q 'swamp-planet' '$SCRATCH/h2.json'"
+
+  # Coverage is advisory: it reports, it never rejects.
+  cat > "$SCRATCH/d.json" <<'JSON'
+{"stations":[{"id":"sky-city","lede":"x","points":[{"t":"A shared rate limit","d":"Six hundred a minute turned out shared regionally, leaving ninety on Mondays."}],"takeaway":"x"}],
+ "patterns":[{"t":"x","d":"x"}],"closing_line":"x"}
+JSON
+  ( cd "$SCRATCH" && python3 tools/synthesize-closeout/hints.py check \
+      --hints "$SCRATCH/h.json" --deck-json "$SCRATCH/d.json" ) >"$SCRATCH/cov.txt" 2>&1
+  local covrc=$?
+  check "coverage reports, never rejects"       "[[ $covrc -eq 0 ]]"
+  check "reports the one that landed"           "grep -Eq '^ +in +sky-city' '$SCRATCH/cov.txt'"
+  check "reports the one that did not"          "grep -Eq '^ +MISSING +asteroid-field' '$SCRATCH/cov.txt'"
+
+  # And the whole pipeline still runs, with the hint block reaching the prompt.
+  run_synth live
+  check "synthesis still exits 0"               "[[ $RC -eq 0 ]]"
 }
 
 scen_sponsors() {  # a sponsor logo on the wrong station, or invisible on it, is the

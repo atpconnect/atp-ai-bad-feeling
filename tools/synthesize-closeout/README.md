@@ -25,6 +25,33 @@ Per station, in priority order: `transcript.md` / `transcript.txt`, then `transc
 
 **The two fallback tiers differ only in how much the deck has to work with.** A question list gets you a slide that describes an agenda: this station was set up to ask about vendor contracts, and here is what we expected to hear. An expected transcript gets you one with numbers and arguments on it, because it was written at the length a room actually talks. Neither is a recording, both carry the banner, and the brief spends a paragraph on the expected transcript specifically, because it is the one that reads like testimony and is not.
 
+## Pilot-flagged moments
+
+Station pilots were told that if they want something to reach the closeout, they should say so plainly on the recording, in words like *"that is a really good point, I'd like to see that get into the presentation."* [`hints.py`](hints.py) finds those moments and puts them in front of the model.
+
+```bash
+tools/synthesize-closeout/hints.py extract --stations stations --sources sky-city=transcript,...
+tools/synthesize-closeout/hints.py check   --hints h.json --deck-json model-output.json
+```
+
+It runs automatically inside `synthesize.sh`; you never invoke it on the night.
+
+**Found in code, not by the model.** A flag is a question with an exact answer, so it is answered by text match, the same reason the fallback labels come off disk rather than out of the model. A model asked to find eight needles in 285KB of transcript will miss some and invent others; a regex either matches or it does not, and it reports which. A flag needs **both** halves in one turn: wanting something (*make sure, I'd like, needs to, don't lose*) and naming where it goes (*presentation, deck, closeout, throne room, read-out*). "I want to get this right" is not a flag and neither is "we'll see the summary later."
+
+**The substance is never in the flag.** A pilot says "I'd like to see *that* in the deck", so the pronoun points backwards. Each hint carries the three turns before it, and the deck screen it produces is judged against them.
+
+**Real transcripts only.** A fallback station has no pilot in it and nobody said anything, so a flag found in one would be us quoting our own guess back at ourselves and calling it a request from the room.
+
+**A hint, not an instruction, and the brief says so.** The model is told to weigh them and told it may decline: a flag does not make a point truer, and four flags in one station do not earn that station more of the deck. Nothing here can reject a run.
+
+**Coverage is reported, never enforced.** After the deck is built, each flagged moment is scored against what the deck says about that station, and the run prints `in` or `MISSING` per flag. It is a word-overlap heuristic, so rewording survives it and dropping the substance does not; treat `MISSING` as "check this" rather than as a verdict. Its real job is telling Fleet Command what to pick up verbally from the floor:
+
+```
+Pilot-flagged moments:
+  in       sky-city 1:48 Dana Whitfield: "...I'd like to see that get into the presentation."
+  MISSING  asteroid-field 39:50 Rebecca Ahn: "Make sure that one makes it into the closeout deck."
+```
+
 ## What the model is and isn't asked for
 
 It gets the transcripts and the brief in [`framework.md`](framework.md), and it returns **JSON, not a deck**. No HTML, no formatting, no slide order, and specifically not which stations had a real transcript, because that is already known from disk. The deck is assembled from that JSON by [`tools/build-deck/`](../build-deck/), which rejects anything that doesn't fit the schema and leaves the existing deck in place when it does.
