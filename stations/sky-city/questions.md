@@ -2,7 +2,7 @@
 
 **Theme:** Infrastructure and integration challenges with third-party tools
 **Station pilot:** Dorren Schmitt, PhD, VP of IT Strategy and Innovation, The Weather Channel and Allen Media Group
-**Status:** draft, 2026-09-11
+**Status:** final, 2026-09-16
 
 Every vendor deal in this room started the same way: negotiated in good faith, on terms that made sense at the time. This station is about the moment those terms changed underneath someone, and what it cost to find out mid-flight rather than in the contract review. Roughly eight questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 

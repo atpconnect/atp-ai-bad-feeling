@@ -2,7 +2,7 @@
 
 **Theme:** Development
 **Station pilot:** Mike Park, CIO, Infor
-**Status:** draft, 2026-09-11
+**Status:** final, 2026-09-16
 
 Nobody wants to be the one left hanging upside down in the cave. This station is about what's actually happening inside the build: the testing, the on-call, the ownership decisions nobody wrote down, and the engineer who ends up holding all of it when something breaks. Roughly nine questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 

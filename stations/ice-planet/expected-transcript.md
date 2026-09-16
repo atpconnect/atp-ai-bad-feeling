@@ -47,7 +47,7 @@ Speaker 10 2:14
 Twenty-something. One and a half, and the half is a pilot that is serving real customers without having been promoted, which I realise is its own answer.
 
 Station pilot 2:33
-So for the recording: this room has started something like a hundred and forty-seven AI use cases and has nineteen of them in production. That ratio is the whole station and we are twelve minutes in. Second question. What is the single most common reason a use case stalls before it ships? I am going to poll it, one hand each. Budget. Two. No owner. Seven. Data. Four. Legal. Two. Nobody ever actually decided. Nine hands. That is the biggest pile. Stories.
+So for the recording: this room has started something like a hundred and forty-seven AI use cases and has nineteen and a half of them in production. I am counting the half. That ratio is the whole station and we are three minutes in. Second question. What is the single most common reason a use case stalls before it ships? I am going to poll it, one hand each. Budget. Two. No owner. Seven. Data. Four. Legal. Two. Nobody ever actually decided. Nine hands. That is the biggest pile. Stories.
 
 Speaker 3 3:29
 Ours do not get cancelled. They get quiet. The pilot ends, the team that built it moves to the next thing, and there is no meeting where anybody says this is finished or this is dead. It just stops having a next step. Two years later it is still on a slide.

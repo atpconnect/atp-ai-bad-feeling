@@ -2,7 +2,7 @@
 
 **Theme:** Technical debt and data quality issues
 **Station pilot:** Michael Muncy, CTO, Aveanna Healthcare
-**Status:** draft, 2026-09-11
+**Status:** final, 2026-09-16
 
 The ship sank because nobody had dealt with what was underneath it. This station is about the swamp under every AI project: the data nobody cleaned up, the schema nobody updated, the owner who left, and the pilot that became production without anyone rebuilding it. Roughly nine questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 

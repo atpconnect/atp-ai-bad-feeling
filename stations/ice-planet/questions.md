@@ -2,7 +2,7 @@
 
 **Theme:** Use cases, costs, and scope creep
 **Station pilot:** Mat Mathews, CIO, Fortrex
-**Status:** draft, 2026-09-11
+**Status:** final, 2026-09-16
 
 The shield doors are closed. Everyone's dug in at the outpost, waiting on evacuation orders that haven't come yet. This station is about the AI use cases stuck in exactly that position: not cancelled, not shipped, just waiting on a decision nobody has made, while the cost meter keeps running and the original ask quietly grows into something nobody actually approved. Roughly nine questions, more than we will get through, which is the point. Each question has a *Run it* line: the mechanic for getting twenty-five people into it rather than three. The seeded answers below are Fleet Command's pre-written guesses at what this room is likely to say. They exist only as the fallback if this station's recording fails. Nobody has said any of this yet.
 

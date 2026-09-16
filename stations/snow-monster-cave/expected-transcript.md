@@ -71,7 +71,7 @@ Speaker 5 4:43
 Nobody caught it. We found it two months later looking for something else.
 
 Station pilot 4:56
-Third. Who is actually on call when the AI feature misbehaves at two in the morning, and did they know that was part of the job when they signed up? Hands up if you have a formal on-call rotation for an AI feature. One, two, three. Three, out of about twenty-two. So who is really carrying it?
+Third. Who is actually on call when the AI feature misbehaves at two in the morning, and did they know that was part of the job when they signed up? Hands up if you have a formal on-call rotation for an AI feature. One, two, three. Three, out of about twenty-five. So who is really carrying it?
 
 Speaker 4 5:33
 The two people who built it. There is no rotation. There is a phone number that is one of their mobile numbers, in a runbook, that somebody typed in during the launch.
