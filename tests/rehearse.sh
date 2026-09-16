@@ -144,7 +144,7 @@ print(json.dumps(json.loads(src[i:j + 1])))
 DECKPY
 }
 
-deck_screens(){ deck_json DECKS | python3 -c "import json,sys; print(len(json.load(sys.stdin)['straight']))" 2>/dev/null || echo 0; }
+deck_screens(){ deck_json DECKS | python3 -c "import json,sys; print(len(json.load(sys.stdin)['default']))" 2>/dev/null || echo 0; }
 
 # ---------------------------------------------------------------- scenarios
 
@@ -414,55 +414,55 @@ scen_no_hedge_flag() {  # --no-hedge on a run that succeeds: one model, no stand
 
 scen_voices() {  # the live toggle
   new_scratch; seed_questions; establish_floor
-  SYNTH_ARGS="--voices=sage,admiral" run_synth live
+  SYNTH_ARGS="--voices=elder,enforcer" run_synth live
   check "exits 0"                               "[[ $RC -eq 0 ]]"
-  check "both voices survived"                  "[[ \"\$(deck_voices)\" == 'straight sage admiral' ]]"
-  check "deck carries the sage's text"          "deck_says '[The Sage]'"
-  check "deck carries the admiral's text"       "deck_says '[The Admiral]'"
-  check "straight text is still there too"      "grep -Eqi '400,000|four hundred thousand' '$DECK'"
+  check "both voices survived"                  "[[ \"\$(deck_voices)\" == 'default elder enforcer' ]]"
+  check "deck carries the elder's text"          "deck_says '[Elder]'"
+  check "deck carries the enforcer's text"       "deck_says '[Enforcer]'"
+  check "default text is still there too"       "grep -Eqi '400,000|four hundred thousand' '$DECK'"
   check "voice bar is rendered"                 "deck_says 'id=\"voiceButtons\"'"
   check "method screens excluded from voicing"  "deck_says 'UNVOICED'"
   check "and say so where the reader is looking" "deck_says 'is not narrating this screen'"
   check "inert voice buttons are dimmed"        "deck_says 'b.style.opacity'"
-  check "straight deck was up before voices"    "grep -q 'Straight deck up' '$SCRATCH/synth.log'"
+  check "default deck was up before voices"     "grep -q 'Default deck up' '$SCRATCH/synth.log'"
 }
 
 scen_voices_partial() {  # one voice fails: drop it, keep the rest, never lose the deck
   new_scratch; seed_questions; establish_floor
-  STUB_VOICE_FAIL="the admiral" SYNTH_ARGS="--voices=sage,admiral" run_synth live
+  STUB_VOICE_FAIL="enforcer" SYNTH_ARGS="--voices=elder,enforcer" run_synth live
   check "exits 0"                               "[[ $RC -eq 0 ]]"
-  check "the bad voice was dropped"             "grep -q 'admiral: unusable' '$SCRATCH/synth.log'"
-  check "the good voice survived"               "[[ \"\$(deck_voices)\" == 'straight sage' ]]"
+  check "the bad voice was dropped"             "grep -q 'enforcer: unusable' '$SCRATCH/synth.log'"
+  check "the good voice survived"               "[[ \"\$(deck_voices)\" == 'default elder' ]]"
   check "deck is still complete"                "[[ \$(deck_screens) -eq 9 ]]"
 }
 
-scen_voices_all_fail() {  # every voice fails: straight deck stands, exit still clean
+scen_voices_all_fail() {  # every voice fails: default deck stands, exit still clean
   new_scratch; seed_questions; establish_floor
-  STUB_VOICE_FAIL="the sage,the admiral" SYNTH_ARGS="--voices=sage,admiral" run_synth live
+  STUB_VOICE_FAIL="elder,enforcer" SYNTH_ARGS="--voices=elder,enforcer" run_synth live
   check "exits 0 anyway"                        "[[ $RC -eq 0 ]]"
   check "says no voice survived"                "grep -q 'No voice survived' '$SCRATCH/synth.log'"
-  check "deck has only the straight voice"      "[[ \"\$(deck_voices)\" == 'straight' ]]"
+  check "deck has only the default voice"       "[[ \"\$(deck_voices)\" == 'default' ]]"
   check "no voice bar to show"                  "[[ \$(deck_json VOICES | python3 -c 'import json,sys;print(len(json.load(sys.stdin)))') -eq 1 ]]"
   check "deck is still complete and real"       "grep -Eqi '400,000|four hundred thousand' '$DECK'"
 }
 
 scen_voices_launder() {  # a voice that quietly drops the numbers must be called out
   new_scratch; seed_questions; establish_floor
-  STUB_VOICE_VAGUE=1 SYNTH_ARGS="--voices=sage" run_synth live
+  STUB_VOICE_VAGUE=1 SYNTH_ARGS="--voices=elder" run_synth live
   check "exits 0"                               "[[ $RC -eq 0 ]]"
-  check "warns that figures went missing"       "grep -q 'WARNING voice sage' '$SCRATCH/synth.log'"
+  check "warns that figures went missing"       "grep -q 'WARNING voice elder' '$SCRATCH/synth.log'"
   check "names a specific missing figure"       "grep -q '190,000' '$SCRATCH/synth.log'"
-  check "voice is still offered, not dropped"   "[[ \"\$(deck_voices)\" == 'straight sage' ]]"
-  check "straight deck keeps its numbers"       "grep -Eqi '400,000|four hundred thousand' '$DECK'"
+  check "voice is still offered, not dropped"   "[[ \"\$(deck_voices)\" == 'default elder' ]]"
+  check "default deck keeps its numbers"        "grep -Eqi '400,000|four hundred thousand' '$DECK'"
 }
 
 scen_voices_timid() {  # a voice that validates perfectly and is pointless on stage
   new_scratch; seed_questions; establish_floor
-  STUB_VOICE_TIMID=1 SYNTH_ARGS="--voices=sage" run_synth live
+  STUB_VOICE_TIMID=1 SYNTH_ARGS="--voices=elder" run_synth live
   check "exits 0"                               "[[ $RC -eq 0 ]]"
   check "warns the voice barely differs"        "grep -q 'were actually rewritten' '$SCRATCH/synth.log'"
-  check "tells you which file to strengthen"    "grep -q 'voices/sage.md' '$SCRATCH/synth.log'"
-  check "voice is still offered"                "[[ \"\$(deck_voices)\" == 'straight sage' ]]"
+  check "tells you which file to strengthen"    "grep -q 'voices/elder.md' '$SCRATCH/synth.log'"
+  check "voice is still offered"                "[[ \"\$(deck_voices)\" == 'default elder' ]]"
 }
 
 scen_refs_overdone() {  # film quotes turning up on a slide

@@ -9,6 +9,12 @@ tests/rehearse.sh --keep disaster    # keep the scratch dir and print its path
 REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length transcripts
 ```
 
+## Requirements
+
+- **Bash 4+**, for `declare -A`. macOS ships Bash 3.2; install a newer one (`brew install bash`) and invoke the suite with it explicitly.
+- **`qrencode`**, required, silently. The deck builder (`tools/build-deck/build_deck.py`) calls it to render every QR and returns `""` if it's missing — no error, no skip, just a blank QR baked into the deck on every scenario. `brew install qrencode`.
+- **`chromium` and `zbarimg`**, optional, for `qr-decodes` only, which screenshots a rendered QR and decodes it back to confirm it's not blank (see above). Skips cleanly if either is missing. `brew install zbar`; the `chromium` cask is Gatekeeper-disabled on macOS as of 2026-09-01, so point a `chromium` shim on `PATH` at an existing Chrome/Chromium install instead of the cask.
+
 ## The scenarios
 
 | Scenario | What night it is |
@@ -35,13 +41,13 @@ REAL_MODEL=1 tests/rehearse.sh fullsize    # the real claude CLI, real-length tr
 | `no-hedge-flag` | `--no-hedge` on a run that succeeds: one model, no standby, complete deck. |
 | `voices` | Two character voices generated and toggleable in the deck. |
 | `voices-partial` | One voice fails validation. Drop it, keep the other, never lose the deck. |
-| `voices-all-fail` | Every voice fails. The straight deck stands and the run still exits clean. |
+| `voices-all-fail` | Every voice fails. The default deck stands and the run still exits clean. |
 | `voices-launder` | A voice quietly drops the figures, and gets called out for it. |
 | `voices-timid` | A voice that validates perfectly and is pointless on stage. |
 | `refs-overdone` | Film quotes turning up on a slide when the brief asks for none. |
 | `project` | Projector mode exists, scales off one variable, and fits itself to the screen. |
 | `follow` | Every screen carries a QR and a link to its own anchor, and `--no-follow` removes them. |
-| `qr-decodes` | The QR is rendered and scanned back with zbarimg. Skips if the tools are missing. |
+| `qr-decodes` | The QR is rendered and scanned back with zbarimg. Skips if chromium/zbarimg are missing; needs `qrencode` (see Requirements) to have anything real to decode. |
 | `demo` | A demo build says so on every screen, and a live build never does. |
 | `theming` | Five distinct station accents, applied per screen, every one clearing WCAG AA. |
 | `sponsors` | The three sponsor logos land on their own station and nowhere else, inlined, each in the light or dark variant its theme needs. |
@@ -64,7 +70,7 @@ Every one of these was a real defect found by running the thing, not by reading 
 
 **The parallel models ran strictly in sequence, and looked fine doing it.** `primary_pid=$(spawn primary ...)` starts a background subshell, but the subshell inherits the command substitution's pipe, and `$( )` blocks until every holder of that pipe closes it. So each "background" call blocked the caller until it finished. The hedge produced correct output the entire time; it was simply useless, because both calls were serial. Found only because `hedge-primary` asserts on elapsed time rather than on the result. A test that had checked the output alone would have passed forever.
 
-**Calibrating a prompt by adjective does not work, in either direction.** The first live Sage pass inverted nearly every sentence into things like "Assigned it a category to be tracked in, nobody had." The fix was a rule saying invert at most one sentence in three and let readability win. The next live pass came back **91% textually identical to the straight deck**: it validated perfectly, and it was pointless, because a button that changes four words is not worth pressing. Neither version was catchable by the schema. What fixed it was replacing the adjectives with a three-point worked example in each voice file, showing the same real sentence rendered too little, at target, and too far. There is now an automatic check for the second failure, because it is the one you do not notice: if under 60% of fields were actually rewritten, the run says so and names the file to strengthen.
+**Calibrating a prompt by adjective does not work, in either direction.** The first live Elder pass inverted nearly every sentence into things like "Assigned it a category to be tracked in, nobody had." The fix was a rule saying invert at most one sentence in three and let readability win. The next live pass came back **91% textually identical to the default deck**: it validated perfectly, and it was pointless, because a button that changes four words is not worth pressing. Neither version was catchable by the schema. What fixed it was replacing the adjectives with a three-point worked example in each voice file, showing the same real sentence rendered too little, at target, and too far. There is now an automatic check for the second failure, because it is the one you do not notice: if under 60% of fields were actually rewritten, the run says so and names the file to strengthen.
 
 **The themed flourishes drifted past their cap, and nobody would notice slide by slide.** The brief asked for three or four across the deck; a live run produced seven, including two on one slide. Each one read fine on its own, which is exactly the problem: reference density is invisible while you are looking at any single screen and obvious across a whole deck. The brief now bans film quotes outright, which is a rule a machine can check, and a counter reports any screen carrying one. Advisory, not fatal.
 

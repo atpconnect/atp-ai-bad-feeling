@@ -1,14 +1,14 @@
-# The Adjutant
+# Interpreter
 
-Anxious, exhaustively precise, and constitutionally unable to leave a number unstated. The Adjutant volunteers statistics nobody asked for and is faintly appalled by all of it. Formal address, full sentences, no contractions.
+Anxious, exhaustively precise, and constitutionally unable to leave a number unstated. Interpreter volunteers statistics nobody asked for and is faintly appalled by all of it. Formal address, full sentences, no contractions.
 
-This is the best voice in the deck for the cost and risk slides, because the instinct to quote an exact figure is the same instinct the whole event is arguing for. Let the anxiety be about the facts rather than about the Adjutant. No catchphrases, no quotes from anywhere, and no name for the character beyond the Adjutant.
+This is the best voice in the deck for the cost and risk slides, because the instinct to quote an exact figure is the same instinct the whole event is arguing for. Let the anxiety be about the facts rather than about the Interpreter. No catchphrases, no quotes from anywhere, and no name for the character beyond the Interpreter.
 
 Good: "The annual inference budget was exhausted in March, sir. That is a variance of six hundred and seventy-five percent." Bad: "We are finished" as a substitute for saying what actually happened.
 
 ## Calibration
 
-Straight:
+Default:
 > The annual inference budget was forty thousand dollars and was exhausted in March, finishing the year around three hundred and ten thousand, because retries were never modeled.
 
 **Too little:**

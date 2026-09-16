@@ -149,8 +149,8 @@ def check_themes():
     return bad
 
 
-VOICE_LABELS = {"straight": "Straight", "adjutant": "The Adjutant",
-                "sage": "The Sage", "admiral": "The Admiral"}
+VOICE_LABELS = {"default": "Default", "interpreter": "Interpreter",
+                "elder": "Elder", "enforcer": "Enforcer"}
 
 # Screens written by us, not by the model. They stay in one voice: they are the
 # credibility of the whole deck, and a joke is a bad place to keep your evidence.
@@ -282,14 +282,14 @@ def all_text(data):
     return " ".join(out)
 
 
-def numbers_lost(straight, voiced):
+def numbers_lost(default_deck, voiced):
     """Figures present in the straight deck that the voice pass dropped.
 
     The voice brief says every number survives, and that is the only reason the joke
     is allowed near the findings at all. Reported rather than fatal, because a voice
     may legitimately spell a figure out in words, which this cannot see. Worth looking
     at before you present it."""
-    before = set(NUMBERS.findall(all_text(straight)))
+    before = set(NUMBERS.findall(all_text(default_deck)))
     after = set(NUMBERS.findall(all_text(voiced)))
     return sorted(n for n in before - after if len(n.replace(",", "").replace(".", "")) >= 2)
 
@@ -305,15 +305,15 @@ def fields(data):
     return out
 
 
-def voice_divergence(straight, voiced):
+def voice_divergence(default_deck, voiced):
     """Share of fields the voice pass actually rewrote.
 
-    A voice that comes back almost identical to the straight deck is a failure the
+    A voice that comes back almost identical to the default deck is a failure the
     schema cannot see: it validates perfectly and is simply pointless on stage. This
     is the cheap automatic version of noticing that by eye, which is how it was found
     the first time. Low scores mean the direction was too timid, not that the deck
     is broken, so it warns rather than rejects."""
-    a, b = fields(straight), fields(voiced)
+    a, b = fields(default_deck), fields(voiced)
     if len(a) != len(b) or not a:
         return 1.0
     return sum(1 for x, y in zip(a, b) if x.strip() != y.strip()) / len(a)
@@ -556,10 +556,10 @@ def receipts_screen(qr_block):
                  "d": "Right dimensions, right position, nothing inside. No assertion about the markup "
                       "would have caught it, so the test now scans the code back with a barcode reader."},
                 {"t": "A narrator that changed 9% of the words and passed every check",
-                 "d": "Correcting one failure produced its exact opposite. The first Sage voice inverted "
+                 "d": "Correcting one failure produced its exact opposite. The first Elder voice inverted "
                       "nearly every sentence into something you had to read twice. The fix came back "
                       "91% identical to the plain text: it validated perfectly and was pointless on "
-                      "stage. The Admiral landed at 58% of fields rewritten and is now at 100%. Three worked "
+                      "stage. Enforcer landed at 58% of fields rewritten and is now at 100%. Three worked "
                       "examples per character fixed both, showing one real sentence too weak, right, "
                       "and too far. The answer to fear is never the obviously wrong one. It is the one "
                       "that looks exactly right."},
@@ -868,9 +868,9 @@ const SPONSORS = __SPONSORS__;  // station id -> {name, src}, only for stations 
 const FOLLOW_URL = __FOLLOW_URL__;
 const DEMO_NOTICE = __DEMO_NOTICE__;
 let i = 0;
-let voice = "straight";
+let voice = "default";
 const el = id => document.getElementById(id);
-const screens = () => DECKS[voice] || DECKS.straight;
+const screens = () => DECKS[voice] || DECKS.default;
 
 // Themes are applied by setting the CSS variables, so one object drives the whole
 // look of a screen and nothing about the layout knows which station it is on.
@@ -976,12 +976,12 @@ function render() {
   const unvoiced = UNVOICED.indexOf(s.id) !== -1;
   const label = (VOICES.find(v => v[0] === voice) || ["", ""])[1];
   el("voiceHint").textContent =
-    unvoiced ? "this screen is ours, so it stays straight"
+    unvoiced ? "this screen is ours, so it stays default"
              : "keys 1-" + VOICES.length + ", V to cycle, P to project, D for detail";
 
   // Say plainly why nothing changed, on the screen where nothing changed.
   const note = el("voicenote");
-  if (unvoiced && voice !== "straight") {
+  if (unvoiced && voice !== "default") {
     note.hidden = false;
     note.innerHTML = "<b>" + label + " is not narrating this screen.</b> The screens about " +
       "how this was built are ours, not the model's, so they stay in one voice. " +
@@ -991,7 +991,7 @@ function render() {
   }
   // Dim the buttons here too, so the control looks as inert as it is.
   document.querySelectorAll("#voiceButtons button").forEach(b => {
-    b.style.opacity = unvoiced && b.dataset.voice !== "straight" ? "0.45" : "";
+    b.style.opacity = unvoiced && b.dataset.voice !== "default" ? "0.45" : "";
   });
   window.scrollTo(0, 0);
 }
@@ -1075,7 +1075,7 @@ def render_html(decks, order, mode, generated_at, follow_url=""):
     voices = [[k, VOICE_LABELS.get(k, k.title())] for k in order]
     qrs = {}
     if follow_url:
-        for scr in decks["straight"]:
+        for scr in decks["default"]:
             qrs[scr["id"]] = qr_svg(f"{follow_url}#{scr['id']}")
     return (TEMPLATE
             .replace("__TITLE__", html.escape(title))
@@ -1185,11 +1185,11 @@ def main():
         return 2
 
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
-    decks = {"straight": build(data, args.mode, generated_at, args.engine)}
-    order = ["straight"]
+    decks = {"default": build(data, args.mode, generated_at, args.engine)}
+    order = ["default"]
 
     # A voice is just another payload. It goes through the identical validator, and a
-    # voice that fails is dropped rather than taking the deck down with it: the straight
+    # voice that fails is dropped rather than taking the deck down with it: the default
     # version is the deck, and the voices are a party trick layered on top of it.
     for spec in args.voice:
         name, _, path = spec.partition("=")
@@ -1205,17 +1205,17 @@ def main():
         div = voice_divergence(data, vdata)
         if div < 0.6:
             print(f"WARNING voice {name}: only {div:.0%} of fields were actually rewritten. "
-                  f"This reads as the straight deck with a few words moved, which is not "
+                  f"This reads as the default deck with a few words moved, which is not "
                   f"worth a button. Strengthen voices/{name}.md and re-run.", file=sys.stderr)
         lost = numbers_lost(data, vdata)
         if lost:
-            print(f"WARNING voice {name}: these figures are in the straight deck but not "
+            print(f"WARNING voice {name}: these figures are in the default deck but not "
                   f"in this voice: {', '.join(lost)}. Check the slides before presenting it.",
                   file=sys.stderr)
         decks[name] = build(vdata, args.mode, generated_at, args.engine)
         order.append(name)
 
-    screens = decks["straight"]
+    screens = decks["default"]
 
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.exists():

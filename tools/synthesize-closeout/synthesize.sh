@@ -37,7 +37,7 @@
 #
 # Flags:
 #   --no-hedge            one model only, half the tokens, no insurance
-#   --voices[=a,b,c]      add character voices; default set is sage,admiral,adjutant
+#   --voices[=a,b,c]      add character voices; default set is elder,enforcer,interpreter
 #   --no-voices           explicit off
 #   --deadline SECONDS
 #   --follow-url URL      override the published URL shown in the QR on every screen
@@ -62,7 +62,7 @@ VOICE_MODEL="${VOICE_MODEL-$PRIMARY_MODEL}"
 FOLLOW_URL="${FOLLOW_URL-https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html}"
 VOICE_DIR="$REPO_ROOT/tools/synthesize-closeout/voices"
 VOICE_BRIEF="$REPO_ROOT/tools/synthesize-closeout/voices.md"
-DEFAULT_VOICES="sage,admiral,adjutant"
+DEFAULT_VOICES="elder,enforcer,interpreter"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -289,7 +289,7 @@ if ! python3 "$BUILDER" --payload "$winner" --out "$OUT_FILE" --mode "$MODE" \
   echo "FAILED after $(( $(date +%s) - started ))s. Present the deck that is already there." >&2
   exit 2
 fi
-echo "Straight deck up at $(( $(date +%s) - started ))s." >&2
+echo "Default deck up at $(( $(date +%s) - started ))s." >&2
 
 # Did the pilots' flagged moments actually land? Reported, never enforced: a flag is a
 # request and the model was right to weigh it against everything else in the room. This
@@ -304,7 +304,7 @@ fi
 # Deliberately AFTER the deck has already been written. A voice pass measured at 174
 # seconds even though its input is twenty times smaller than the main prompt, because
 # latency here tracks output tokens and plain variance, not input size. So this never
-# goes on the critical path: the straight deck is on disk and presentable before the
+# goes on the critical path: the default deck is on disk and presentable before the
 # first voice call is made, and if every voice fails or you run out of time, you lose
 # nothing you had a minute ago.
 #
@@ -372,10 +372,10 @@ PYEOF
           --sources "$sources" --engine "$engine" --follow-url "$FOLLOW_URL" "${voice_args[@]}"; then
         echo "Voices added in $(( $(date +%s) - voice_started ))s." >&2
       else
-        echo "Voice rebuild failed; the straight deck on disk is untouched." >&2
+        echo "Voice rebuild failed; the default deck on disk is untouched." >&2
       fi
     else
-      echo "No voice survived validation. The straight deck stands." >&2
+      echo "No voice survived validation. The default deck stands." >&2
     fi
   fi
 fi

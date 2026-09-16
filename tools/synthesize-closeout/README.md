@@ -8,7 +8,7 @@ tools/synthesize-closeout/synthesize.sh    # on the night: rebuild from whatever
 
 tools/synthesize-closeout/synthesize.sh --no-hedge          # one model, half the tokens
 tools/synthesize-closeout/synthesize.sh --voices            # add the character voices
-tools/synthesize-closeout/synthesize.sh --voices=sage,admiral # just these two
+tools/synthesize-closeout/synthesize.sh --voices=elder,enforcer # just these two
 tools/synthesize-closeout/synthesize.sh --help
 ```
 
@@ -113,23 +113,23 @@ The `claude` CLI, logged in. `pandoc` for `.docx` transcripts. Python 3 for the 
 A live toggle during the closeout: same findings, same numbers, same slide, different narrator. Press **1** to **5**, or **V** to cycle. The screen you are on does not change, so you can switch mid-sentence and keep your place.
 
 ```bash
-tools/synthesize-closeout/synthesize.sh --voices             # sage,admiral,adjutant
-tools/synthesize-closeout/synthesize.sh --voices=sage,admiral
+tools/synthesize-closeout/synthesize.sh --voices             # elder,enforcer,interpreter
+tools/synthesize-closeout/synthesize.sh --voices=elder,enforcer
 ```
 
 Voices are defined one per file in [`voices/`](voices/), so adding one is writing a paragraph of direction. The shared rules live in [`voices.md`](voices.md).
 
-**Off by default, and always a second pass after the deck is already written.** A single voice pass measured at 174 seconds even though its input is twenty times smaller than the main prompt, because latency here tracks output tokens and plain variance, not input size. So it never goes on the critical path: the straight deck is on disk and presentable before the first voice call is made. Run it the day before, or on the night once the deck is up and people are still walking back to their seats.
+**Off by default, and always a second pass after the deck is already written.** A single voice pass measured at 174 seconds even though its input is twenty times smaller than the main prompt, because latency here tracks output tokens and plain variance, not input size. So it never goes on the critical path: the default deck is on disk and presentable before the first voice call is made. Run it the day before, or on the night once the deck is up and people are still walking back to their seats.
 
-**A voice is just another payload.** It goes through the identical schema validator, so it cannot drop a station, rename one, or change how many points a slide has. One that fails validation is dropped and the others carry on; if all of them fail, the straight deck stands and the run still exits clean.
+**A voice is just another payload.** It goes through the identical schema validator, so it cannot drop a station, rename one, or change how many points a slide has. One that fails validation is dropped and the others carry on; if all of them fail, the default deck stands and the run still exits clean.
 
-**The numbers are checked, not trusted.** After a voice validates, its figures are compared against the straight deck's and anything missing is named in a warning. The joke is only allowed near the findings because the findings survive it, so that claim gets verified rather than asserted. It is a warning and not a rejection, because a voice may legitimately spell a figure out in words.
+**The numbers are checked, not trusted.** After a voice validates, its figures are compared against the default deck's and anything missing is named in a warning. The joke is only allowed near the findings because the findings survive it, so that claim gets verified rather than asserted. It is a warning and not a rejection, because a voice may legitimately spell a figure out in words.
 
 **Three quality checks the schema cannot make**, all of them advisory, and all of them real failures in live runs before they became checks:
 
 | Check | Catches |
 |---|---|
-| Figures diff | A voice that dropped numbers the straight deck had. The findings must survive the joke. |
+| Figures diff | A voice that dropped numbers the default deck had. The findings must survive the joke. |
 | Divergence | A voice that rewrote under 60% of its fields, so it validates perfectly and is not worth a button. |
 | Film quotes | A film quote on any screen. The brief asks for none, and the drift is invisible slide by slide, obvious across a deck. |
 
