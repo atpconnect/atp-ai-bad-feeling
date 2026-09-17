@@ -12,7 +12,7 @@ tools/synthesize-closeout/synthesize.sh --voices=elder,enforcer # just these two
 tools/synthesize-closeout/synthesize.sh --help
 ```
 
-Both write `closeout/presentation.html`. Both are safe to re-run as often as you like.
+Both write `closeout/presentation.html`, and both also write `closeout/notes.html` alongside it: a phone-sized, bullet-only talking-points page in the same screen order as the deck, for whoever is presenting content they did not personally hear. Bullets only, first-sentence only, no full paragraphs. Built from the default (unvoiced) text, since the numbers are identical across voices. Both scripts are safe to re-run as often as you like.
 
 ## How it fits into the event
 

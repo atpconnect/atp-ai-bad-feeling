@@ -37,7 +37,8 @@
 #
 # Flags:
 #   --no-hedge            one model only, half the tokens, no insurance
-#   --voices[=a,b,c]      add character voices; default set is elder,enforcer,interpreter
+#   --voices[=a,b,c]      add character voices; default set is elder,enforcer,interpreter,direct
+#                         ("direct" also drives notes.html, the presenter's talking points)
 #   --no-voices           explicit off
 #   --deadline SECONDS
 #   --follow-url URL      override the published URL shown in the QR on every screen
@@ -62,7 +63,7 @@ VOICE_MODEL="${VOICE_MODEL-$PRIMARY_MODEL}"
 FOLLOW_URL="${FOLLOW_URL-https://atpconnect.github.io/atp-ai-bad-feeling/closeout/presentation.html}"
 VOICE_DIR="$REPO_ROOT/tools/synthesize-closeout/voices"
 VOICE_BRIEF="$REPO_ROOT/tools/synthesize-closeout/voices.md"
-DEFAULT_VOICES="elder,enforcer,interpreter"
+DEFAULT_VOICES="elder,enforcer,interpreter,direct"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in

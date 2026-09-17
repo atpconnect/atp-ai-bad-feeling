@@ -45,6 +45,7 @@ new_scratch() {
   rm -f "$SCRATCH"/stations/*/questions.md "$SCRATCH"/stations/*/transcript.* \
         "$SCRATCH"/stations/*/expected-transcript.md
   DECK="$SCRATCH/closeout/presentation.html"
+  NOTES="$SCRATCH/closeout/notes.html"
 }
 
 seed_questions() {  # the pre-event artifact: question lists in place
@@ -205,6 +206,10 @@ scen_happy() {  # the night, everything works
   if [[ $spec -ge 5 ]]; then ok "specific facts survived to the deck ($spec/8)"
   else bad "only $spec/8 distinctive facts reached the deck; the synthesis went generic"; fi
   check "provenance says built in the room"     "deck_says 'in the room, minutes ago'"
+  check "notes.html was written alongside the deck" "[[ -f '$NOTES' ]]"
+  check "notes has all 9 screens"               "[[ \$(grep -c '<section class=\"card' '$NOTES') -eq 9 ]]"
+  check "notes trim to the first sentence, not the full paragraph" \
+    "grep -q 'Not by the pilot running the room\.' '$NOTES' && ! grep -q 'remembering to press a button correctly' '$NOTES'"
 }
 
 scen_mixed() {  # 3 Teams transcripts, 1 emailed backup, 1 total loss
