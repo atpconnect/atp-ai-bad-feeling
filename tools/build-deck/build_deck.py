@@ -428,7 +428,7 @@ METHOD_POINTS = [
           "depended on a presenter remembering to press a button correctly."},
     {"t": "Ending the meeting is what starts the transcript",
      "d": "Teams generates a transcript 2.5 to 5 minutes after a meeting is ended, not "
-          "left. Five staggered endings, then one to three minutes for the model to read "
+          "left. Five staggered endings, then one to six minutes for the model to read "
           "every word said in this building and answer. That is the budget you just "
           "watched us spend, and every number in it was measured in rehearsal."},
     {"t": "The model was given the transcripts and a written brief, and asked for data",
@@ -441,8 +441,9 @@ METHOD_POINTS = [
     {"t": "Two models ran at once, and it was not a race",
      "d": "A fast standby answered the same question in parallel. The good model got the "
           "whole deadline to itself and the standby was only used if it missed. Measured "
-          "on the night's transcripts: 81 seconds against 167. A race would have handed "
-          "you the weaker deck most times it ran."},
+          "on the night's transcripts: the primary never made its 180 second deadline and "
+          "the standby answered instead, which is the deck you are reading. A race would "
+          "have handed you the weaker deck most times it ran."},
     {"t": "There was always a deck",
      "d": "A version of this file was built days ago from the question lists alone. Three "
           "rungs down from here, and every one of them presentable: the good model, the "
@@ -466,7 +467,7 @@ RELIABILITY_POINTS = [
           "station, too many bullets: rejected, and the deck already on disk stands "
           "untouched. You cannot check free text. You can check a schema."},
     {"t": "Write the evals before the night, and test the disasters",
-     "d": "137 automated checks across 24 rehearsals of this evening, including no "
+     "d": "192 automated checks across 34 rehearsals of this evening, including no "
           "transcript at all, prose instead of JSON, a crashed CLI, a transcript "
           "arriving late, and a narrator quietly dropping the numbers. The happy path "
           "is the least useful thing you can test."},
@@ -477,14 +478,15 @@ RELIABILITY_POINTS = [
           "would have had to make under time pressure, badly."},
     {"t": "Measure it, do not estimate it",
      "d": "The run of show budgeted one minute for this synthesis. Measured against real "
-          "full-length transcripts it is 69 to 167 seconds, and the slowest run was on "
-          "the smallest input. Every number on the first screen came from a stopwatch."},
+          "full-length transcripts it was 69 to 167 seconds, and tonight it was slower "
+          "still. The slowest run on record was on the smallest input. Every number on "
+          "the first screen came from a stopwatch."},
 ]
 
 RECEIPTS_POINTS = [
     {"t": "A bug that would have failed live, in this room, tonight",
      "d": "The prompt was passed as a shell argument. Linux caps a single argument at 128KB "
-          "and five real transcripts come to 285KB, so it worked in every small test and "
+          "and five real transcripts come to 166KB, so it worked in every small test and "
           "would have died the moment it saw the real thing, with everyone sitting here."},
     {"t": "The model could quietly promote a failed station to a real one",
      "d": "Which deleted the on-screen warning that exists to prevent precisely that. Not "

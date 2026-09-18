@@ -36,7 +36,7 @@ tools/synthesize-closeout/hints.py check   --hints h.json --deck-json model-outp
 
 It runs automatically inside `synthesize.sh`; you never invoke it on the night.
 
-**Found in code, not by the model.** A flag is a question with an exact answer, so it is answered by text match, the same reason the fallback labels come off disk rather than out of the model. A model asked to find eight needles in 285KB of transcript will miss some and invent others; a regex either matches or it does not, and it reports which. A flag needs **both** halves in one turn: wanting something (*make sure, I'd like, needs to, don't lose*) and naming where it goes (*presentation, deck, closeout, throne room, read-out*). "I want to get this right" is not a flag and neither is "we'll see the summary later."
+**Found in code, not by the model.** A flag is a question with an exact answer, so it is answered by text match, the same reason the fallback labels come off disk rather than out of the model. A model asked to find eight needles in 166KB of transcript will miss some and invent others; a regex either matches or it does not, and it reports which. A flag needs **both** halves in one turn: wanting something (*make sure, I'd like, needs to, don't lose*) and naming where it goes (*presentation, deck, closeout, throne room, read-out*). "I want to get this right" is not a flag and neither is "we'll see the summary later."
 
 **The substance is never in the flag.** A pilot says "I'd like to see *that* in the deck", so the pronoun points backwards. Each hint carries the three turns before it, and the deck screen it produces is judged against them.
 
@@ -56,7 +56,7 @@ Pilot-flagged moments:
 
 It gets the transcripts and the brief in [`framework.md`](framework.md), and it returns **JSON, not a deck**. No HTML, no formatting, no slide order, and specifically not which stations had a real transcript, because that is already known from disk. The deck is assembled from that JSON by [`tools/build-deck/`](../build-deck/), which rejects anything that doesn't fit the schema and leaves the existing deck in place when it does.
 
-The prompt is piped on **stdin**, not passed as an argument. Five real 45-minute transcripts come to about 285KB, and Linux caps a single argv string at 128KB, so the obvious `-p "$(cat ...)"` works in every small test and fails only when the transcripts are full length. Which is to say, only on the night. See [`tests/README.md`](../../tests/README.md).
+The prompt is piped on **stdin**, not passed as an argument. Five real 45-minute transcripts came to 166KB, and Linux caps a single argv string at 128KB, so the obvious `-p "$(cat ...)"` works in every small test and fails only when the transcripts are full length. Which is to say, only on the night. See [`tests/README.md`](../../tests/README.md).
 
 ## Timing
 
@@ -66,14 +66,16 @@ Measured, not estimated, against five full-length transcripts with the real CLI:
 |---|---|
 | Teams generating one transcript after a meeting is **ended** | 2.5 to 5 min |
 | Five staggered endings, last transcript in hand | ~7 min |
-| Primary model call | **69 s to 167 s** |
+| Primary model call, rehearsal | **69 s to 167 s** |
+| Primary model call, on the night | **past its 180 s deadline; never returned in time** |
+| Primary model call, re-run after the event on the same transcripts | **379 s** |
 | Standby model call (haiku), same 290KB prompt, alone | **81 s** |
 | Standby model call, running concurrently with the primary | **~138 s** |
 | Validation and deck build | < 1 s |
 
-Call it ten minutes end to end, worst case.
+Call it ten minutes end to end, worst case, and only because the standby answered when the primary did not.
 
-The model call is the part worth understanding. Real runs came in at 69, 81, 102, 105 and 167 seconds, and **the slowest was on the smallest input**. Latency varies more than twofold run to run and is not driven by transcript length, so plan against the slow end and not the median. Re-measure any time with `REAL_MODEL=1 tests/rehearse.sh fullsize`.
+The model call is the part worth understanding. Rehearsal runs came in at 69, 81, 102, 105 and 167 seconds, and **the slowest was on the smallest input**. Then the night went past all of them: the primary blew its deadline on 166KB of real transcript, less input than the 285KB the rehearsal had been feeding it, and a later run of the same call took 379 seconds. Latency varies by more than five times run to run and is not driven by transcript length, so plan against the slow end and not the median. Re-measure any time with `REAL_MODEL=1 tests/rehearse.sh fullsize`.
 
 ## The hedge: two models, in parallel, not a race
 
@@ -98,7 +100,7 @@ GRACE_S=45             extra time to wait for the standby after that
 2. **A second attempt at valid output** if the primary returns something the schema rejects.
 3. **Nothing at all** if the venue network is down or the account is rate limited. Both paths share those. That is what the seeded deck is for, and it is why the hedge does not replace it.
 
-**It is not free.** Haiku answered the same prompt in 81 seconds alone and about 138 seconds while the primary was running beside it. Two concurrent calls slow each other down, so the standby is insurance against a bad draw, not a fast lane you can count on to beat the deadline by itself. `GRACE_S` exists precisely because the standby can land after the deadline it was meant to cover, and in the live test it did.
+**It is not free.** Haiku answered the same prompt in 81 seconds alone and about 138 seconds while the primary was running beside it. Two concurrent calls slow each other down, so the standby is insurance against a bad draw, not a fast lane you can count on to beat the deadline by itself. `GRACE_S` exists precisely because the standby can land after the deadline it was meant to cover, and in the live test it did. On the night the hedge paid for itself outright: the primary never came back inside 180 seconds and the deck the room saw was the standby's.
 
 **The deck says which one wrote it.** If the standby carried the room, the provenance line on the method screen says so. Same principle as the fallback banners: the failure to fear is not a worse answer, it is a worse answer that looks identical to a better one.
 

@@ -32,7 +32,7 @@ Each station runs as a guided discussion off a list of roughly eight questions. 
 - [ ] Write an `expected-transcript.md` per station: the same guess at what the room will say, at the length a room actually says it, with the numbers and the disagreements in. A question list gives the closeout an agenda to describe; this gives it something to quote. Worth doing for every station, and worth doing first for any station whose capture you are least confident about.
 - [ ] Once lists start coming in, run `tools/synthesize-closeout/seed.sh`. It builds a complete, presentable deck from the question lists alone, with every station marked as a fallback. **From that moment there is always a deck**, and every later run can only improve on it. Nothing on the night can leave you standing in front of the room with nothing.
 - [ ] **Commit and push that seeded deck.** `closeout/presentation.html` is generated, not tracked by default, so the published URL that every screen's QR points at does not exist until a deck is pushed. Doing it now means the follow-along link is already live and already tested days before anyone scans it, rather than depending on a push made ninety seconds before you start talking.
-- [ ] Run `tests/rehearse.sh` after any change to the question lists or the tools. It rehearses the whole night, including the disasters, in about two seconds. See [`tests/README.md`](tests/README.md).
+- [ ] Run `tests/rehearse.sh` after any change to the question lists or the tools. It rehearses the whole night, including the disasters, in about two minutes. See [`tests/README.md`](tests/README.md).
 
 ## Day before / morning of
 
@@ -98,7 +98,7 @@ One per station. The pilot runs the room; the Flight Engineer watches the machin
 
 - 2.5 to 5 minutes for Teams to generate a single transcript once the meeting is ended. Five minutes was the worst observed, audio-only.
 - The five stations won't end simultaneously. Assume a couple of minutes of stagger, which puts the last transcript landing around 7 minutes after the first station wraps.
-- **69 to 164 seconds** for the model to read every word said in the building and answer. This was budgeted at one minute until the rehearsal harness measured it. Note the spread: four runs varied more than twofold, and the slowest was on the smallest input, so this is not something you can shorten by trimming the transcripts. Plan against three minutes, not the median.
+- **69 to 379 seconds** for the model to read every word said in the building and answer. This was budgeted at one minute until the rehearsal harness measured it at 69 to 167, and then the night beat that: the primary went past its 180 second deadline and the standby delivered instead, and a later run of the primary on the same transcripts took 379 seconds. The slowest run on record was on the smallest input, so this is not something you can shorten by trimming the transcripts. Plan against the deadline and the hedge, not the median.
 - Under a second to validate and build the deck.
 
 That 10 minutes has to be absorbed by the run of show while the room moves back to the closeout area. **Adjust this section against the real run of show once Scott and Tom have it**, since it's the one number here that depends on somebody else's document. Re-measure any time with `REAL_MODEL=1 tests/rehearse.sh fullsize`.

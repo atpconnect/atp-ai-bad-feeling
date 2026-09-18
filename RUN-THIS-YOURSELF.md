@@ -66,11 +66,11 @@ A related trap we walked into: the pre-event preview originally told early visit
 
 ### 7. Write the evals before the night, and test the disasters
 
-There are 137 automated checks across 24 rehearsals of the evening. They include: no transcript at all, prose instead of JSON, a crashed CLI, a transcript arriving late, both models failing at once, and a narrator quietly dropping the numbers.
+There are 192 automated checks across 34 rehearsals of the evening. They include: no transcript at all, prose instead of JSON, a crashed CLI, a transcript arriving late, both models failing at once, and a narrator quietly dropping the numbers.
 
 The happy path is the least useful thing you can test, because it is the one you will notice anyway. Everything expensive lives in the paths you have never seen.
 
-*Here: [`tests/`](tests/), runnable in about two seconds.*
+*Here: [`tests/`](tests/), the whole suite in about two minutes.*
 
 ### 8. Score the things you would otherwise argue about
 
@@ -86,15 +86,17 @@ None of these is clever. Each one turns "does this feel right?" into a number, a
 
 ### 9. Measure, do not estimate
 
-The run of show budgeted about a minute for the synthesis. Measured against real full-length transcripts, it is **69 to 167 seconds**, and the slowest run was on the *smallest* input, so it cannot be shortened by trimming the input.
+The run of show budgeted about a minute for the synthesis. Rehearsal against full-length transcripts measured **69 to 167 seconds**, and the slowest run was on the *smallest* input, so it cannot be shortened by trimming the input.
 
-That one measurement moved the plan by several minutes and changed the run of show. It came from running the thing with a stopwatch, which nobody does, because estimating feels close enough right up until it isn't.
+Then the night itself went past the top of that range. The primary model never made its 180 second deadline and the standby carried the room; a later run of the primary against the same transcripts took **379 seconds**, on 166KB of real transcript rather than the 285KB the rehearsal had fed it. The slowest run on record is still the one on the smallest input.
+
+That measurement moved the plan by several minutes and changed the run of show, and the number it produced was still too optimistic. It came from running the thing with a stopwatch, which nobody does, because estimating feels close enough right up until it isn't.
 
 ### 10. Rehearse the pipeline, not the parts
 
 Every defect below was found by running the whole thing end to end. Not one was found by reading the code.
 
-- **A bug that would only ever appear live.** The prompt was passed as a shell argument. Linux caps a single argument at 128KB and five real transcripts come to 285KB, so it passed every small test and would have died on the night, in the room, in front of everyone.
+- **A bug that would only ever appear live.** The prompt was passed as a shell argument. Linux caps a single argument at 128KB, the rehearsal's full-length fixtures came to 285KB and the five real transcripts to 166KB, so it passed every small test and would have died on the night, in the room, in front of everyone.
 - **Parallel model calls that ran in sequence**, producing correct output the whole time. Caught only because a test asserted on elapsed time rather than on the result.
 - **QR codes that rendered as perfectly sized blank squares.** Right dimensions, right position, nothing inside. No assertion about the markup would have caught it, so the test now scans the code back with a barcode reader.
 - **A narrator that changed 9% of the words and passed every check.** Correcting one failure produced its exact opposite: the first Elder voice inverted nearly every sentence into something you had to read twice, and the fix came back 91% identical to the plain text, validating perfectly and pointless on stage. Enforcer landed at 58% of fields rewritten. Worked examples fixed both, and a divergence score now flags it, because the answer to fear is never the obviously wrong one, it is the one that looks exactly right.
@@ -125,7 +127,7 @@ Learned the expensive way, mostly from a planning call and one rehearsal:
 - **Ending a meeting is what generates the transcript.** Leaving it does not. Say this three times.
 - **The pilot's own voice was never at risk.** The room's answers are. Have the pilot tell people to speak toward the laptop, repeatedly, and echo good answers back so they survive in a voice near the microphone.
 - **A second recorder must be a genuinely different device.** A second app on the same laptop shares every failure mode of the first, and can fight it for the microphone.
-- **Budget the gap honestly.** Transcripts take a few minutes to generate after each meeting ends, the endings are staggered, and the synthesis takes one to three minutes on top. Ours was about ten minutes end to end.
+- **Budget the gap honestly.** Transcripts take a few minutes to generate after each meeting ends, the endings are staggered, and the synthesis takes one to six minutes on top. Ours was about ten minutes end to end, and only because the standby answered when the primary did not.
 - **Nobody past the fourth row can read a normal web page on a projector.** Build the presentation to enlarge itself, and check it from the back of the actual room before anyone arrives.
 
 ---
@@ -137,7 +139,7 @@ Everything here is plain files and small scripts. There is no framework to adopt
 ```bash
 git clone https://github.com/atpconnect/atp-ai-bad-feeling
 cd atp-ai-bad-feeling
-tests/rehearse.sh          # rehearse the whole evening against mock data, ~2 seconds
+tests/rehearse.sh          # rehearse the whole evening against mock data, ~2 minutes
 ```
 
 If that passes, the pipeline works on your machine and you can start replacing our event with yours.

@@ -176,8 +176,8 @@ fi
 #
 # They run at the same time rather than in sequence because a serial retry costs you
 # the primary's entire deadline before the standby has even started. The measured
-# spread on the primary is 69 to 164 seconds, so a serial fallback can put you past
-# four minutes. In parallel, the worst case is about the deadline.
+# spread on the primary is 69 to 379 seconds, so a serial fallback can put you past
+# nine minutes. In parallel, the worst case is about the deadline.
 #
 # What it buys, in order of how likely you are to need it:
 #   1. Tail latency. Two calls go slow independently.
@@ -190,7 +190,7 @@ spawn() {  # spawn <label> <model>; writes .out, .err and .rc alongside $payload
   (
     # The prompt goes in on stdin, NOT as an argument. Linux caps a single argv string
     # at 128KB (MAX_ARG_STRLEN, 32 pages) regardless of the much larger ARG_MAX, and
-    # five real 45-minute transcripts come to roughly 285KB. Passing it as "$(cat ...)"
+    # five real 45-minute transcripts come to roughly 166KB. Passing it as "$(cat ...)"
     # fails with "Argument list too long" only once the transcripts are full length,
     # which is to say only on the night. Found by the fullsize rehearsal.
     if [[ -n "$model" ]]; then

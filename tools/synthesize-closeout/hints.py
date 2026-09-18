@@ -7,7 +7,7 @@ see that get into the presentation". This finds those moments.
 
 It finds them in code rather than asking the model to spot them, for the same reason the
 deck takes the fallback flags off disk: it is a question with an exact answer, and a model
-asked to find eight needles in 285KB of transcript will miss some and invent others. Code
+asked to find eight needles in 166KB of transcript will miss some and invent others. Code
 either matches the text or it does not, and it reports which.
 
 A flag is a hint and not an instruction. The room said what it said; a pilot wanting
