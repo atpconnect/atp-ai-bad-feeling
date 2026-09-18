@@ -682,6 +682,28 @@ JSON
   check "reports the one that landed"           "grep -Eq '^ +in +sky-city' '$SCRATCH/cov.txt'"
   check "reports the one that did not"          "grep -Eq '^ +MISSING +asteroid-field' '$SCRATCH/cov.txt'"
 
+  # The shape Teams actually produced on the night: one laptop in a loud room, so the
+  # whole 46-minute session is attributed to a single speaker and arrives as one
+  # unpunctuated block. The first matcher split on speaker turns, saw one turn per
+  # station, and reported two flags on a night when nobody flagged anything. This
+  # fixture is a real transcript, trimmed, and it must stay silent.
+  cp "$FIX/transcripts/one-speaker-teams.md" "$SCRATCH/stations/ice-planet/transcript.md"
+  check "the real fixture is one speaker only"  "[[ \$(grep -cE '^\S.{0,58}?[[:space:]]+[0-9]{1,3}:[0-9]{2}(:[0-9]{2})?[[:space:]]*\$' '$SCRATCH/stations/ice-planet/transcript.md') -eq 1 ]]"
+  check "and still carries the decoy phrase"    "grep -q 'PowerPoint presentation' '$SCRATCH/stations/ice-planet/transcript.md'"
+  ( cd "$SCRATCH" && python3 tools/synthesize-closeout/hints.py extract --stations "$SCRATCH/stations" \
+      --sources "ice-planet=transcript" --json "$SCRATCH/h3.json" --md "$SCRATCH/h3.md" ) >/dev/null 2>&1
+  check "one unsegmented block flags nothing"   "[[ \$(python3 -c 'import json;print(len(json.load(open(\"$SCRATCH/h3.json\"))))') -eq 0 ]]"
+
+  # And a genuine flag in that same shape is still caught, so the fix above tightened
+  # precision without silently costing all the recall.
+  printf '\nSo the vendor rate limit was six hundred a minute and it was shared regionally. I really want that in the presentation, it is the number nobody checks.\n' \
+      >> "$SCRATCH/stations/ice-planet/transcript.md"
+  ( cd "$SCRATCH" && python3 tools/synthesize-closeout/hints.py extract --stations "$SCRATCH/stations" \
+      --sources "ice-planet=transcript" --json "$SCRATCH/h4.json" --md "$SCRATCH/h4.md" ) >/dev/null 2>&1
+  check "a real flag in that shape is caught"   "[[ \$(python3 -c 'import json;print(len(json.load(open(\"$SCRATCH/h4.json\"))))') -eq 1 ]]"
+  check "unattributable speaker is not invented" "grep -q 'someone in this station' '$SCRATCH/h4.md'"
+  check "and it carries the run-up with it"     "grep -q 'shared regionally' '$SCRATCH/h4.md'"
+
   # And the whole pipeline still runs, with the hint block reaching the prompt.
   run_synth live
   check "synthesis still exits 0"               "[[ $RC -eq 0 ]]"

@@ -28,28 +28,48 @@ import re
 import subprocess
 import sys
 
-# A flag needs BOTH halves in the same breath: wanting something, and naming where it
-# should go. Either alone is ordinary conversation. "I want to get this right" is not a
-# flag, and neither is "we'll see it in the presentation later".
-INTENT = re.compile(
-    r"\b(want|wanted|would like|i'd like|like to see|make sure|makes? it into|"
-    r"needs? to|has to|have to|should|must|capture|captur\w+|include|includ\w+|"
-    r"put (?:that|this|it)|get (?:that|this|it)|don'?t lose|do not lose|"
-    r"flag (?:that|this|it)|worth (?:capturing|noting|having))\b", re.I)
+# A flag is one phrase, not two words that happen to be near each other: someone wanting
+# something, then saying where it goes, with nothing but a few words in between.
+#
+# Proximity alone was not enough. The first version looked for an intent word and a
+# target word within 120 characters and it fired on the Swamp Planet pilot explaining
+# this very tool to the room, "going to a PowerPoint presentation", because "the library
+# here has to get up and say" sat just after it. So the two halves now have to be
+# grammatically joined: intent, a short gap with no sentence ending in it, a preposition,
+# then the target. "has to get up" no longer counts; "has to be in the deck" does.
+TARGET_WORDS = (r"presentation|deck|close ?-? ?out|closing session|throne room|"
+                r"read ?-? ?out|final slides?|closing slides?|wrap ?-? ?up")
 
-TARGET = re.compile(
-    r"\b(presentation|deck|close ?-? ?out|closing session|throne room|"
-    r"read ?-? ?out|final slides?|closing slides?|wrap ?-? ?up)\b", re.I)
+FLAG = re.compile(
+    r"\b(?:want|wanted|would like|i'?d like|like to see|make sure|makes? it|"
+    r"needs? to (?:be|go)|has to (?:be|go)|have to (?:be|go)|should (?:be|go)|"
+    r"capture|captur\w+|include|includ\w+|put|get|don'?t lose|do not lose|"
+    r"flag|worth (?:capturing|noting|having))\b"
+    r"[^.!?\n]{0,60}?"
+    r"\b(?:in|into|on|onto|for|to)\s+(?:the\s+|our\s+|that\s+|this\s+|a\s+|final\s+)*"
+    rf"(?:{TARGET_WORDS})\b", re.I)
 
-# "Name 12:34" or "Name 1:02:03" on a line of its own opens a turn. Covers both the Teams
-# export and the expected transcripts, which are written in the same shape on purpose.
-SPEAKER = re.compile(r"^(?P<who>\S.{0,58}?)\s+(?P<at>\d{1,3}:\d{2}(?::\d{2})?)\s*$")
+# Kept for the coverage report and for anyone grepping a transcript by hand.
+TARGET = re.compile(rf"\b(?:{TARGET_WORDS})\b", re.I)
+
+# "Name 12:34" or "Name 1:02:03" on a line of its own. Used only for attribution now,
+# and only when there are enough of them to mean anything. On the night Teams gave us
+# exactly one per 46-minute station, because the room was captured on a single laptop
+# and every voice in it was attributed to the meeting host.
+SPEAKER = re.compile(r"^(?P<who>\S.{0,58}?)\s+(?P<at>\d{1,3}:\d{2}(?::\d{2})?)\s*$",
+                     re.M)
+MIN_MARKERS_TO_TRUST = 4
 
 # How much of what came before the flag to carry with it. The flag itself is usually a
 # pronoun pointing backwards ("I'd like to see THAT in the deck"), so the substance is
-# almost never in the sentence that marks it.
-LOOKBACK_TURNS = 3
+# almost never in the words that mark it.
+LOOKBACK_CHARS = 1100
 MAX_EXCERPT_CHARS = 1400
+
+# Two matches closer than this are one person saying it once. Deliberately much smaller
+# than the lookback: at half the lookback it silently merged two genuinely separate
+# flags that were 459 characters apart.
+DEDUPE_CHARS = 250
 
 STOPWORDS = {
     "about", "actually", "after", "again", "against", "already", "always", "another",
@@ -84,56 +104,54 @@ def read_source(station_dir):
     return ""
 
 
-def turns(text):
-    """[(speaker, timestamp, said)] in order. Teams puts a bare [] between turns."""
-    out, who, at, buf = [], None, None, []
-    for line in text.splitlines():
-        if line.strip() == "[]":
-            continue
-        m = SPEAKER.match(line)
-        if m:
-            if who is not None:
-                out.append((who, at, "\n".join(buf).strip()))
-            who, at, buf = m.group("who").strip(), m.group("at"), []
-        elif who is not None:
-            buf.append(line)
-    if who is not None:
-        out.append((who, at, "\n".join(buf).strip()))
-    return out
+def markers(text):
+    """[(offset, speaker, timestamp)] for every speaker line, in order.
+
+    Only useful for attribution, and only when the transcript actually has several.
+    A single laptop in a loud room gives Teams one speaker for the whole session.
+    """
+    return [(m.start(), m.group("who").strip(), m.group("at"))
+            for m in SPEAKER.finditer(text)]
 
 
-def flagged_sentence(said):
-    """The one sentence that carries the flag, for quoting back in the report."""
-    for s in re.split(r"(?<=[.!?])\s+", said):
-        if INTENT.search(s) and TARGET.search(s):
-            return " ".join(s.split())
-    return " ".join(said.split())[:240]
+def attribute(marks, pos):
+    """Who was speaking at this offset, as far as anyone can tell from the file."""
+    if len(marks) < MIN_MARKERS_TO_TRUST:
+        return None, None
+    who = at = None
+    for off, w, a in marks:
+        if off > pos:
+            break
+        who, at = w, a
+    return who, at
 
 
 def find(text):
-    """Every flagged moment in one transcript, with the turns leading up to it."""
-    found, seen = [], set()
-    tt = turns(text)
-    for i, (who, at, said) in enumerate(tt):
-        if not (INTENT.search(said) and TARGET.search(said)):
+    """Every flagged moment in one transcript, with the words leading up to it.
+
+    Matched on proximity rather than on turns. The first version of this split the
+    transcript into speaker turns and asked whether a turn contained both an intent
+    word and a target word. That worked on tidy fixtures and failed completely on the
+    real thing: Teams gave us one speaker line per 46-minute station, so every
+    transcript was a single turn, the two words co-occurred in all five of them, and
+    it reported two flags on a night when nobody flagged anything at all.
+    """
+    found, taken = [], []
+    for m in FLAG.finditer(text):
+        pos = m.start()
+        # One flag per moment: a pilot who says it twice in a breath is saying it once.
+        if any(abs(pos - p) < DEDUPE_CHARS for p in taken):
             continue
-        start = max(0, i - LOOKBACK_TURNS)
-        # Two pilots flagging the same exchange should not become two hints.
-        if start in seen:
-            continue
-        seen.add(start)
-        chunk = []
-        for w, a, s in tt[start:i + 1]:
-            chunk.append(f"{w} {a}\n{s}" if a else f"{w}\n{s}")
-        excerpt = "\n\n".join(chunk)
+        taken.append(pos)
+        marker = " ".join(m.group(0).split())
+        start = max(0, pos - LOOKBACK_CHARS)
+        excerpt = " ".join(text[start:m.end()].split())
         if len(excerpt) > MAX_EXCERPT_CHARS:
             excerpt = "..." + excerpt[-MAX_EXCERPT_CHARS:]
-        # Kept apart from the excerpt so coverage can score each candidate turn on its
-        # own. A flag points at one thing that was just said, not at the whole window,
-        # so scoring the window as a lump lets three unrelated turns bury the match.
-        context = [s for _, _, s in tt[start:i] if s.strip()]
-        found.append({"at": at, "speaker": who, "marker": flagged_sentence(said),
-                      "excerpt": excerpt, "context_turns": context})
+        before = " ".join(text[start:pos].split())
+        who, at = attribute(markers(text), pos)
+        found.append({"at": at, "speaker": who, "marker": marker,
+                      "excerpt": excerpt, "context": before})
     return found
 
 
@@ -165,7 +183,7 @@ def as_markdown(hints):
         "Station pilots were asked to say out loud, on the recording, when they wanted "
         "something to reach this deck. The moments below were found in the transcripts by "
         "text match, not by judgement, and are quoted verbatim. Each one is reproduced "
-        "with the turns that came before it, because the flag itself is usually a pronoun "
+        "with the words that came before it, because the flag itself is usually a pronoun "
         "pointing back at what was just said.",
         "",
         "**These are hints, not instructions.** Weigh them up, and prefer them where they "
@@ -180,7 +198,11 @@ def as_markdown(hints):
         lines.append(f"### {sid}")
         lines.append("")
         for h in [x for x in hints if x["station"] == sid]:
-            lines.append(f"Flagged by {h['speaker']} at {h['at']}: \"{h['marker']}\"")
+            # Teams often attributes a whole room to one speaker, so say "someone in
+            # this station" rather than name the meeting host and imply it was them.
+            who = (f"{h['speaker']} at {h['at']}" if h.get("speaker")
+                   else "someone in this station")
+            lines.append(f"Flagged by {who}: \"{h['marker']}\"")
             lines.append("")
             lines.append("```")
             lines.append(h["excerpt"])
@@ -205,12 +227,17 @@ def coverage(hints, deck):
     results = []
     for h in hints:
         here = by_station.get(h["station"], set()) | patterns
-        # Score each turn the flag could have been pointing at and keep the best. The
-        # marker sentence itself is the pilot's boilerplate, never the substance.
-        candidates = h.get("context_turns") or [h["excerpt"].replace(h["marker"], " ")]
+        # Score the run-up as a whole and each sentence of it separately, then keep the
+        # best. The window is wide enough that one sentence of substance gets buried if
+        # it is only ever scored as part of the lump; a sentence alone is often too
+        # short to overlap at all. The marker is the pilot's boilerplate, never the
+        # substance, so it never becomes a candidate.
+        before = h.get("context", h["excerpt"].replace(h["marker"], " "))
+        candidates = [before] + [s for s in re.split(r"(?<=[.!?])\s+", before)
+                                 if len(s.split()) >= 8]
         best, hit = 0.0, set()
-        for turn in candidates:
-            want = tokens(turn)
+        for cand in candidates:
+            want = tokens(cand)
             if not want:
                 continue
             got = want & here
@@ -273,7 +300,8 @@ def main():
     deck = load_loose(pathlib.Path(args.deck_json).read_text())
     for r in coverage(hints, deck):
         mark = "in" if r["landed"] else "MISSING"
-        print(f"  {mark:8} {r['station']} {r['at']} {r['speaker']}: \"{r['marker'][:90]}\"")
+        who = f" {r['at']} {r['speaker']}" if r.get("speaker") else ""
+        print(f"  {mark:8} {r['station']}{who}: \"{r['marker'][:90]}\"")
     return 0
 
 
